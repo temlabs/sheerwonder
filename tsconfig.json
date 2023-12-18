@@ -1,3 +1,17 @@
 {
+  "compilerOptions": {
+    "jsx": "react-native",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "*.config.js",
+    "metro.config.js",
+    "babel.config.js"
+  ],
   "extends": "@react-native/typescript-config/tsconfig.json"
 }
