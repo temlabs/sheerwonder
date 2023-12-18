@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {HomeScreen} from '@/screens/home/screens/homeScreen/HomeScreen';
 import {defaultDrawerNavigatorOptions, screens} from '@/navigators/config';
-import {createDrawerNavigator} from '@/react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {HomeDrawerContent} from './drawer/HomeDrawerContent';
 import {AuthSpotifyScreen} from './screens/authSpotifyScreen/AuthSpotifyScreen';
 import {LogoutSpotifyScreen} from './screens/authSpotifyScreen/LogoutSpotifyScreen';

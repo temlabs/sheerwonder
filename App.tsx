@@ -8,6 +8,7 @@ import {QueryClientProvider} from '@tanstack/react-query';
 import {queryClient} from '@/tanstack/config';
 import {enableFreeze} from 'react-native-screens';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 enableFreeze();
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -21,32 +22,34 @@ function App(): React.JSX.Element {
   const rootViewStyle: ViewStyle = {flex: 1};
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <GestureHandlerRootView style={rootViewStyle}>
-        <SafeAreaView style={backgroundStyle}>
-          <StatusBar
-            // barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            barStyle={'dark-content'}
-            // backgroundColor={backgroundStyle.backgroundColor}
-            backgroundColor={'transparent'}
-          />
-          <NavigationContainer
-            theme={{
-              colors: {
-                background: colors.BACKGROUND,
-                primary: '',
-                card: '',
-                text: '',
-                border: '',
-                notification: '',
-              },
-              dark: false,
-            }}>
-            <TabNavigator />
-          </NavigationContainer>
-        </SafeAreaView>
-      </GestureHandlerRootView>
-    </QueryClientProvider>
+    <SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <GestureHandlerRootView style={rootViewStyle}>
+          <SafeAreaView style={backgroundStyle}>
+            <StatusBar
+              // barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+              barStyle={'dark-content'}
+              // backgroundColor={backgroundStyle.backgroundColor}
+              backgroundColor={'transparent'}
+            />
+            <NavigationContainer
+              theme={{
+                colors: {
+                  background: colors.BACKGROUND,
+                  primary: '',
+                  card: '',
+                  text: '',
+                  border: '',
+                  notification: '',
+                },
+                dark: false,
+              }}>
+              <TabNavigator />
+            </NavigationContainer>
+          </SafeAreaView>
+        </GestureHandlerRootView>
+      </QueryClientProvider>
+    </SafeAreaProvider>
   );
 }
 

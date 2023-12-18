@@ -13,7 +13,9 @@ import {screens, stacks} from '@/navigators/config';
 import useAccessTokenQuery from '@/tanstack/queries/useAccessTokenQuery';
 import {useStore} from '@/store/useStore';
 
-export function AuthSpotifyScreen({navigation}: HomeDrawerProps): JSX.Element {
+export function AuthSpotifyScreen({
+  navigation,
+}: HomeDrawerProps): React.JSX.Element {
   const uri = generateSpotifyLoginUri();
   const setSpotifyAuthCode = useStore(state => state.setSpotifyAuthCode);
   const {data: accessToken} = useAccessTokenQuery();

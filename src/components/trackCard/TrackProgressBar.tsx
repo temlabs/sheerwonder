@@ -10,7 +10,7 @@ import {
 import colors from '@/theme/colors';
 import {useStore} from '@/store/useStore';
 import {isCurrentlyPlaying} from '@/spotify/spotifyPlaybackFunctions';
-import {useIsFocused} from '@/react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 
 interface Props {
   duration: number;

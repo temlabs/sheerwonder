@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, Text, ViewStyle, TextStyle} from 'react-native';
-import {DrawerContentScrollView} from '@/react-navigation/drawer';
-import {DrawerContentComponentProps} from '@/react-navigation/drawer';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
+import {DrawerContentComponentProps} from '@react-navigation/drawer';
 import colors from '@/theme/colors';
 import {LinkButton} from '@/components/buttons/LinkButton';
 import {styles} from '@/theme/styles';
