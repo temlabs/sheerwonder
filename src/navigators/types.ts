@@ -3,6 +3,11 @@ import {screens, stacks} from '@/navigators/config';
 export type ScreenName = (typeof screens)[keyof typeof screens];
 export type StackName = (typeof stacks)[keyof typeof stacks];
 
+type RootStackParamList = {
+  Tab: undefined;
+  SpotifyLoginModal: undefined;
+};
+
 type SpecificParamsBase = {
   [key in StackName]?: {[param: string]: string | boolean | number};
 };

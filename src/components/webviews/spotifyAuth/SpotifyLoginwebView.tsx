@@ -22,6 +22,7 @@ export function SpotifyLoginWebView(): JSX.Element {
 
   const handleLoadRequest: OnShouldStartLoadWithRequest = request => {
     const {url} = request;
+    console.log('uri: ', request.url);
     if (url.startsWith(REDIRECT_URI)) {
       console.log('redirecting!');
       const code = extractCode(url);
@@ -44,7 +45,9 @@ export function SpotifyLoginWebView(): JSX.Element {
       scrollEnabled={true}
       onShouldStartLoadWithRequest={handleLoadRequest}
     />
-  ) : null;
+  ) : (
+    <></>
+  );
 }
 
 const webViewStyle: ViewStyle = {

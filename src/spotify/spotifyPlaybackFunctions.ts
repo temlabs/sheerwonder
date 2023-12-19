@@ -29,6 +29,7 @@ export const playTrack = async (
   options?: PlayOptions,
 ): Promise<void> => {
   const body = {uris: options?.trackUris, position_ms: options?.startFrom ?? 0};
+  console.log('playing track with access tok: ', accessToken);
   const res = await fetch(
     `https://api.spotify.com/v1/me/player/play?device_id=${deviceId.replace(
       /\\/g,
@@ -49,7 +50,7 @@ export const playTrack = async (
   }
 
   const resJson = await res.json();
-
+  console.debug(resJson);
   await getError(resJson);
 };
 

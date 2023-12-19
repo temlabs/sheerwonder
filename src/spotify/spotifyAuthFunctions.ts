@@ -36,9 +36,9 @@ export const isSpotifyAccessTokenExpired = (): boolean => {
   const accessTokenQueryState = queryClient.getQueryState(
     queryKeys.SPOTIFY_ACCESS_TOKEN_KEY(),
   );
-  const accessTokenIsStale = accessTokenQueryState.isInvalidated;
+  const accessTokenIsStale = accessTokenQueryState?.isInvalidated;
 
-  return accessTokenQueryState === undefined || accessTokenIsStale;
+  return accessTokenIsStale === undefined || accessTokenIsStale;
 };
 
 export const isSpotifyAuthenticated = (
@@ -164,6 +164,10 @@ export const fetchAccessToken = async ({
       useStore
         .getState()
         .setSpotifyAccessCodeExpiresIn(tokens.expiresIn * 1000);
+      useStore.setState(state => ({
+        ...state,
+        spotifyAccessToken: tokens.accessToken,
+      }));
       return tokens.accessToken;
     } catch (error) {
       return '';
@@ -183,9 +187,13 @@ export const fetchAccessToken = async ({
         .getState()
         .setSpotifyAccessCodeExpiresIn(tokens.expiresIn * 1000);
       useStore.getState().setSpotifyRefreshToken(tokens.refreshToken);
+      useStore.setState(state => ({
+        ...state,
+        spotifyAccessToken: tokens.accessToken,
+      }));
       return tokens.accessToken;
     } catch (error) {
-      return '';
+      throw error;
     }
   }
 };

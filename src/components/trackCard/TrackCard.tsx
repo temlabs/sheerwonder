@@ -103,11 +103,11 @@ export function TrackCard({
               {offset: 100, opacity: 1, color: backgroundLight},
             ]}
           />
-          <Image
+          {/* <Image
             style={gradientBackgroundStyle(transparent)}
             source={{uri: trackArtwork, width: 20, height: 20}}
             blurRadius={40}
-          />
+          /> */}
           <TrackProgressBar
             duration={duration}
             timeIn={timeIn ?? 0}

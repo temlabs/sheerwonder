@@ -28,6 +28,7 @@ export function AuthSpotifyScreen({
 
   const handleLoadRequest: OnShouldStartLoadWithRequest = request => {
     const {url} = request;
+    console.debug(url);
     if (url.startsWith(REDIRECT_URI)) {
       const code = extractCode(url);
       setSpotifyAuthCode(code);
@@ -57,7 +58,9 @@ export function AuthSpotifyScreen({
         <Text>Cancel</Text>
       </Pressable>
     </>
-  ) : null;
+  ) : (
+    <></>
+  );
 }
 
 const webViewStyle: ViewStyle = {

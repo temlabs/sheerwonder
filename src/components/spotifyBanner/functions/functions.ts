@@ -13,22 +13,6 @@ export const playbackStateIsSufficientlyDifferent = (
   const trackIdIsDifferent =
     currentPlayingTrack.spotifyTrackId !== newPlayingTrack.spotifyTrackId;
 
-  console.log({
-    currentStartTime: currentPlayingTrack.startTime,
-    newStartTime: newPlayingTrack.startTime,
-    currentPosition: currentPlayingTrack.position,
-    newPosition: newPlayingTrack.position,
-    currentPaused: currentPlayingTrack.paused,
-    newPaused: newPlayingTrack.paused,
-  });
-
-  // console.debug({
-  //   startTimeIsDifferent,
-  //   positionIsDifferent,
-  //   playStateIsDifferent,
-  //   trackIdIsDifferent,
-  // });
-
   return (
     startTimeIsDifferent ||
     positionIsDifferent ||

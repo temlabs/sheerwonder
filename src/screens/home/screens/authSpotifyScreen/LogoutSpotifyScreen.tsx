@@ -3,7 +3,6 @@ import {Pressable, ViewStyle, Text} from 'react-native';
 import {WebView, WebViewMessageEvent} from 'react-native-webview';
 import {HomeDrawerProps} from '@/screens/types';
 import {screens} from '@/navigators/config';
-import {globalStorage} from '@/store/config';
 import {useStore} from '@/store/useStore';
 
 export function LogoutSpotifyScreen({

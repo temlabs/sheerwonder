@@ -2,7 +2,7 @@ import {startTransition} from 'react';
 import {transferPlaybackToDevice} from '@/spotify/spotifyPlaybackFunctions';
 import {useStore} from '@/store/useStore';
 import useAccessTokenQuery from '@/tanstack/queries/useAccessTokenQuery';
-import {playbackStateIsSufficientlyDifferent} from '../functions';
+import {playbackStateIsSufficientlyDifferent} from '../functions/functions';
 
 export function usePlayerWebViewMessage() {
   const setSpotifyDeviceId = useStore(state => state.setSpotifyDeviceId);
@@ -15,7 +15,10 @@ export function usePlayerWebViewMessage() {
       .replace(/\\/g, '');
     setSpotifyDeviceId(deviceId);
     try {
-      await transferPlaybackToDevice(deviceId, accessToken);
+      if (!accessToken) {
+        throw 'Tried to transfer playback with no access token';
+      }
+      accessToken && (await transferPlaybackToDevice(deviceId, accessToken));
     } catch (error) {
       console.log('transfer playback err: ', error, {deviceId, accessToken});
     }

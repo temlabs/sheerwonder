@@ -9,6 +9,7 @@ import {queryClient} from '@/tanstack/config';
 import {enableFreeze} from 'react-native-screens';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import RootNavigator from '@/navigators/RootNavigator';
 enableFreeze();
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -44,7 +45,7 @@ function App(): React.JSX.Element {
                 },
                 dark: false,
               }}>
-              <TabNavigator />
+              <RootNavigator />
             </NavigationContainer>
           </SafeAreaView>
         </GestureHandlerRootView>

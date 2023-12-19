@@ -65,10 +65,10 @@ export function StoryChapter(
         bottomButtonHeight.value = -1 * e.translationY;
       }
     })
-    .onFinalize(e => {
+    .onEnd(e => {
       if (startedGestureAtBottom.value === true) {
         // bottomButtonHeight.value = withSpring(0, {mass: 0.5, damping: 80});
-        // bottomButtonHeight.value = withTiming(0);
+        bottomButtonHeight.value = withTiming(0);
       }
     });
 

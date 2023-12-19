@@ -4,7 +4,7 @@ import {queryKeys} from '../queryKeys';
 import {SPOTIFY_ACCESS_TOKEN_STALE_TIME} from '@/spotify/spotifyConfig';
 
 export default function useAccessTokenQuery(
-  authCode: string = null,
+  authCode: string = '',
 ): UseQueryResult<string, Error> {
   const accessTokenQuery = useQuery({
     queryKey: queryKeys.SPOTIFY_ACCESS_TOKEN_KEY(authCode),

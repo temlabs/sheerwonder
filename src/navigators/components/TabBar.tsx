@@ -9,18 +9,26 @@ import {BlurView} from '@react-native-community/blur';
 import {TAB_BAR_HEIGHT} from '../config';
 import {Player} from '@/components/player/Player';
 import {SpotifyLoginWebView} from '@/components/webviews/spotifyAuth/SpotifyLoginwebView';
+import {SpotifyBanner} from '@/components/spotifyBanner/SpotifyBanner';
+import useSpotifyBanner from '@/components/spotifyBanner/hooks/useSpotifyBanner';
+import {useStore} from '@/store/useStore';
 
 export function TabBar({
   state,
   descriptors,
   navigation,
 }: BottomTabBarProps): JSX.Element {
+  const authCode = useStore(s => s.spotifyAuthCode);
+  const {spotifyBannerText, onSpotifyBannerPress, SpotifyPlayer} =
+    useSpotifyBanner(authCode);
   return (
     <>
-      <View>
+      {/* <View>
         <Player />
         <SpotifyLoginWebView />
-      </View>
+      </View> */}
+      <SpotifyBanner text={spotifyBannerText} onPress={onSpotifyBannerPress} />
+      <View>{SpotifyPlayer}</View>
       <View style={bottomTabStyle}>
         <BlurView
           style={blurViewStyle}

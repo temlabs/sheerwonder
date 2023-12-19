@@ -46,7 +46,6 @@ export const useStore = create<StoreProps>()(
     setSpotifyAccessCodeExpiresIn: (expiresIn: number): void =>
       set(() => ({spotifyAccessTokenExpiresIn: expiresIn})),
     setSpotifyAuthCode: (authCode: string): void => {
-      console.log('got auth code!');
       globalStorage.set(globalStoreValues.SPOTIFY_AUTH_CODE, authCode);
       queryClient
         .fetchQuery({
@@ -58,21 +57,20 @@ export const useStore = create<StoreProps>()(
             staleTime: SPOTIFY_ACCESS_TOKEN_STALE_TIME,
           });
           queryClient.setQueryData(queryKeys.SPOTIFY_ACCESS_TOKEN_KEY(), data);
-          console.log(
-            queryClient.getQueryDefaults(queryKeys.SPOTIFY_ACCESS_TOKEN_KEY()),
-          );
         });
       set(() => ({spotifyAuthCode: authCode}));
     },
     spotifyRefreshToken: getInitialSpotifyRefreshToken(),
     setSpotifyRefreshToken: (refreshToken: string): void => {
-      console.debug('setting mmkv: ', refreshToken);
       globalStorage.set(globalStoreValues.SPOTIFY_REFRESH_TOKEN, refreshToken);
       set(() => ({spotifyRefreshToken: refreshToken}));
     },
     resetSpotifyCodes: (): void => {
       globalStorage.delete(globalStoreValues.SPOTIFY_AUTH_CODE);
       globalStorage.delete(globalStoreValues.SPOTIFY_REFRESH_TOKEN);
+      queryClient.removeQueries(
+        queryKeys.SPOTIFY_ACCESS_TOKEN_KEY(useStore.getState().spotifyAuthCode),
+      );
       set(state => ({
         ...state,
         spotifyAuthCode: '',
@@ -83,10 +81,14 @@ export const useStore = create<StoreProps>()(
     play: async (trackUri: string, startFrom: number): Promise<void> => {
       const accessToken = useStore.getState().spotifyAccessToken;
       const deviceId = useStore.getState().spotifyDeviceId;
-      await playTrack(accessToken, deviceId, {
-        startFrom,
-        trackUris: [trackUri],
-      });
+      try {
+        await playTrack(accessToken, deviceId, {
+          startFrom,
+          trackUris: [trackUri],
+        });
+      } catch (error) {
+        throw error;
+      }
     },
     pause: async (): Promise<void> => {
       const accessToken = useStore.getState().spotifyAccessToken;
@@ -103,12 +105,10 @@ export const useStore = create<StoreProps>()(
     },
     selectedTrack: {postId: '', spotifyTrackId: ''},
     setSelectedTrack: (props: SelectedTrack): void => {
-      console.log('setting selected track: ', props.spotifyTrackId);
       set(state => ({...state, selectedTrack: props}));
     },
     playingTrack: {position: 0, spotifyTrackId: '', paused: true, startTime: 0},
     setPlayingTrack: (props: PlayingTrack): void => {
-      console.log('setting playing track: ', props.spotifyTrackId);
       set(state => ({...state, playingTrack: props}));
     },
   })),
