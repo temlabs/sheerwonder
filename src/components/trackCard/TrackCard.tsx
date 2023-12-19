@@ -19,6 +19,8 @@ import {useStore} from '@/store/useStore';
 import {isCurrentlyPlaying} from '@/spotify/spotifyPlaybackFunctions';
 import {Play} from '../icons/Play';
 import PlayingBarsAnimation from './PlayingBarsAnimation';
+import RippleButton from '../buttons/Ripplebutton';
+import {TouchableOpacity} from 'react-native';
 
 type Props = TrackProps &
   Pick<CommentProps, 'timeIn' | 'timeOut' | 'id'> & {transparent?: boolean};
@@ -89,11 +91,7 @@ export function TrackCard({
 
   return (
     <View>
-      <TouchableWithoutFeedback
-        delayPressIn={0}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        style={containerView}>
+      <View style={containerView}>
         <View style={innerContainerView}>
           <LinearGradientBackground
             x1={100}
@@ -147,7 +145,8 @@ export function TrackCard({
             </View>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+        <TouchableOpacity style={playButtonStyle} onPress={handlePressIn} />
+      </View>
     </View>
   );
 }
@@ -215,4 +214,14 @@ const trackArtistStyle: TextStyle = {
 const coverArtImageStyle: ImageStyle = {
   width: 50,
   height: 50,
+};
+
+const playButtonStyle: ViewStyle = {
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  width: '30%',
+  height: '100%',
+  backgroundColor: 'white',
+  opacity: 0.01,
 };

@@ -19,3 +19,7 @@ export type BottomTabParamList = {
     ? SpecificParams[K]
     : undefined | {[key: string]: string | boolean | number};
 };
+
+export type HomeParamList = {
+  Home: undefined;
+};

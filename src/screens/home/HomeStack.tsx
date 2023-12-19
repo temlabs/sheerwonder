@@ -13,6 +13,7 @@ import {ThreadScreen} from './screens/ThreadScreen';
 import {HomeDrawer} from './HomeDrawer';
 import {StoryScreen} from './screens/storyScreen/StoryScreen';
 import {AuthSpotifyResultScreen} from './screens/authSpotifyScreen/AuthSpotifyResultScreen';
+import {HomeScreen} from './screens/homeScreen/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,9 +30,9 @@ export function HomeStack(): JSX.Element {
       />
 
       <Stack.Navigator
-        initialRouteName={stacks.HOME_DRAWER}
+        initialRouteName={screens.HOME}
         screenOptions={defaultStackNavigatorOptions}>
-        <Stack.Screen name={stacks.HOME_DRAWER} component={HomeDrawer} />
+        <Stack.Screen name={screens.HOME} component={HomeScreen} />
         <Stack.Screen name={screens.EDIT_FEED} component={EditFeedScreen} />
         <Stack.Screen<typeof screens.THREAD>
           name={screens.THREAD}

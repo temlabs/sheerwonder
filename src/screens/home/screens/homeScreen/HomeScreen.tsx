@@ -7,8 +7,13 @@ import {FeedFilterBar} from './components/FeedFilterBar';
 import {TAB_BAR_HEIGHT} from '@/navigators/config';
 import {isComment, isStory} from '@/utils/feedUtils';
 import {StoryCard} from '@/components/story/StoryCard';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import {HomeParamList} from '@/navigators/types';
 
-export function HomeScreen({navigation}: HomeDrawerProps): JSX.Element {
+export function HomeScreen({
+  navigation,
+}: HomeScreenProps<HomeParamList>): JSX.Element {
+  const bottomTabBarHeight = useBottomTabBarHeight();
   return (
     <>
       <FeedFilterBar navigation={navigation} />
@@ -16,7 +21,10 @@ export function HomeScreen({navigation}: HomeDrawerProps): JSX.Element {
       <ScrollView
         style={scrollViewStyle}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={backgroundViewStyle}>
+        contentContainerStyle={[
+          backgroundViewStyle,
+          {paddingBottom: bottomTabBarHeight},
+        ]}>
         {posts.map((p, i) => {
           if (isComment(p)) {
             return <Comment key={i} {...p} navigation={navigation} />;

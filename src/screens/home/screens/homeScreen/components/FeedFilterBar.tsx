@@ -22,9 +22,9 @@ export function FeedFilterBar({navigation}: Props): JSX.Element {
 
   return (
     <View style={tabButtonBarContainer}>
-      <FeedFilterButton onPress={() => navigation.openDrawer()}>
+      {/* <FeedFilterButton onPress={() => navigation.openDrawer()}>
         <Menu fill={colors.PRIMARY} width={28} height={28} />
-      </FeedFilterButton>
+      </FeedFilterButton> */}
       <FeedFilterButton onPress={() => setSelectedFilter('All Posts')}>
         <Text style={textStyle(selectedFilter === 'All Posts')}>All Posts</Text>
       </FeedFilterButton>
@@ -32,9 +32,9 @@ export function FeedFilterBar({navigation}: Props): JSX.Element {
         <Text style={textStyle(selectedFilter === 'Following')}>Following</Text>
       </FeedFilterButton>
 
-      <FeedFilterButton>
+      {/* <FeedFilterButton>
         <Sort fill={colors.PRIMARY} width={28} height={28} />
-      </FeedFilterButton>
+      </FeedFilterButton> */}
     </View>
   );
 }
