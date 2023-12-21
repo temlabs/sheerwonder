@@ -141,7 +141,7 @@ export function TrackCard({
             /> */}
 
             <View style={{height: 20, width: 24}}>
-              <PlayingBarsAnimation isPlaying={thisTrackIsPlaying} />
+              {/* <PlayingBarsAnimation isPlaying={thisTrackIsPlaying} /> */}
             </View>
           </View>
         </View>

@@ -10,6 +10,7 @@ import {enableFreeze} from 'react-native-screens';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import RootNavigator from '@/navigators/RootNavigator';
+import Background from '@/navigators/components/Background';
 enableFreeze();
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -27,6 +28,7 @@ function App(): React.JSX.Element {
       <QueryClientProvider client={queryClient}>
         <GestureHandlerRootView style={rootViewStyle}>
           <SafeAreaView style={backgroundStyle}>
+            <Background />
             <StatusBar
               // barStyle={isDarkMode ? 'light-content' : 'dark-content'}
               barStyle={'dark-content'}
@@ -36,7 +38,7 @@ function App(): React.JSX.Element {
             <NavigationContainer
               theme={{
                 colors: {
-                  background: colors.BACKGROUND,
+                  background: 'transparent',
                   primary: '',
                   card: '',
                   text: '',

@@ -1,4 +1,4 @@
-import {PlayerWebView} from '@/components/player/PlayerWebView';
+import {PlayerWebView} from '@/components/spotifyBanner/PlayerWebView';
 import {useStore} from '@/store/useStore';
 import useAccessTokenQuery from '@/tanstack/queries/useAccessTokenQuery';
 import {useNavigation} from '@react-navigation/native';

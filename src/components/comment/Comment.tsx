@@ -17,10 +17,7 @@ import {screens, stacks} from '@/navigators/config';
 import {UserAvatar} from '../UserAvatar';
 import {UserTitle} from './UserTitle';
 import {CommentText} from './CommentText';
-
-interface Props extends CommentProps {
-  navigation: HomeDrawerProps['navigation'];
-}
+import {useNavigation} from '@react-navigation/native';
 
 export function Comment({
   id,
@@ -32,8 +29,8 @@ export function Comment({
   replies,
   saves,
   upvotes,
-  navigation,
-}: Props): JSX.Element {
+}: CommentProps): JSX.Element {
+  const navigation = useNavigation();
   const goToCommentThread = () => {
     navigation.navigate(screens.THREAD, {commentId: id});
   };

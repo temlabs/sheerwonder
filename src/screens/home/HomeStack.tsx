@@ -19,16 +19,7 @@ const Stack = createNativeStackNavigator();
 
 export function HomeStack(): JSX.Element {
   return (
-    <View style={{flex: 1}}>
-      <LinearGradientBackground
-        x1={100}
-        style={gradientBackgroundStyle}
-        stops={[
-          {offset: 0, opacity: 0.2, color: colors.PRIMARY},
-          {offset: 100, opacity: 0.2, color: colors.TERTIARY},
-        ]}
-      />
-
+    <View style={{flex: 1, backgroundColor: 'transparent'}}>
       <Stack.Navigator
         initialRouteName={screens.HOME}
         screenOptions={defaultStackNavigatorOptions}>

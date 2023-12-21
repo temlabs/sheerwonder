@@ -20,12 +20,10 @@ import colors from '@/theme/colors';
 import {CommentStatBar} from '../comment/CommentStatBar';
 import Animated from 'react-native-reanimated';
 import {screens, stacks} from '@/navigators/config';
+import {useNavigation} from '@react-navigation/native';
 
-interface Props extends StoryProps {
-  navigation: HomeDrawerProps['navigation'];
-}
-
-export function StoryCard(props: Props): JSX.Element {
+export function StoryCard(props: StoryProps): JSX.Element {
+  const navigation = useNavigation();
   let coverBackgroundColor: string = colors.BACKGROUND;
 
   const blurViewStyle: ViewStyle = {
