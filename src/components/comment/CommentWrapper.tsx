@@ -33,8 +33,8 @@ export function CommentWrapper({children, onPress}: Props): JSX.Element {
   return (
     <TouchableWithoutFeedback
       delayPressIn={50}
-      // onPressIn={fadeIn}
-      // onPressOut={fadeOut}
+      onPressIn={fadeIn}
+      onPressOut={fadeOut}
       onPress={onPress}>
       <Animated.View
         style={[commentWrapperStyle, {backgroundColor: backgroundColor}]}>

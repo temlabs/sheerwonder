@@ -37,10 +37,7 @@ export function StoryCard(props: StoryProps): JSX.Element {
   const user = props.user;
 
   const goToStoryScreen = () =>
-    props.navigation.navigate(stacks.HOME, {
-      screen: screens.STORY,
-      params: {storyId: props.id},
-    });
+    navigation.navigate(screens.STORY, {storyId: props.id});
 
   return (
     <TouchableOpacity
