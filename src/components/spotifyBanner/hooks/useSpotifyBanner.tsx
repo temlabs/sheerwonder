@@ -6,7 +6,12 @@ import React, {useState, useEffect, useMemo, useCallback} from 'react';
 
 const DEFAULT_BANNER_TEXT = 'Connect to Spotify to start listening';
 
-type SpotifyState = 'CONNECTED' | 'CONNECTING' | 'ERROR' | 'DISCONNECTED';
+type SpotifyState =
+  | 'CONNECTED'
+  | 'CONNECTING'
+  | 'NO_PLAYER'
+  | 'ERROR'
+  | 'DISCONNECTED';
 
 function useSpotify(authCode: string) {
   const navigation = useNavigation();
@@ -24,16 +29,18 @@ function useSpotify(authCode: string) {
 
   const spotifyDeviceId = useStore(s => s.spotifyDeviceId);
 
-  // console.debug({
-  //   accessTokenIsFetching,
-  //   accessTokenError,
-  //   authCode: !!authCode,
-  //   accessToken: !!accessToken,
-  // });
-
+  console.debug({
+    accessTokenIsFetching,
+    accessTokenError,
+    authCode: !!authCode,
+    accessToken: !!accessToken,
+  });
+  console.log({accessTokenIsFetching, accessTokenError, spotifyDeviceId});
   const spotifyState: SpotifyState =
     authCodeInStore === ''
       ? 'DISCONNECTED'
+      : accessToken && spotifyDeviceId === ''
+      ? 'NO_PLAYER'
       : accessTokenIsFetching
       ? 'CONNECTING'
       : accessToken && spotifyDeviceId
@@ -56,6 +63,10 @@ function useSpotify(authCode: string) {
     case 'DISCONNECTED':
       onSpotifyBannerPress = openLoginModal;
       spotifyBannerText = DEFAULT_BANNER_TEXT;
+      break;
+    case 'NO_PLAYER':
+      onSpotifyBannerPress = openLogoutModal;
+      spotifyBannerText = "You're in watch-mode. Tap to disconnect";
       break;
     case 'ERROR':
       onSpotifyBannerPress = openLoginModal;

@@ -65,6 +65,7 @@ export function TabNavigator(): JSX.Element {
         component={ProfileStack}
         options={{
           ...defaultBottomNavigationOptions,
+          headerShown: false,
           tabBarLabel: ({color}) => (
             <ProfileIcon fill={color} width={iconWidth} height={iconWidth} />
           ),

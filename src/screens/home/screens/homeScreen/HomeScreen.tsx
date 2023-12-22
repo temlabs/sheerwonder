@@ -1,5 +1,11 @@
-import React, {useCallback} from 'react';
-import {FlatList, ListRenderItem, ScrollView, ViewStyle} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import {
+  FlatList,
+  ListRenderItem,
+  ScrollView,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {Comment} from '@/components/comment/Comment';
 import {posts} from '@/demo/posts';
 import {HomeDrawerProps, HomeScreenProps} from '@/screens/types';
@@ -12,11 +18,18 @@ import {HomeParamList} from '@/navigators/types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Text} from 'react-native';
 import {CommentProps, StoryProps} from '@/demo/types';
+import {CircleButton} from '@/components/buttons/CircleButton';
+import {CreatePostButton} from '@/components/buttons/CreatePostButton';
+import {CreateShortPost} from '@/components/modals/createShortPost/CreateShortPost';
 
 export function HomeScreen({
   navigation,
 }: HomeScreenProps<HomeParamList>): JSX.Element {
   const bottomTabBarHeight = useBottomTabBarHeight();
+  const [createShortPostVisible, setCreateShortPostVisible] = useState(false);
+
+  const toggleCreateShortPostModalVisible = () =>
+    setCreateShortPostVisible(v => !v);
 
   const renderItem: ListRenderItem<CommentProps | StoryProps> = useCallback(
     item => {
@@ -43,7 +56,7 @@ export function HomeScreen({
 
       <FlatList
         style={scrollViewStyle}
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={true}
         contentContainerStyle={[
           backgroundViewStyle,
           {paddingBottom: bottomTabBarHeight},
@@ -53,6 +66,16 @@ export function HomeScreen({
         data={posts}
         renderItem={renderItem}
       />
+      <View style={[postButton, {bottom: bottomTabBarHeight + 20}]}>
+        <CreatePostButton
+          onPress={() => navigation.navigate('CreateShortPostModal')}
+        />
+      </View>
+
+      {/* <CreateShortPost
+        visible={createShortPostVisible}
+        toggleVisibility={toggleCreateShortPostModalVisible}
+      /> */}
     </>
   );
 }
@@ -67,4 +90,9 @@ const backgroundViewStyle: ViewStyle = {
 const scrollViewStyle: ViewStyle = {
   width: '100%',
   backgroundColor: 'transparent',
+};
+
+const postButton: ViewStyle = {
+  position: 'absolute',
+  right: 15,
 };

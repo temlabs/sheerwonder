@@ -7,6 +7,7 @@ import {LinearGradientBackground} from '@/components/LinearGradientBackground';
 import {View, ViewStyle} from 'react-native';
 import colors from '@/theme/colors';
 import Background from './components/Background';
+import {CreateShortPost} from '@/components/modals/createShortPost/CreateShortPost';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,15 @@ function RootNavigator() {
           component={SpotifyLogoutModal}
           options={{
             presentation: 'transparentModal',
+            animation: 'fade',
+            contentStyle: {opacity: 1},
+          }}
+        />
+        <Stack.Screen
+          name="CreateShortPostModal"
+          component={CreateShortPost}
+          options={{
+            presentation: 'card',
             animation: 'fade',
             contentStyle: {opacity: 1},
           }}
