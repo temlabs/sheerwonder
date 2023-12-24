@@ -5,12 +5,16 @@ import {getError} from './spotifyUtils';
 import {queryClient} from '@/tanstack/config';
 import {useStore} from '@/store/useStore';
 import {RecentlyPlayedResponse, SpotifyTrack} from './spotifyTrackTypes';
+import {
+  SpotifyRecentlyPlayedTracksResponse,
+  SpotifySearchResponse,
+} from './types/spotifyResponseTypes';
 
 export const fetchRecentlyPlayedTracks = async ({
   queryKey,
 }: QueryFunctionContext<
   ReturnType<typeof queryKeys.SPOTIFY_ACCESS_TOKEN_KEY>
->): Promise<RecentlyPlayedResponse> => {
+>): Promise<SpotifyRecentlyPlayedTracksResponse> => {
   const [_key] = queryKey;
   const defaultResponse = {
     href: '',
@@ -33,16 +37,19 @@ export const fetchRecentlyPlayedTracks = async ({
         'Content-Type': 'application/json',
       },
     });
-    const recentlyPlayed = await response.json();
+    const recentlyPlayed =
+      (await response.json()) as SpotifyRecentlyPlayedTracksResponse;
     getError(recentlyPlayed);
 
-    return (recentlyPlayed ?? defaultResponse) as RecentlyPlayedResponse;
+    return recentlyPlayed ?? defaultResponse;
   } catch (error) {
     throw error;
   }
 };
 
-export const searchForTrack = async (searchTerm: string) => {
+export const searchForTrack = async (
+  searchTerm: string,
+): Promise<SpotifySearchResponse | undefined> => {
   const authCode = useStore.getState().spotifyAuthCode;
   const accessToken = queryClient.getQueryData(
     queryKeys.SPOTIFY_ACCESS_TOKEN_KEY(authCode),
@@ -58,8 +65,10 @@ export const searchForTrack = async (searchTerm: string) => {
         'Content-Type': 'application/json',
       },
     });
-    const responseJson = await response.json();
+    const responseJson = (await response.json()) as SpotifySearchResponse;
 
-    return responseJson.tracks as SpotifyTrack[];
-  } catch (error) {}
+    return responseJson;
+  } catch (error) {
+    // throw error;
+  }
 };

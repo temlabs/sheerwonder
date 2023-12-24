@@ -1,8 +1,13 @@
 import {SpotifyError} from './spotifyTypes';
+import {SpotifyTrack} from './types/spotifyCommonTypes';
+import {SpotifyRecentlyPlayedTracksResponse} from './types/spotifyResponseTypes';
 
-export const getError = (errorResponse: {error: SpotifyError}): void => {
-  const status = errorResponse?.error?.status;
-  const message = errorResponse?.error?.message;
+export const getError = (response: Object): void => {
+  if (!isErrorResponse(response)) {
+    return;
+  }
+  const status = response?.error?.status;
+  const message = response?.error?.message;
   switch (status) {
     case 401: {
       const badTokenError = new Error(message);
@@ -24,6 +29,18 @@ export const getError = (errorResponse: {error: SpotifyError}): void => {
   }
 };
 
+type ErrorResponse = {error: SpotifyError};
+
+const isErrorResponse = (response: Object): response is ErrorResponse => {
+  if ('error' in response) {
+    const error = response.error as Object;
+    if ('message' in error && 'status' in error) {
+      return true;
+    }
+  }
+  return false;
+};
+
 export const throwSpotifyAuthError = (errorResponse: unknown) => {
   if (typeof errorResponse !== 'object') {
     return;
@@ -37,4 +54,10 @@ export const throwSpotifyAuthError = (errorResponse: unknown) => {
       exception.name = errorResponse.error;
     throw exception;
   }
+};
+
+export const recentlyPlayedTracksResponseToSpotfyTrackList = (
+  response: SpotifyRecentlyPlayedTracksResponse,
+): SpotifyTrack[] => {
+  return response.items.map(item => item.track);
 };

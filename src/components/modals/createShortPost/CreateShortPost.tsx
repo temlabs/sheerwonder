@@ -1,76 +1,31 @@
-import React, {startTransition, useCallback, useEffect, useState} from 'react';
-import {
-  View,
-  ViewStyle,
-  TouchableOpacity,
-  Text,
-  FlatList,
-  ListRenderItem,
-} from 'react-native';
+import React from 'react';
+import {View, ViewStyle, FlatList, ListRenderItem} from 'react-native';
 import colors from '@/theme/colors';
-import {Close} from '@/components/icons/Close';
 import {useNavigation} from '@react-navigation/native';
 import {SearchBar} from '@/components/textInput/SearchBar';
-import useRecentlyPlayedTracksQuery from '@/tanstack/queries/useRecentPlayedTracksQuery';
-import {TrackListButton} from '@/components/buttons/TrackListButton';
-import {
-  RecentlyPlayedResponse,
-  SpotifyTrack,
-  TrackItem,
-} from '@/spotify/spotifyTrackTypes';
-import {searchForTrack} from '@/spotify/spotifyUserFunctions';
-
-let debounceTimer: NodeJS.Timeout; //
+import {TrackButton} from '@/components/buttons/TrackButton';
+import {SpotifyTrack} from '@/spotify/spotifyTrackTypes';
+import {useSpotifySearch} from '@/spotify/hooks/useSpotifySearch';
+import {CloseButton} from '@/components/buttons/CloseButton';
 
 export function CreateShortPost() {
-  const [searchResults, setSearchResults] = useState<TrackItem[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const {onSearchTermChange, searchResults, searchTerm} = useSpotifySearch();
   const navigation = useNavigation();
-  const {data: recentlyPlayedTracks} = useRecentlyPlayedTracksQuery();
 
-  const fetchSearchResults = (searchTerm: string) => {
-    setSearchTerm(searchTerm);
-    clearTimeout(debounceTimer); // Clear the existing timer on each call
-
-    debounceTimer = setTimeout(() => {
-      startTransition(() => {
-        if (searchTerm) {
-          searchForTrack(searchTerm).then(results => {
-            results && setSearchResults(results.items);
-          });
-        }
-      });
-    }, 500);
+  const renderItem: ListRenderItem<SpotifyTrack | undefined> = ({
+    item: track,
+  }) => {
+    return track ? <TrackButton {...track} onPress={() => {}} /> : <></>;
   };
-
-  useEffect(() => {
-    return () => clearTimeout(debounceTimer);
-  }, []);
-
-  const renderItem:
-    | ListRenderItem<RecentlyPlayedResponse['items']>
-    | null
-    | undefined = useCallback(item => {
-    const currentItem = item.item;
-    const track = 'track' in currentItem ? currentItem.track : currentItem;
-    return <TrackListButton {...track} />;
-  }, []);
-
-  const showSearchResults = !!searchTerm;
 
   return (
     <View style={outerView}>
       <View style={innerView}>
-        <TouchableOpacity
-          style={closeButtonContainer}
-          onPress={() => navigation.goBack()}>
-          <Close height={30} width={30} fill={colors.TEXT_PRIMARY} />
-        </TouchableOpacity>
-        <SearchBar onChange={fetchSearchResults} searchTerm={searchTerm} />
-        <FlatList
-          data={showSearchResults ? searchResults : recentlyPlayedTracks?.items}
-          renderItem={renderItem}
-        />
+        <View style={closeButtonContainer}>
+          <CloseButton onPress={() => navigation.goBack()} />
+        </View>
+        <SearchBar onChange={onSearchTermChange} searchTerm={searchTerm} />
+        <FlatList data={searchResults} renderItem={renderItem} />
       </View>
     </View>
   );

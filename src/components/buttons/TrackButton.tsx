@@ -9,14 +9,9 @@ import {
   TextStyle,
 } from 'react-native';
 import colors from '@/theme/colors';
-import {Close} from '@/components/icons/Close';
-import {useNavigation} from '@react-navigation/native';
-import {SearchBar} from '@/components/textInput/SearchBar';
-import useRecentlyPlayedTracksQuery from '@/tanstack/queries/useRecentPlayedTracksQuery';
 import {SpotifyTrack} from '@/spotify/spotifyTrackTypes';
 
-export function TrackListButton(props: SpotifyTrack & {onPress: () => void}) {
-  //   console.debug('TLB: ', props);
+export function TrackButton(props: SpotifyTrack & {onPress: () => void}) {
   return (
     <TouchableOpacity style={buttonContainer}>
       <Image
