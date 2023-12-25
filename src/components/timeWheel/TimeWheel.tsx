@@ -9,6 +9,7 @@ import Animated, {
 import colors from '@/theme/colors';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import {MAXIMUM_POST_TIME_MS, MINIMUM_POST_TIME_MS} from '@/config/postConfig';
+import {HitSlop} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlerCommon';
 
 interface Props {
   onEnd: (startPos: number, endPos: number) => void;
@@ -16,6 +17,13 @@ interface Props {
   startPos: SharedValue<string>;
   duration: number;
 }
+
+const hitSlop: HitSlop = {
+  top: 40,
+  bottom: 40,
+  left: 200,
+  right: 50,
+};
 
 export function TimeWheel({onEnd, duration, endPos, startPos}: Props) {
   const [outerViewHeight, setOuterViewHeight] = useState<number>();
@@ -34,9 +42,9 @@ export function TimeWheel({onEnd, duration, endPos, startPos}: Props) {
   >(undefined);
 
   const gesture = Gesture.Pan()
-    .hitSlop({top: 20, bottom: 20, left: 60, right: 20})
+    .hitSlop(hitSlop)
     .onBegin(e => {
-      const buffer = Math.max(0, height.value * 0.2);
+      const buffer = Math.max(0, height.value * 0.3);
       const endOfRange = top.value + height.value - buffer;
       const startOfRange = top.value + buffer;
       if (e.y >= endOfRange) {
@@ -153,7 +161,7 @@ const containerViewStyle: ViewStyle = {
   height: '100%',
   width: '100%',
   padding: 0,
-  overflow: 'hidden',
+  // overflow: 'hidden',
 };
 
 const backgroundViewStyle: ViewStyle = {

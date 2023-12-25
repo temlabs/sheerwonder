@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, ViewStyle, FlatList, ListRenderItem} from 'react-native';
 import colors from '@/theme/colors';
-import {useNavigation} from '@react-navigation/native';
 import {SearchBar} from '@/components/textInput/SearchBar';
 import {TrackButton} from '@/components/buttons/TrackButton';
 import {SpotifyTrack} from '@/spotify/spotifyTrackTypes';
@@ -9,10 +8,16 @@ import {useSpotifySearch} from '@/spotify/hooks/useSpotifySearch';
 import {CloseButton} from '@/components/buttons/CloseButton';
 import {modalViewStyle} from './styles';
 import {screens} from '@/navigators/config';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '@/navigators/types';
 
-export function CreateShortPostSearch() {
+export function CreateShortPostSearch({
+  navigation,
+}: NativeStackScreenProps<
+  RootStackParamList,
+  typeof screens.CREATE_SHORT_POST_SEARCH
+>) {
   const {onSearchTermChange, searchResults, searchTerm} = useSpotifySearch();
-  const navigation = useNavigation();
 
   const renderItem: ListRenderItem<SpotifyTrack | undefined> = ({
     item: track,
@@ -21,7 +26,9 @@ export function CreateShortPostSearch() {
       <TrackButton
         {...track}
         onPress={() =>
-          navigation.navigate(screens.CREATE_SHORT_POST_SELECT_RANGE)
+          navigation.navigate(screens.CREATE_SHORT_POST_SELECT_RANGE, {
+            track,
+          })
         }
       />
     ) : (

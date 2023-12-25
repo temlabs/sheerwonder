@@ -8,8 +8,9 @@ import {CreateShortPostSearch} from '@/screens/root/modals/CreateShortPostSearch
 import {screens} from './config';
 import {CreateShortPostSelectRange} from '@/screens/root/modals/CreateShortPostSelectRange';
 import colors from '@/theme/colors';
+import {RootStackParamList} from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (

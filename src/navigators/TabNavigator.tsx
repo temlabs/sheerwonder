@@ -14,7 +14,6 @@ import {HomeIcon} from './components/icons/HomeIcon';
 import {CommunityIcon} from './components/icons/CommunityIcon';
 import {DiscoverIcon} from './components/icons/DiscoverIcon';
 import {ProfileIcon} from './components/icons/ProfileIcon';
-import {TabLabel} from './components/TabLabel';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -23,9 +22,6 @@ const TabBarWrapper = (props: BottomTabBarProps) => {
 };
 
 const iconWidth = 25;
-const IconWrapper = ({color}: {color: string}) => (
-  <DiscoverIcon fill={color} width={iconWidth} height={iconWidth} />
-);
 
 export function TabNavigator(): JSX.Element {
   return (
