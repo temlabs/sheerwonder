@@ -1,4 +1,3 @@
-import {startTransition} from 'react';
 import {transferPlaybackToDevice} from '@/spotify/spotifyPlaybackFunctions';
 import {useStore} from '@/store/useStore';
 import useAccessTokenQuery from '@/tanstack/queries/useAccessTokenQuery';
@@ -44,6 +43,7 @@ export function usePlayerWebViewMessage() {
         )
       ) {
         console.log('state change: ', newPlayingTrack.paused);
+        console.debug('PLAYING TRACK: ', newPlayingTrack.spotifyTrackId);
         setPlayingTrack(newPlayingTrack);
       }
     } catch (error) {

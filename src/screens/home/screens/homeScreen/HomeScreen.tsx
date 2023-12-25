@@ -26,10 +26,6 @@ export function HomeScreen({
   navigation,
 }: HomeScreenProps<HomeParamList>): JSX.Element {
   const bottomTabBarHeight = useBottomTabBarHeight();
-  const [createShortPostVisible, setCreateShortPostVisible] = useState(false);
-
-  const toggleCreateShortPostModalVisible = () =>
-    setCreateShortPostVisible(v => !v);
 
   const renderItem: ListRenderItem<CommentProps | StoryProps> = useCallback(
     item => {

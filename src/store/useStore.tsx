@@ -13,10 +13,12 @@ import {
   PlayFunction,
   PlayingTrack,
   SelectedTrack,
+  ShortPostDraft,
 } from './storeTypes';
 import {SPOTIFY_ACCESS_TOKEN_STALE_TIME} from '@/spotify/spotifyConfig';
 import {pause, playTrack} from '@/spotify/spotifyPlaybackFunctions';
 import {StoryProps} from '@/demo/types';
+import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 
 export interface StoreProps {
   spotifyAuthCode: string;
@@ -36,6 +38,8 @@ export interface StoreProps {
   setSelectedTrack: (props: SelectedTrack) => void;
   playingTrack: PlayingTrack;
   setPlayingTrack: (props: PlayingTrack) => void;
+  shortPostDraft: Partial<ShortPostDraft>;
+  setShortPostDraft: (post: Partial<ShortPostDraft>) => void;
 }
 
 export const useStore = create<StoreProps>()(
@@ -110,6 +114,9 @@ export const useStore = create<StoreProps>()(
     playingTrack: {position: 0, spotifyTrackId: '', paused: true, startTime: 0},
     setPlayingTrack: (props: PlayingTrack): void => {
       set(state => ({...state, playingTrack: props}));
+    },
+    setShortPostDraft: (post: Partial<ShortPostDraft>): void => {
+      set(state => ({...state, shortPostDraft: {...post}}));
     },
   })),
 );

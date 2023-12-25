@@ -1,4 +1,5 @@
 import {PlayOptions} from '@/spotify/spotifyTypes';
+import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 
 export interface GlobalStore {
   spotifyRefreshCode: string;
@@ -21,4 +22,11 @@ export interface PlayingTrack {
   position: number;
   paused: boolean;
   startTime: number;
+}
+
+export interface ShortPostDraft {
+  track: SpotifyTrack;
+  text: string;
+  in: number;
+  out: number;
 }

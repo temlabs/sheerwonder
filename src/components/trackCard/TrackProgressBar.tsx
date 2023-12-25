@@ -50,6 +50,8 @@ export function TrackProgressBar({
     selectedTrack,
     playingTrack,
   );
+  // console.debug({thisTrackIsPlaying, id, trackId, selectedTrack, playingTrack});
+  console.debug({playingTrack});
 
   const scale = useRef(new Animated.Value(1)).current;
   const opacity = useRef(new Animated.Value(0)).current;

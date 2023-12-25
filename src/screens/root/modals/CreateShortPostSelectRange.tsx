@@ -21,6 +21,7 @@ import {screens} from '@/navigators/config';
 import {RootStackParamList} from '@/navigators/types';
 import {TrackCard} from '@/components/trackCard/TrackCard';
 import {TrackDetails} from '@/components/trackCard/TrackDetails';
+import {useStore} from '@/store/useStore';
 
 export function CreateShortPostSelectRange({
   navigation,
@@ -29,6 +30,8 @@ export function CreateShortPostSelectRange({
   RootStackParamList,
   typeof screens.CREATE_SHORT_POST_SELECT_RANGE
 >) {
+  const setShortPostDraft = useStore(state => state.setShortPostDraft);
+  const shortPostDraft = useStore(state => state.shortPostDraft);
   const track = route.params.track;
   const duration = track.duration_ms;
 
@@ -40,19 +43,37 @@ export function CreateShortPostSelectRange({
 
   const updateFromAndTo = (startPos: number, endPos: number) => {
     // write to store and play track if it was playing
+    setShortPostDraft({
+      ...shortPostDraft,
+      in: Math.round(duration * startPos),
+      out: Math.round(duration * endPos),
+    });
   };
+
+  const trackArtist = track.artists.map(a => a.name).join(', ');
+  const trackArtwork = track.album.images[0].url;
 
   return (
     <View style={[modalViewStyle, {paddingTop: headerHeight + 20}]}>
       <View style={trackInfoView}>
-        <Image
+        {/* <Image
           source={{uri: track.album.images[0].url, height: 100, width: 100}}
         />
         <TrackDetails
           trackArtist={track.artists.map(a => a.name).join(', ')}
           trackName={track.name}
+        /> */}
+        <TrackCard
+          duration={track.duration_ms}
+          id={'shortPostDraft'}
+          spotifyId={track.id}
+          trackArtist={trackArtist}
+          trackArtwork={trackArtwork}
+          trackName={track.name}
+          key={track.id}
+          timeIn={shortPostDraft?.in}
+          timeOut={shortPostDraft?.out}
         />
-        <View></View>
       </View>
       <View style={infoSliderContainer}>
         <View style={infoContainer}>
@@ -78,9 +99,9 @@ export function CreateShortPostSelectRange({
 }
 
 const timeWheelStyle: ViewStyle = {
-  height: '70%',
+  height: '100%',
   flexGrow: 1,
-  alignItems: 'center',
+  alignItems: 'flex-end',
   // overflow: 'hidden',
   // backgroundColor: 'purple',
 };
@@ -91,7 +112,7 @@ const infoSliderContainer: ViewStyle = {
 };
 
 const infoContainer: ViewStyle = {
-  width: '85%',
+  width: '65%',
 };
 
 const trackInfoView: ViewStyle = {

@@ -59,9 +59,9 @@ export function TimeWheel({onEnd, duration, endPos, startPos}: Props) {
       if (rangeAction.value === 'CHANGE_END') {
         const newHeight = e.y - top.value;
         if (
-          newHeight > minimumHeight &&
-          maximumHeight &&
-          newHeight <= maximumHeight
+          newHeight > minimumHeight
+          // && maximumHeight &&
+          // newHeight <= maximumHeight
         ) {
           height.value = newHeight;
         }
@@ -69,9 +69,9 @@ export function TimeWheel({onEnd, duration, endPos, startPos}: Props) {
         const difference = top.value - e.y;
         const newHeight = height.value + difference;
         if (
-          newHeight > minimumHeight &&
-          maximumHeight &&
-          newHeight <= maximumHeight
+          newHeight > minimumHeight
+          // && maximumHeight &&
+          // newHeight <= maximumHeight
         ) {
           top.value = e.y;
           height.value = height.value + difference;
@@ -145,21 +145,29 @@ export function TimeWheel({onEnd, duration, endPos, startPos}: Props) {
   return (
     <>
       <GestureDetector gesture={gesture}>
-        <View
-          style={containerViewStyle}
-          onLayout={e => setOuterViewHeight(e.nativeEvent.layout.height)}>
-          <View style={backgroundViewStyle} />
-          <Animated.View style={selectedViewStyle} />
+        <View style={outerViewStyle}>
+          <View
+            style={containerViewStyle}
+            onLayout={e => setOuterViewHeight(e.nativeEvent.layout.height)}>
+            <View style={backgroundViewStyle} />
+            <Animated.View style={selectedViewStyle} />
+          </View>
         </View>
       </GestureDetector>
     </>
   );
 }
 
+const outerViewStyle: ViewStyle = {
+  width: '100%',
+  // backgroundColor: 'yellow',
+  alignItems: 'flex-end',
+};
+
 const containerViewStyle: ViewStyle = {
   backgroundColor: colors.PRIMARY_DARK,
   height: '100%',
-  width: '100%',
+  width: '40%',
   padding: 0,
   // overflow: 'hidden',
 };

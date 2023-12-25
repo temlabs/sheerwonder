@@ -45,7 +45,7 @@ function RootNavigator() {
           name={screens.CREATE_SHORT_POST_SEARCH}
           component={CreateShortPostSearch}
           options={{
-            presentation: 'card',
+            presentation: 'transparentModal',
             animation: 'fade',
             contentStyle: {opacity: 1},
           }}
@@ -54,7 +54,7 @@ function RootNavigator() {
           name={screens.CREATE_SHORT_POST_SELECT_RANGE}
           component={CreateShortPostSelectRange}
           options={{
-            presentation: 'card',
+            presentation: 'transparentModal',
             animation: 'fade',
             contentStyle: {opacity: 1},
             headerShown: true,
