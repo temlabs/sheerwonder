@@ -7,8 +7,9 @@ import {TrackButton} from '@/components/buttons/TrackButton';
 import {SpotifyTrack} from '@/spotify/spotifyTrackTypes';
 import {useSpotifySearch} from '@/spotify/hooks/useSpotifySearch';
 import {CloseButton} from '@/components/buttons/CloseButton';
+import {modalViewStyle} from './styles';
 
-export function CreateShortPost() {
+export function CreateShortPostSearch() {
   const {onSearchTermChange, searchResults, searchTerm} = useSpotifySearch();
   const navigation = useNavigation();
 
@@ -19,7 +20,7 @@ export function CreateShortPost() {
   };
 
   return (
-    <View style={outerView}>
+    <View style={modalViewStyle}>
       <View style={innerView}>
         <View style={closeButtonContainer}>
           <CloseButton onPress={() => navigation.goBack()} />
@@ -30,13 +31,6 @@ export function CreateShortPost() {
     </View>
   );
 }
-
-const outerView: ViewStyle = {
-  flex: 1,
-  backgroundColor: colors.BACKGROUND,
-  paddingHorizontal: 10,
-  paddingTop: 20,
-};
 
 const closeButtonContainer: ViewStyle = {
   width: '100%',

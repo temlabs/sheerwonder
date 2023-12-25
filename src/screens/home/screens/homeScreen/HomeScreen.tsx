@@ -20,7 +20,7 @@ import {Text} from 'react-native';
 import {CommentProps, StoryProps} from '@/demo/types';
 import {CircleButton} from '@/components/buttons/CircleButton';
 import {CreatePostButton} from '@/components/buttons/CreatePostButton';
-import {CreateShortPost} from '@/components/modals/createShortPost/CreateShortPost';
+import {CreateShortPost} from '@/screens/root/modals/CreateShortPostSearch';
 
 export function HomeScreen({
   navigation,
@@ -68,7 +68,7 @@ export function HomeScreen({
       />
       <View style={[postButton, {bottom: bottomTabBarHeight + 20}]}>
         <CreatePostButton
-          onPress={() => navigation.navigate('CreateShortPostModal')}
+          onPress={() => navigation.navigate(screens.CREATE_SHORT_POST_SEARCH)}
         />
       </View>
 

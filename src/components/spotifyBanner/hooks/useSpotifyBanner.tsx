@@ -17,8 +17,9 @@ function useSpotify(authCode: string) {
   const navigation = useNavigation();
   const authCodeInStore = useStore.getState().spotifyAuthCode;
 
-  const openLoginModal = () => navigation.navigate('SpotifyLoginModal');
-  const openLogoutModal = () => navigation.navigate('SpotifyLogoutModal');
+  const openLoginModal = () => navigation.navigate(screens.SPOTIFY_LOGIN_MODAL);
+  const openLogoutModal = () =>
+    navigation.navigate(screns.SPOTIFY_LOGOUT_MODAL);
 
   const {
     data: accessToken,

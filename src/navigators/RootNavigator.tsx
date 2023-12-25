@@ -3,11 +3,9 @@ import {TabNavigator} from './TabNavigator';
 import {SpotifyLoginModal} from '@/components/spotifyBanner/SpotifyLoginModal';
 import React from 'react';
 import {SpotifyLogoutModal} from '@/components/spotifyBanner/SpotifyLogoutModal';
-import {LinearGradientBackground} from '@/components/LinearGradientBackground';
-import {View, ViewStyle} from 'react-native';
-import colors from '@/theme/colors';
-import Background from './components/Background';
-import {CreateShortPost} from '@/components/modals/createShortPost/CreateShortPost';
+import {View} from 'react-native';
+import {CreateShortPostSearch} from '@/screens/root/modals/CreateShortPostSearch';
+import {screens} from './config';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +21,7 @@ function RootNavigator() {
           options={{contentStyle: {backgroundColor: 'transparent'}}}
         />
         <Stack.Screen
-          name="SpotifyLoginModal"
+          name={screens.SPOTIFY_LOGIN_MODAL}
           component={SpotifyLoginModal}
           options={{
             presentation: 'transparentModal',
@@ -32,7 +30,7 @@ function RootNavigator() {
           }}
         />
         <Stack.Screen
-          name="SpotifyLogoutModal"
+          name={screens.SPOTIFY_LOGOUT_MODAL}
           component={SpotifyLogoutModal}
           options={{
             presentation: 'transparentModal',
@@ -41,8 +39,8 @@ function RootNavigator() {
           }}
         />
         <Stack.Screen
-          name="CreateShortPostModal"
-          component={CreateShortPost}
+          name={screens.CREATE_SHORT_POST_SEARCH}
+          component={CreateShortPostSearch}
           options={{
             presentation: 'card',
             animation: 'fade',
