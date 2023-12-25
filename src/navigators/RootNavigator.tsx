@@ -6,6 +6,8 @@ import {SpotifyLogoutModal} from '@/components/spotifyBanner/SpotifyLogoutModal'
 import {View} from 'react-native';
 import {CreateShortPostSearch} from '@/screens/root/modals/CreateShortPostSearch';
 import {screens} from './config';
+import {CreateShortPostSelectRange} from '@/screens/root/modals/CreateShortPostSelectRange';
+import colors from '@/theme/colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +47,19 @@ function RootNavigator() {
             presentation: 'card',
             animation: 'fade',
             contentStyle: {opacity: 1},
+          }}
+        />
+        <Stack.Screen
+          name={screens.CREATE_SHORT_POST_SELECT_RANGE}
+          component={CreateShortPostSelectRange}
+          options={{
+            presentation: 'card',
+            animation: 'fade',
+            contentStyle: {opacity: 1},
+            headerShown: true,
+            headerTitle: 'Select a track',
+            headerTransparent: true,
+            headerTintColor: colors.TEXT_PRIMARY,
           }}
         />
       </Stack.Navigator>

@@ -28,6 +28,7 @@ export const screens = {
   SPOTIFY_LOGIN_MODAL: 'SpotifyLoginModal',
   SPOTIFY_LOGOUT_MODAL: 'SpotifyLogoutModal',
   CREATE_SHORT_POST_SEARCH: 'CreateShortPostSearch',
+  CREATE_SHORT_POST_SELECT_RANGE: 'CreateShortPostSelectRange',
 } as const;
 
 export const defaultStackNavigatorOptions: NativeStackNavigationOptions = {

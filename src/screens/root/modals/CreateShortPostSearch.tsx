@@ -8,6 +8,7 @@ import {SpotifyTrack} from '@/spotify/spotifyTrackTypes';
 import {useSpotifySearch} from '@/spotify/hooks/useSpotifySearch';
 import {CloseButton} from '@/components/buttons/CloseButton';
 import {modalViewStyle} from './styles';
+import {screens} from '@/navigators/config';
 
 export function CreateShortPostSearch() {
   const {onSearchTermChange, searchResults, searchTerm} = useSpotifySearch();
@@ -16,8 +17,20 @@ export function CreateShortPostSearch() {
   const renderItem: ListRenderItem<SpotifyTrack | undefined> = ({
     item: track,
   }) => {
-    return track ? <TrackButton {...track} onPress={() => {}} /> : <></>;
+    return track ? (
+      <TrackButton
+        {...track}
+        onPress={() =>
+          navigation.navigate(screens.CREATE_SHORT_POST_SELECT_RANGE)
+        }
+      />
+    ) : (
+      <></>
+    );
   };
+
+  const keyExtractor = (item: SpotifyTrack, index: number) =>
+    `${item.id}-${index}`;
 
   return (
     <View style={modalViewStyle}>
@@ -26,7 +39,11 @@ export function CreateShortPostSearch() {
           <CloseButton onPress={() => navigation.goBack()} />
         </View>
         <SearchBar onChange={onSearchTermChange} searchTerm={searchTerm} />
-        <FlatList data={searchResults} renderItem={renderItem} />
+        <FlatList
+          data={searchResults}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+        />
       </View>
     </View>
   );
