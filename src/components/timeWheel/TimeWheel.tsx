@@ -16,16 +16,25 @@ interface Props {
   endPos: SharedValue<string>;
   startPos: SharedValue<string>;
   duration: number;
+  initialStart?: number;
+  initialEnd?: number;
 }
 
 const hitSlop: HitSlop = {
   top: 40,
   bottom: 40,
-  left: 200,
+  left: 5,
   right: 50,
 };
 
-export function TimeWheel({onEnd, duration, endPos, startPos}: Props) {
+export function TimeWheel({
+  onEnd,
+  duration,
+  endPos,
+  startPos,
+  initialStart,
+  initialEnd,
+}: Props) {
   const [outerViewHeight, setOuterViewHeight] = useState<number>();
   const minimumTime = Math.min(MINIMUM_POST_TIME_MS, duration);
   const minimumHeight = outerViewHeight
@@ -148,7 +157,17 @@ export function TimeWheel({onEnd, duration, endPos, startPos}: Props) {
         <View style={outerViewStyle}>
           <View
             style={containerViewStyle}
-            onLayout={e => setOuterViewHeight(e.nativeEvent.layout.height)}>
+            onLayout={e => {
+              setOuterViewHeight(e.nativeEvent.layout.height);
+              if (initialStart) {
+                top.value = initialStart * e.nativeEvent.layout.height;
+              }
+              if (initialEnd) {
+                height.value =
+                  Math.max(0, initialEnd - (initialStart ?? 0)) *
+                  e.nativeEvent.layout.height;
+              }
+            }}>
             <View style={backgroundViewStyle} />
             <Animated.View style={selectedViewStyle} />
           </View>

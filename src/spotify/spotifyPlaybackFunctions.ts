@@ -77,6 +77,35 @@ export const pause = async (
   await getError(resJson);
 };
 
+export const seekPosition = async (
+  accessToken: string,
+  deviceId: string,
+  options?: {position: number},
+): Promise<void> => {
+  const body = {position_ms: options?.position ?? 0};
+  const res = await fetch(
+    `https://api.spotify.com/v1/me/player/seek?position_ms=${
+      options?.position ?? 0
+    }&device_id=${deviceId.replace(/\\/g, '')}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
+  if (res.status === 202) {
+    return;
+  }
+
+  const resJson = await res.json();
+  console.debug(resJson);
+  await getError(resJson);
+};
+
 export const isCurrentlyPlaying = (
   trackId: string,
   postId: string,

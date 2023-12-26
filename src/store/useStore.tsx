@@ -16,7 +16,11 @@ import {
   ShortPostDraft,
 } from './storeTypes';
 import {SPOTIFY_ACCESS_TOKEN_STALE_TIME} from '@/spotify/spotifyConfig';
-import {pause, playTrack} from '@/spotify/spotifyPlaybackFunctions';
+import {
+  pause,
+  playTrack,
+  seekPosition,
+} from '@/spotify/spotifyPlaybackFunctions';
 import {StoryProps} from '@/demo/types';
 import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 
@@ -31,6 +35,7 @@ export interface StoreProps {
   resetSpotifyCodes: () => void;
   currentlyPlaying: string;
   play: PlayFunction;
+  seek: (position: number) => Promise<void>;
   pause: PauseFunction;
   spotifyDeviceId: string;
   setSpotifyDeviceId: (deviceId: string) => void;
@@ -90,6 +95,15 @@ export const useStore = create<StoreProps>()(
           startFrom,
           trackUris: [trackUri],
         });
+      } catch (error) {
+        throw error;
+      }
+    },
+    seek: async (position: number) => {
+      const accessToken = useStore.getState().spotifyAccessToken;
+      const deviceId = useStore.getState().spotifyDeviceId;
+      try {
+        await seekPosition(accessToken, deviceId, {position});
       } catch (error) {
         throw error;
       }

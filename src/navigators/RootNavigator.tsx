@@ -58,7 +58,7 @@ function RootNavigator() {
             animation: 'fade',
             contentStyle: {opacity: 1},
             headerShown: true,
-            headerTitle: 'Select a track',
+            headerTitle: 'Select a range',
             headerTransparent: true,
             headerTintColor: colors.TEXT_PRIMARY,
           }}

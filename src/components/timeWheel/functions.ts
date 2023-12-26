@@ -18,6 +18,25 @@ export const convertMillisecondsToTimestamp = (duration: number): string => {
   }
 };
 
+export const convertTimestampToMilliseconds = (timestamp: string): number => {
+  const parts = timestamp.split(':').map(part => parseInt(part, 10));
+  let hours = 0,
+    minutes = 0,
+    seconds = 0;
+
+  if (parts.length === 3) {
+    // Timestamp is in 'hh:mm:ss' format
+    [hours, minutes, seconds] = parts;
+  } else if (parts.length === 2) {
+    // Timestamp is in 'mm:ss' format
+    [minutes, seconds] = parts;
+  } else {
+    throw new Error('Invalid timestamp format');
+  }
+
+  return (hours * 3600 + minutes * 60 + seconds) * 1000;
+};
+
 export function createTimestampsArray(duration: number) {
   const timestamps = [];
   for (let ms = 0; ms < duration; ms += 1000) {
