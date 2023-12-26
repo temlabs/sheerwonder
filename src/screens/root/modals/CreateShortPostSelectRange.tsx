@@ -5,7 +5,12 @@ import {RangeSelector} from '@/components/rangeSelector/RangeSelector';
 import {useHeaderHeight} from '@react-navigation/elements';
 import colors from '@/theme/colors';
 import {AnimatedTextLabel} from '@/components/rangeSelector/AnimatedTextLabel';
-import {DEFAULT_IN_PERC, SHORT_POST_ID} from '@/config/postConfig';
+import {
+  DEFAULT_IN_PERC,
+  DEFAULT_OUT_PERC,
+  MINIMUM_POST_TIME_MS,
+  SHORT_POST_ID,
+} from '@/config/postConfig';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {screens} from '@/navigators/config';
 import {RootStackParamList} from '@/navigators/types';
@@ -46,7 +51,7 @@ export function CreateShortPostSelectRange({
     const newIn = Math.round(duration * startPerc);
     const newOut = Math.round(duration * endPerc);
     const inHasChanged = shortPostDraft?.in !== newIn;
-    console.debug({shortPostDraft, newIn, inHasChanged});
+
     setShortPostDraft({
       ...shortPostDraft,
       in: newIn,
@@ -82,6 +87,17 @@ export function CreateShortPostSelectRange({
     }
     const timeDelta = Date.now() - playingTrack.startTime;
     const timeDeltaPerc = timeDelta / duration;
+    const currentEndTime =
+      shortPostDraft?.out !== undefined
+        ? shortPostDraft.out
+        : DEFAULT_OUT_PERC * duration;
+    const newInTime =
+      shortPostDraft?.in !== undefined
+        ? shortPostDraft.in + timeDelta
+        : DEFAULT_IN_PERC * duration;
+    if (currentEndTime - newInTime < MINIMUM_POST_TIME_MS) {
+      return;
+    }
 
     const heightDelta = timeDeltaPerc * rangeSelectorHeight;
     top.value = top.value + heightDelta;
@@ -90,13 +106,33 @@ export function CreateShortPostSelectRange({
       convertTimestampToMilliseconds(fromTimestamp.value) + timeDelta,
     );
     await updateFromAndTo(
-      shortPostDraft?.in !== undefined
-        ? (shortPostDraft.in + timeDelta) / duration
-        : DEFAULT_IN_PERC,
+      newInTime / duration,
       (top.value + height.value) / rangeSelectorHeight,
     );
   };
-  const punchOutAtCurrentTime = () => {};
+  const punchOutAtCurrentTime = async () => {
+    if (!rangeSelectorHeight) {
+      return;
+    }
+    const timeDelta = Date.now() - playingTrack.startTime;
+    const newEndTime =
+      shortPostDraft?.in !== undefined
+        ? shortPostDraft.in + timeDelta
+        : DEFAULT_OUT_PERC * duration + timeDelta;
+    const currentInTime =
+      shortPostDraft?.in !== undefined
+        ? shortPostDraft.in
+        : DEFAULT_IN_PERC * duration;
+    if (newEndTime - currentInTime < MINIMUM_POST_TIME_MS) {
+      return;
+    }
+
+    const newHeight =
+      (rangeSelectorHeight * (newEndTime - currentInTime)) / duration;
+    height.value = newHeight;
+    toTimestamp.value = convertMillisecondsToTimestamp(newEndTime);
+    await updateFromAndTo(currentInTime / duration, newEndTime / duration);
+  };
 
   const trackArtist = track.artists.map(a => a.name).join(', ');
   const trackArtwork = track.album.images[0].url;

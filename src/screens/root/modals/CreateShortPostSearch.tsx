@@ -24,7 +24,7 @@ export function CreateShortPostSearch({
   const {onSearchTermChange, searchResults, searchTerm} = useSpotifySearch();
 
   const goToRangeSelectScreen = (track: SpotifyTrack) => {
-    const differentTrack = track.id !== shortPostDraft.track?.id;
+    const differentTrack = track.id !== shortPostDraft?.track?.id;
     if (differentTrack) {
       //use defaults
       setShortPostDraft({
