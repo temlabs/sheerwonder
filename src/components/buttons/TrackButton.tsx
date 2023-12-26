@@ -13,7 +13,7 @@ import {SpotifyTrack} from '@/spotify/spotifyTrackTypes';
 
 export function TrackButton(props: SpotifyTrack & {onPress: () => void}) {
   return (
-    <TouchableOpacity style={buttonContainer}>
+    <TouchableOpacity style={buttonContainer} onPress={props.onPress}>
       <Image
         style={imageStyle}
         source={{uri: props?.album?.images[0].url, height: 50}}

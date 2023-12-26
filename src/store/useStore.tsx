@@ -13,10 +13,16 @@ import {
   PlayFunction,
   PlayingTrack,
   SelectedTrack,
+  ShortPostDraft,
 } from './storeTypes';
 import {SPOTIFY_ACCESS_TOKEN_STALE_TIME} from '@/spotify/spotifyConfig';
-import {pause, playTrack} from '@/spotify/spotifyPlaybackFunctions';
+import {
+  pause,
+  playTrack,
+  seekPosition,
+} from '@/spotify/spotifyPlaybackFunctions';
 import {StoryProps} from '@/demo/types';
+import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 
 export interface StoreProps {
   spotifyAuthCode: string;
@@ -29,6 +35,7 @@ export interface StoreProps {
   resetSpotifyCodes: () => void;
   currentlyPlaying: string;
   play: PlayFunction;
+  seek: (position: number) => Promise<void>;
   pause: PauseFunction;
   spotifyDeviceId: string;
   setSpotifyDeviceId: (deviceId: string) => void;
@@ -36,6 +43,8 @@ export interface StoreProps {
   setSelectedTrack: (props: SelectedTrack) => void;
   playingTrack: PlayingTrack;
   setPlayingTrack: (props: PlayingTrack) => void;
+  shortPostDraft: Partial<ShortPostDraft>;
+  setShortPostDraft: (post: Partial<ShortPostDraft>) => void;
 }
 
 export const useStore = create<StoreProps>()(
@@ -90,6 +99,15 @@ export const useStore = create<StoreProps>()(
         throw error;
       }
     },
+    seek: async (position: number) => {
+      const accessToken = useStore.getState().spotifyAccessToken;
+      const deviceId = useStore.getState().spotifyDeviceId;
+      try {
+        await seekPosition(accessToken, deviceId, {position});
+      } catch (error) {
+        throw error;
+      }
+    },
     pause: async (): Promise<void> => {
       const accessToken = useStore.getState().spotifyAccessToken;
       const deviceId = useStore.getState().spotifyDeviceId;
@@ -110,6 +128,9 @@ export const useStore = create<StoreProps>()(
     playingTrack: {position: 0, spotifyTrackId: '', paused: true, startTime: 0},
     setPlayingTrack: (props: PlayingTrack): void => {
       set(state => ({...state, playingTrack: props}));
+    },
+    setShortPostDraft: (post: Partial<ShortPostDraft>): void => {
+      set(state => ({...state, shortPostDraft: {...post}}));
     },
   })),
 );

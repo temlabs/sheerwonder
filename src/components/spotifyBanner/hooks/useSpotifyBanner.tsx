@@ -1,7 +1,9 @@
 import {PlayerWebView} from '@/components/spotifyBanner/PlayerWebView';
+import {screens} from '@/navigators/config';
+import {RootStackParamList} from '@/navigators/types';
 import {useStore} from '@/store/useStore';
 import useAccessTokenQuery from '@/tanstack/queries/useAccessTokenQuery';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
 
 const DEFAULT_BANNER_TEXT = 'Connect to Spotify to start listening';
@@ -17,8 +19,9 @@ function useSpotify(authCode: string) {
   const navigation = useNavigation();
   const authCodeInStore = useStore.getState().spotifyAuthCode;
 
-  const openLoginModal = () => navigation.navigate('SpotifyLoginModal');
-  const openLogoutModal = () => navigation.navigate('SpotifyLogoutModal');
+  const openLoginModal = () => navigation.navigate(screens.SPOTIFY_LOGIN_MODAL);
+  const openLogoutModal = () =>
+    navigation.navigate(screens.SPOTIFY_LOGOUT_MODAL);
 
   const {
     data: accessToken,

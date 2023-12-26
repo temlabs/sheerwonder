@@ -11,10 +11,13 @@ import {useStore} from '@/store/useStore';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ParamListBase} from '@react-navigation/native';
 import {SpotifyBanner} from './SpotifyBanner';
-import {TAB_BAR_HEIGHT} from '@/navigators/config';
+import {TAB_BAR_HEIGHT, screens} from '@/navigators/config';
 
 export function SpotifyLoginModal(
-  props: NativeStackScreenProps<ParamListBase, 'SpotifyLoginModal'>,
+  props: NativeStackScreenProps<
+    ParamListBase,
+    typeof screens.SPOTIFY_LOGIN_MODAL
+  >,
 ): React.JSX.Element {
   const [spotifyBannerText, setSpotifyBannerText] = useState(
     'Back to sheerwonder',
