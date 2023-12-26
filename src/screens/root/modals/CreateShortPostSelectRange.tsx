@@ -23,6 +23,7 @@ import {
   convertMillisecondsToTimestamp,
   convertTimestampToMilliseconds,
 } from '@/components/rangeSelector/functions/utlilityFunctions';
+import {PrimaryButton} from '@/components/buttons/PrimaryButton';
 
 export function CreateShortPostSelectRange({
   navigation,
@@ -137,6 +138,8 @@ export function CreateShortPostSelectRange({
   const trackArtist = track.artists.map(a => a.name).join(', ');
   const trackArtwork = track.album.images[0].url;
 
+  const goToCreateShortPostWrite = () => {};
+
   return (
     <View
       style={[
@@ -192,9 +195,11 @@ export function CreateShortPostSelectRange({
         />
       </View>
       <View style={bottomBarStyle}>
-        <TouchableOpacity>
-          <Text style={buttonTextStyle}>Write your post</Text>
-        </TouchableOpacity>
+        <PrimaryButton
+          text={'Write your post'}
+          onPress={goToCreateShortPostWrite}
+          disabled={false}
+        />
       </View>
     </View>
   );
@@ -204,7 +209,7 @@ const topViewStyle: ViewStyle = {
   maxHeight: '100%',
   overflow: 'hidden',
   justifyContent: 'space-between',
-  gap: 50,
+  gap: 30,
 };
 
 const timeWheelStyle: ViewStyle = {
@@ -237,6 +242,10 @@ const trackInfoView: ViewStyle = {
 const bottomBarStyle: ViewStyle = {
   alignItems: 'flex-end',
   justifyContent: 'center',
+  flexGrow: 1,
+
+  // height: 90,
+  // backgroundColor: 'yellow',
 };
 
 const buttonTextStyle: TextStyle = {

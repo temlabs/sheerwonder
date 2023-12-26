@@ -9,7 +9,7 @@ interface Props {
   disabled?: boolean;
 }
 
-export function ActionButton({onPress, text, disabled}: Props) {
+export function PrimaryButton({onPress, text, disabled}: Props) {
   return (
     <TouchableOpacity
       style={buttonStyle(disabled)}
@@ -24,10 +24,9 @@ const buttonStyle: (disabled?: boolean) => ViewStyle = disabled => ({
   //   width: '100%',
   width: 'auto',
   paddingVertical: 10,
-  paddingHorizontal: 15,
-  backgroundColor:
-    disabled === true ? colors.BACKGROUND_BORDER : colors.BACKGROUND_LIGHT,
-  borderRadius: 10,
+  paddingHorizontal: 20,
+  backgroundColor: disabled === true ? colors.PRIMARY_DARK : colors.PRIMARY,
+  borderRadius: 20,
 });
 
 const textStyle: (disabled?: boolean) => TextStyle = disabled => ({
