@@ -1,16 +1,11 @@
 import React from 'react';
 import {View, ViewStyle, TouchableOpacity, Text, TextStyle} from 'react-native';
 import {modalViewStyle} from './styles';
-import {TimeWheel} from '@/components/timeWheel/TimeWheel';
+import {RangeSelector} from '@/components/rangeSelector/RangeSelector';
 import {useHeaderHeight} from '@react-navigation/elements';
 import colors from '@/theme/colors';
-import {ValueWithLabel} from '@/components/timeWheel/ValueWithLabel';
-import {
-  convertMillisecondsToTimestamp,
-  convertTimestampToMilliseconds,
-} from '@/components/timeWheel/functions';
-import {useSharedValue} from 'react-native-reanimated';
-import {MAXIMUM_POST_TIME_MS, SHORT_POST_ID} from '@/config/postConfig';
+import {AnimatedTextLabel} from '@/components/rangeSelector/AnimatedTextLabel';
+import {SHORT_POST_ID} from '@/config/postConfig';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {screens} from '@/navigators/config';
 import {RootStackParamList} from '@/navigators/types';
@@ -18,6 +13,7 @@ import {TrackCard} from '@/components/trackCard/TrackCard';
 import {useStore} from '@/store/useStore';
 import {isCurrentlyPlaying} from '@/spotify/spotifyPlaybackFunctions';
 import {ActionButton} from '@/components/buttons/ActionButton';
+import {useRangeSelector} from '@/components/rangeSelector/hooks/useRangeSelector';
 
 export function CreateShortPostSelectRange({
   navigation,
@@ -34,41 +30,61 @@ export function CreateShortPostSelectRange({
   const track = route.params.track;
   const duration = track.duration_ms;
 
-  const initialStart = shortPostDraft.in
-    ? Math.round(shortPostDraft.in / track.duration_ms)
-    : 0;
-  const initialEnd = shortPostDraft.out
-    ? Math.round(shortPostDraft.out / track.duration_ms)
-    : 0;
-  console.debug({initialStart, initialEnd});
-  const from = useSharedValue<string>('00:00');
-  const to = useSharedValue<string>(
-    convertMillisecondsToTimestamp(Math.min(duration, MAXIMUM_POST_TIME_MS)),
+  const trackIsPlaying = isCurrentlyPlaying(
+    track.id,
+    SHORT_POST_ID,
+    selectedTrack,
+    playingTrack,
   );
-  const headerHeight = useHeaderHeight();
 
-  const updateFromAndTo = async (startPos: number, endPos: number) => {
+  const updateFromAndTo = async (startPerc: number, endPerc: number) => {
     // write to store and play track if it was playing
-    const newIn = Math.round(duration * startPos);
-    const newOut = Math.round(duration * endPos);
+    const newIn = Math.round(duration * startPerc);
+    const newOut = Math.round(duration * endPerc);
     const inHasChanged = shortPostDraft?.in !== newIn;
+    console.debug({newIn, inHasChanged});
     setShortPostDraft({
       ...shortPostDraft,
       in: newIn,
       out: newOut,
     });
-    const trackIsPlaying = isCurrentlyPlaying(
-      track.id,
-      SHORT_POST_ID,
-      selectedTrack,
-      playingTrack,
-    );
+
     if (trackIsPlaying && inHasChanged) {
       await seek(newIn);
     }
   };
 
-  const punchInAtCurrentTime = () => {};
+  const {
+    fromTimestamp,
+    gesture,
+    height,
+    onLayout,
+    toTimestamp,
+    top,
+    rangeSelectorHeight,
+  } = useRangeSelector({
+    initialInPerc: (shortPostDraft?.in ?? 0) / duration,
+    initialOutPerc: (shortPostDraft?.out ?? 1) / duration,
+    onRangeChange: updateFromAndTo,
+    track,
+  });
+
+  const headerHeight = useHeaderHeight();
+
+  const punchInAtCurrentTime = async () => {
+    if (!rangeSelectorHeight) {
+      return;
+    }
+    const timeDelta = Date.now() - playingTrack.startTime;
+    const timeDeltaPerc = timeDelta / duration;
+    const heightDelta = timeDeltaPerc * rangeSelectorHeight;
+    top.value = top.value + heightDelta;
+    height.value = height.value - heightDelta;
+    await updateFromAndTo(
+      top.value / rangeSelectorHeight,
+      (top.value + height.value) / rangeSelectorHeight,
+    );
+  };
   const punchOutAtCurrentTime = () => {};
 
   const trackArtist = track.artists.map(a => a.name).join(', ');
@@ -86,22 +102,28 @@ export function CreateShortPostSelectRange({
       <View style={infoSliderContainer}>
         <View style={infoContainer}>
           <View style={timestampsContainer}>
-            <ValueWithLabel label="From" value={from} />
-            <ValueWithLabel label="To" value={to} />
+            <AnimatedTextLabel label="From" value={fromTimestamp} />
+            <AnimatedTextLabel label="To" value={toTimestamp} />
           </View>
           <View style={buttonsContainer}>
-            <ActionButton text="Punch in" onPress={punchInAtCurrentTime} />
-            <ActionButton text="Punch out" onPress={punchOutAtCurrentTime} />
+            <ActionButton
+              text="Punch in"
+              onPress={punchInAtCurrentTime}
+              disabled={trackIsPlaying === false}
+            />
+            <ActionButton
+              text="Punch out"
+              onPress={punchOutAtCurrentTime}
+              disabled={trackIsPlaying === false}
+            />
           </View>
         </View>
         <View style={timeWheelStyle}>
-          <TimeWheel
-            onEnd={updateFromAndTo}
-            duration={duration}
-            startPos={from}
-            endPos={to}
-            initialEnd={initialEnd}
-            initialStart={initialStart}
+          <RangeSelector
+            gesture={gesture}
+            height={height}
+            onLayout={onLayout}
+            top={top}
           />
         </View>
       </View>

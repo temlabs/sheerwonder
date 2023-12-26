@@ -8,7 +8,7 @@ interface Props {
   value: SharedValue<string>;
 }
 Animated.addWhitelistedNativeProps({text: true});
-export function ValueWithLabel({value, label}: Props) {
+export function AnimatedTextLabel({value, label}: Props) {
   const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
   const animatedProps = useAnimatedProps(() => {
     return {
