@@ -10,6 +10,8 @@ import {modalViewStyle} from './styles';
 import {screens} from '@/navigators/config';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@/navigators/types';
+import {useStore} from '@/store/useStore';
+import {DEFAULT_IN_PERC, DEFAULT_OUT_PERC} from '@/config/postConfig';
 
 export function CreateShortPostSearch({
   navigation,
@@ -17,20 +19,30 @@ export function CreateShortPostSearch({
   RootStackParamList,
   typeof screens.CREATE_SHORT_POST_SEARCH
 >) {
+  const setShortPostDraft = useStore(state => state.setShortPostDraft);
+  const shortPostDraft = useStore(state => state.shortPostDraft);
   const {onSearchTermChange, searchResults, searchTerm} = useSpotifySearch();
+
+  const goToRangeSelectScreen = (track: SpotifyTrack) => {
+    const differentTrack = track.id !== shortPostDraft.track?.id;
+    if (differentTrack) {
+      //use defaults
+      setShortPostDraft({
+        track,
+        in: DEFAULT_IN_PERC * track.duration_ms,
+        out: DEFAULT_OUT_PERC * track.duration_ms,
+      });
+    }
+    navigation.navigate(screens.CREATE_SHORT_POST_SELECT_RANGE, {
+      track,
+    });
+  };
 
   const renderItem: ListRenderItem<SpotifyTrack | undefined> = ({
     item: track,
   }) => {
     return track ? (
-      <TrackButton
-        {...track}
-        onPress={() =>
-          navigation.navigate(screens.CREATE_SHORT_POST_SELECT_RANGE, {
-            track,
-          })
-        }
-      />
+      <TrackButton {...track} onPress={() => goToRangeSelectScreen(track)} />
     ) : (
       <></>
     );

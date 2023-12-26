@@ -5,7 +5,7 @@ import {RangeSelector} from '@/components/rangeSelector/RangeSelector';
 import {useHeaderHeight} from '@react-navigation/elements';
 import colors from '@/theme/colors';
 import {AnimatedTextLabel} from '@/components/rangeSelector/AnimatedTextLabel';
-import {SHORT_POST_ID} from '@/config/postConfig';
+import {DEFAULT_IN_PERC, SHORT_POST_ID} from '@/config/postConfig';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {screens} from '@/navigators/config';
 import {RootStackParamList} from '@/navigators/types';
@@ -14,6 +14,10 @@ import {useStore} from '@/store/useStore';
 import {isCurrentlyPlaying} from '@/spotify/spotifyPlaybackFunctions';
 import {ActionButton} from '@/components/buttons/ActionButton';
 import {useRangeSelector} from '@/components/rangeSelector/hooks/useRangeSelector';
+import {
+  convertMillisecondsToTimestamp,
+  convertTimestampToMilliseconds,
+} from '@/components/rangeSelector/functions/utlilityFunctions';
 
 export function CreateShortPostSelectRange({
   navigation,
@@ -42,7 +46,7 @@ export function CreateShortPostSelectRange({
     const newIn = Math.round(duration * startPerc);
     const newOut = Math.round(duration * endPerc);
     const inHasChanged = shortPostDraft?.in !== newIn;
-    console.debug({newIn, inHasChanged});
+    console.debug({shortPostDraft, newIn, inHasChanged});
     setShortPostDraft({
       ...shortPostDraft,
       in: newIn,
@@ -64,7 +68,8 @@ export function CreateShortPostSelectRange({
     rangeSelectorHeight,
   } = useRangeSelector({
     initialInPerc: (shortPostDraft?.in ?? 0) / duration,
-    initialOutPerc: (shortPostDraft?.out ?? 1) / duration,
+    initialOutPerc:
+      shortPostDraft?.out !== undefined ? shortPostDraft?.out / duration : 0.5,
     onRangeChange: updateFromAndTo,
     track,
   });
@@ -77,11 +82,17 @@ export function CreateShortPostSelectRange({
     }
     const timeDelta = Date.now() - playingTrack.startTime;
     const timeDeltaPerc = timeDelta / duration;
+
     const heightDelta = timeDeltaPerc * rangeSelectorHeight;
     top.value = top.value + heightDelta;
     height.value = height.value - heightDelta;
+    fromTimestamp.value = convertMillisecondsToTimestamp(
+      convertTimestampToMilliseconds(fromTimestamp.value) + timeDelta,
+    );
     await updateFromAndTo(
-      top.value / rangeSelectorHeight,
+      shortPostDraft?.in !== undefined
+        ? (shortPostDraft.in + timeDelta) / duration
+        : DEFAULT_IN_PERC,
       (top.value + height.value) / rangeSelectorHeight,
     );
   };
@@ -137,7 +148,11 @@ export function CreateShortPostSelectRange({
           trackName={track.name}
           key={track.id}
           timeIn={shortPostDraft?.in}
-          timeOut={shortPostDraft?.out}
+          timeOut={
+            shortPostDraft?.out !== undefined
+              ? shortPostDraft?.out
+              : 0.5 * duration
+          }
         />
       </View>
       <View style={bottomBarStyle}>
