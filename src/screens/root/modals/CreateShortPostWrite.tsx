@@ -15,8 +15,9 @@ export function CreateShortPostWrite({}: NativeStackScreenProps<
   RootStackParamList,
   typeof screens.CREATE_SHORT_POST_WRITE
 >) {
-  const [inputText, setInputText] = useState('');
   const shortPostDraft = useStore(state => state.shortPostDraft);
+
+  const [inputText, setInputText] = useState(shortPostDraft?.text ?? '');
   const setShortPostDraft = useStore(state => state.setShortPostDraft);
   const track = shortPostDraft.track;
   const duration = track?.duration_ms;
@@ -28,6 +29,7 @@ export function CreateShortPostWrite({}: NativeStackScreenProps<
 
   const onChangeText = (text: string) => {
     setInputText(text);
+    setShortPostDraft({...shortPostDraft, text: inputText});
   };
 
   const onBlur = (text: string) => {

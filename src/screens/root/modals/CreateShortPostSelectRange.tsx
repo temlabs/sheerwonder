@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ViewStyle, TouchableOpacity, Text, TextStyle} from 'react-native';
+import {View, ViewStyle} from 'react-native';
 import {modalViewStyle} from './styles';
 import {RangeSelector} from '@/components/rangeSelector/RangeSelector';
 import {useHeaderHeight} from '@react-navigation/elements';
@@ -245,13 +245,6 @@ const bottomBarStyle: ViewStyle = {
   alignItems: 'flex-end',
   justifyContent: 'center',
   flexGrow: 1,
-
-  // height: 90,
-  // backgroundColor: 'yellow',
-};
-
-const buttonTextStyle: TextStyle = {
-  color: colors.TEXT_PRIMARY,
 };
 
 const timestampsContainer: ViewStyle = {};

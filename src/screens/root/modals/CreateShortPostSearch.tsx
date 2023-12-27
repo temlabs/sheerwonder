@@ -31,6 +31,7 @@ export function CreateShortPostSearch({
         track,
         in: DEFAULT_IN_PERC * track.duration_ms,
         out: DEFAULT_OUT_PERC * track.duration_ms,
+        text: '',
       });
     }
     navigation.navigate(screens.CREATE_SHORT_POST_SELECT_RANGE, {
