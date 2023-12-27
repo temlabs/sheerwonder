@@ -1,13 +1,13 @@
-import {CommentProps, StoryProps} from '@/demo/types';
+import {ShortPostProps, StoryProps} from '@/demo/types';
 
 export const isComment = (
-  post: CommentProps | StoryProps,
-): post is CommentProps => {
+  post: ShortPostProps | StoryProps,
+): post is ShortPostProps => {
   return post.type === 'comment';
 };
 
 export const isStory = (
-  post: CommentProps | StoryProps,
+  post: ShortPostProps | StoryProps,
 ): post is StoryProps => {
   return post.type === 'story';
 };

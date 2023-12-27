@@ -1,33 +1,24 @@
-import React, {useCallback, useState} from 'react';
-import {
-  FlatList,
-  ListRenderItem,
-  ScrollView,
-  View,
-  ViewStyle,
-} from 'react-native';
+import React, {useCallback} from 'react';
+import {FlatList, ListRenderItem, View, ViewStyle} from 'react-native';
 import {Comment} from '@/components/comment/Comment';
-import {posts} from '@/demo/posts';
-import {HomeDrawerProps, HomeScreenProps} from '@/screens/types';
+import {HomeScreenProps} from '@/screens/types';
 import {FeedFilterBar} from './components/FeedFilterBar';
 import {TAB_BAR_HEIGHT, screens} from '@/navigators/config';
 import {isComment, isStory} from '@/utils/feedUtils';
 import {StoryCard} from '@/components/story/StoryCard';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {HomeParamList} from '@/navigators/types';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Text} from 'react-native';
-import {CommentProps, StoryProps} from '@/demo/types';
-import {CircleButton} from '@/components/buttons/CircleButton';
+import {ShortPostProps, StoryProps} from '@/demo/types';
 import {CreatePostButton} from '@/components/buttons/CreatePostButton';
-import {CreateShortPost} from '@/screens/root/modals/CreateShortPostSearch';
+import usePostQuery from '@/tanstack/queries/usePostsQuery';
 
 export function HomeScreen({
   navigation,
 }: HomeScreenProps<HomeParamList>): JSX.Element {
   const bottomTabBarHeight = useBottomTabBarHeight();
+  const {data: posts} = usePostQuery();
 
-  const renderItem: ListRenderItem<CommentProps | StoryProps> = useCallback(
+  const renderItem: ListRenderItem<ShortPostProps | StoryProps> = useCallback(
     item => {
       const post = item.item;
       if (isComment(post)) {
@@ -44,11 +35,6 @@ export function HomeScreen({
   return (
     <>
       <FeedFilterBar navigation={navigation} />
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate(screens.THREAD, {commentId: 'abc'})}>
-        <Text>Go to other screen</Text>
-      </TouchableOpacity>
 
       <FlatList
         style={scrollViewStyle}

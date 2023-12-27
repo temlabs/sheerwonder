@@ -10,7 +10,7 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {CommentProps, TrackProps} from '@/demo/types';
+import {ShortPostProps, TrackProps} from '@/demo/types';
 import colors from '@/theme/colors';
 
 import {LinearGradientBackground} from '../LinearGradientBackground';
@@ -24,7 +24,7 @@ import {TouchableOpacity} from 'react-native';
 import {TrackDetails} from './TrackDetails';
 
 type Props = TrackProps &
-  Pick<CommentProps, 'timeIn' | 'timeOut' | 'id'> & {transparent?: boolean};
+  Pick<ShortPostProps, 'timeIn' | 'timeOut' | 'id'> & {transparent?: boolean};
 
 export function TrackCard({
   trackArtist,

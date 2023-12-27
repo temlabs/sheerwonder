@@ -10,12 +10,19 @@ import colors from '@/theme/colors';
 import {TrackCard} from '@/components/trackCard/TrackCard';
 import {MAX_CHARACTER_COUNT, SHORT_POST_ID} from '@/config/postConfig';
 import {PrimaryButton} from '@/components/buttons/PrimaryButton';
+import {useAddPostMutation} from '@/tanstack/mutations/useAddPostMutation';
+import {ShortPostProps} from '@/demo/types';
+import {users} from '@/demo/users';
 
-export function CreateShortPostWrite({}: NativeStackScreenProps<
+export function CreateShortPostWrite({
+  navigation,
+}: NativeStackScreenProps<
   RootStackParamList,
   typeof screens.CREATE_SHORT_POST_WRITE
 >) {
   const shortPostDraft = useStore(state => state.shortPostDraft);
+
+  const {mutate: addPost} = useAddPostMutation();
 
   const [inputText, setInputText] = useState(shortPostDraft?.text ?? '');
   const setShortPostDraft = useStore(state => state.setShortPostDraft);
@@ -36,7 +43,29 @@ export function CreateShortPostWrite({}: NativeStackScreenProps<
     setShortPostDraft({...shortPostDraft, text});
   };
 
-  const publishPost = () => {};
+  const publishPost = () => {
+    const shortPost: ShortPostProps = {
+      id: 'needtocreatethis' + track?.id + Date.now(),
+      replies: 0,
+      saves: 0,
+      text: inputText.trim(),
+      track: {
+        duration: duration ?? 0,
+        spotifyId: track?.id ?? '',
+        trackArtist,
+        trackArtwork,
+        trackName: track?.name ?? '',
+      },
+      type: 'comment',
+      upvotes: 0,
+      user: users[users.length - 1],
+      timeIn: shortPostDraft.in,
+      timeOut: shortPostDraft.out,
+    };
+
+    addPost(shortPost);
+    navigation.navigate(screens.HOME);
+  };
 
   const stringLength = [...inputText.trim()].length;
   const characterCountText = `${stringLength}/${MAX_CHARACTER_COUNT}`;
@@ -89,7 +118,11 @@ export function CreateShortPostWrite({}: NativeStackScreenProps<
           <></>
         )}
         <View style={primaryButtonView}>
-          <PrimaryButton text={'Post'} onPress={publishPost} />
+          <PrimaryButton
+            text={'Publish!'}
+            onPress={publishPost}
+            disabled={textIsOverLimit || !inputText}
+          />
         </View>
       </View>
     </View>

@@ -4,9 +4,9 @@ export interface UserProps {
   profilePicture: string;
 }
 
-export type PostType = 'story' | 'comment';
+export type PostType = 'story' | 'shortPost';
 
-export interface CommentProps {
+export interface ShortPostProps {
   id: string;
   type: PostType;
   track: TrackProps;
