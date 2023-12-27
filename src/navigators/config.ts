@@ -25,6 +25,11 @@ export const screens = {
   EDIT_FEED: 'EditFeed',
   THREAD: 'Thread',
   STORY: 'Story',
+  SPOTIFY_LOGIN_MODAL: 'SpotifyLoginModal',
+  SPOTIFY_LOGOUT_MODAL: 'SpotifyLogoutModal',
+  CREATE_SHORT_POST_SEARCH: 'CreateShortPostSearch',
+  CREATE_SHORT_POST_SELECT_RANGE: 'CreateShortPostSelectRange',
+  CREATE_SHORT_POST_WRITE: 'CreateShortPostWrite',
 } as const;
 
 export const defaultStackNavigatorOptions: NativeStackNavigationOptions = {

@@ -1,19 +1,27 @@
 import {PlayerWebView} from '@/components/spotifyBanner/PlayerWebView';
+import {screens} from '@/navigators/config';
+import {RootStackParamList} from '@/navigators/types';
 import {useStore} from '@/store/useStore';
 import useAccessTokenQuery from '@/tanstack/queries/useAccessTokenQuery';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
 
 const DEFAULT_BANNER_TEXT = 'Connect to Spotify to start listening';
 
-type SpotifyState = 'CONNECTED' | 'CONNECTING' | 'ERROR' | 'DISCONNECTED';
+type SpotifyState =
+  | 'CONNECTED'
+  | 'CONNECTING'
+  | 'NO_PLAYER'
+  | 'ERROR'
+  | 'DISCONNECTED';
 
 function useSpotify(authCode: string) {
   const navigation = useNavigation();
   const authCodeInStore = useStore.getState().spotifyAuthCode;
 
-  const openLoginModal = () => navigation.navigate('SpotifyLoginModal');
-  const openLogoutModal = () => navigation.navigate('SpotifyLogoutModal');
+  const openLoginModal = () => navigation.navigate(screens.SPOTIFY_LOGIN_MODAL);
+  const openLogoutModal = () =>
+    navigation.navigate(screens.SPOTIFY_LOGOUT_MODAL);
 
   const {
     data: accessToken,
@@ -24,16 +32,18 @@ function useSpotify(authCode: string) {
 
   const spotifyDeviceId = useStore(s => s.spotifyDeviceId);
 
-  // console.debug({
-  //   accessTokenIsFetching,
-  //   accessTokenError,
-  //   authCode: !!authCode,
-  //   accessToken: !!accessToken,
-  // });
-
+  console.debug({
+    accessTokenIsFetching,
+    accessTokenError,
+    authCode: !!authCode,
+    accessToken: !!accessToken,
+  });
+  console.log({accessTokenIsFetching, accessTokenError, spotifyDeviceId});
   const spotifyState: SpotifyState =
     authCodeInStore === ''
       ? 'DISCONNECTED'
+      : accessToken && spotifyDeviceId === ''
+      ? 'NO_PLAYER'
       : accessTokenIsFetching
       ? 'CONNECTING'
       : accessToken && spotifyDeviceId
@@ -56,6 +66,10 @@ function useSpotify(authCode: string) {
     case 'DISCONNECTED':
       onSpotifyBannerPress = openLoginModal;
       spotifyBannerText = DEFAULT_BANNER_TEXT;
+      break;
+    case 'NO_PLAYER':
+      onSpotifyBannerPress = openLogoutModal;
+      spotifyBannerText = "You're in watch-mode. Tap to disconnect";
       break;
     case 'ERROR':
       onSpotifyBannerPress = openLoginModal;

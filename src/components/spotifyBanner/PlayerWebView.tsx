@@ -21,6 +21,8 @@ export function PlayerWebView({
       onDeviceIdMessage(message);
     } else if (message.startsWith('playbackStateChanged')) {
       onPlaybackStateChangeMessage(message);
+    } else {
+      console.log('web view log: ', message);
     }
   };
 

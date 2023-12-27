@@ -1,8 +1,8 @@
 import {tracks} from './tracks';
-import {CommentProps, StoryProps} from './types';
+import {ShortPostProps, StoryProps} from './types';
 import {users} from './users';
 
-export const posts: (CommentProps | StoryProps)[] = [
+export const posts: (ShortPostProps | StoryProps)[] = [
   {
     id: 'abc',
     type: 'comment',

@@ -1,13 +1,13 @@
 import React from 'react';
 import {View, Image, ImageStyle, ViewStyle, Text} from 'react-native';
-import {CommentProps} from '@/demo/types';
+import {ShortPostProps} from '@/demo/types';
 import {styles} from '@/theme/styles';
 import {UserAvatar} from '../UserAvatar';
 import {UserTitle} from '../comment/UserTitle';
 import {CommentText} from '../comment/CommentText';
 import {TrackCard} from '../trackCard/TrackCard';
 
-export function ThreadHead(props: CommentProps): JSX.Element {
+export function ThreadHead(props: ShortPostProps): JSX.Element {
   const user = props.user;
   const track = props.track;
 

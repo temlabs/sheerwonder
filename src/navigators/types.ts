@@ -1,11 +1,16 @@
 import {screens, stacks} from '@/navigators/config';
+import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 
 export type ScreenName = (typeof screens)[keyof typeof screens];
 export type StackName = (typeof stacks)[keyof typeof stacks];
 
-type RootStackParamList = {
-  Tab: undefined;
-  SpotifyLoginModal: undefined;
+export type RootStackParamList = {
+  [screens.CREATE_SHORT_POST_SELECT_RANGE]: {track: SpotifyTrack};
+  [screens.CREATE_SHORT_POST_SEARCH]: {};
+  [screens.SPOTIFY_LOGOUT_MODAL]: {};
+  [screens.SPOTIFY_LOGIN_MODAL]: {};
+  [screens.CREATE_SHORT_POST_WRITE]: {};
+  Tab: {};
 };
 
 type SpecificParamsBase = {

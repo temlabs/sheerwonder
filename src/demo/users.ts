@@ -63,4 +63,12 @@ export const users = [
       'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fHByb2ZpbGUlMjBwaWN8ZW58MHx8MHx8fDA%3D',
     isFollower: false,
   },
+  {
+    id: 'goodTaste',
+    userName: 'goodTaste',
+    displayName: 'good taste',
+    profilePicture:
+      'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    isFollower: false,
+  },
 ];

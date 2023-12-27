@@ -7,7 +7,7 @@ import {
   Image,
   ImageStyle,
 } from 'react-native';
-import {CommentProps} from '@/demo/types';
+import {ShortPostProps} from '@/demo/types';
 import colors from '@/theme/colors';
 import {TrackCard} from '../trackCard/TrackCard';
 import {CommentStatBar} from './CommentStatBar';
@@ -29,7 +29,7 @@ export function Comment({
   replies,
   saves,
   upvotes,
-}: CommentProps): JSX.Element {
+}: ShortPostProps): JSX.Element {
   const navigation = useNavigation();
   const goToCommentThread = () => {
     navigation.navigate(screens.THREAD, {commentId: id});

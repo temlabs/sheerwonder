@@ -129,7 +129,7 @@ const refreshAccessToken = async (refreshtoken: string) => {
     expiresIn: resData.expires_in,
     refreshToken: resData.refresh_token,
   };
-  console.log('returning');
+  console.log('returning', authTokens);
   return authTokens;
 };
 

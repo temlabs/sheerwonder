@@ -10,7 +10,7 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {CommentProps, TrackProps} from '@/demo/types';
+import {ShortPostProps, TrackProps} from '@/demo/types';
 import colors from '@/theme/colors';
 
 import {LinearGradientBackground} from '../LinearGradientBackground';
@@ -21,9 +21,10 @@ import {Play} from '../icons/Play';
 import PlayingBarsAnimation from './PlayingBarsAnimation';
 import RippleButton from '../buttons/Ripplebutton';
 import {TouchableOpacity} from 'react-native';
+import {TrackDetails} from './TrackDetails';
 
 type Props = TrackProps &
-  Pick<CommentProps, 'timeIn' | 'timeOut' | 'id'> & {transparent?: boolean};
+  Pick<ShortPostProps, 'timeIn' | 'timeOut' | 'id'> & {transparent?: boolean};
 
 export function TrackCard({
   trackArtist,
@@ -118,27 +119,7 @@ export function TrackCard({
               style={coverArtImageStyle}
               source={{uri: trackArtwork, width: 20, height: 20}}
             />
-            <View style={trackDetailsView}>
-              <Text
-                style={trackNameStyle}
-                ellipsizeMode="tail"
-                numberOfLines={1}>
-                {trackName}
-              </Text>
-              <Text
-                style={trackArtistStyle}
-                ellipsizeMode="tail"
-                numberOfLines={1}>
-                {trackArtist}
-              </Text>
-            </View>
-            {/* <Play
-              width={25}
-              height={25}
-              opacity={0.5}
-              fill={colors.TEXT_WHITE}
-              style={{marginRight: 20}}
-            /> */}
+            <TrackDetails trackArtist={trackArtist} trackName={trackName} />
 
             <View style={{height: 20, width: 24}}>
               {/* <PlayingBarsAnimation isPlaying={thisTrackIsPlaying} /> */}
@@ -188,28 +169,6 @@ const gradientBackgroundStyle: (
   alignSelf: 'center',
   opacity: transparent ? 0.7 : 1,
 });
-
-const trackDetailsView: ViewStyle = {
-  flexDirection: 'column',
-  gap: 5,
-  alignItems: 'flex-start',
-  flexWrap: 'wrap',
-  overflow: 'hidden',
-  flex: 1,
-};
-
-const trackNameStyle: TextStyle = {
-  color: colors.TEXT_WHITE,
-  fontWeight: 'bold',
-  width: '100%',
-};
-const trackArtistStyle: TextStyle = {
-  flexDirection: 'row',
-  flexWrap: 'nowrap',
-  color: colors.TEXT_SECONDARY,
-  opacity: 0.7,
-  flex: 1,
-};
 
 const coverArtImageStyle: ImageStyle = {
   width: 50,
