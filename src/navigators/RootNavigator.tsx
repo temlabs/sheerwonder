@@ -9,6 +9,7 @@ import {screens} from './config';
 import {CreateShortPostSelectRange} from '@/screens/root/modals/CreateShortPostSelectRange';
 import colors from '@/theme/colors';
 import {RootStackParamList} from './types';
+import {CreateShortPostWrite} from '@/screens/root/modals/CreateShortPostWrite';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -59,6 +60,19 @@ function RootNavigator() {
             contentStyle: {opacity: 1},
             headerShown: true,
             headerTitle: 'Select a range',
+            headerTransparent: true,
+            headerTintColor: colors.TEXT_PRIMARY,
+          }}
+        />
+        <Stack.Screen
+          name={screens.CREATE_SHORT_POST_WRITE}
+          component={CreateShortPostWrite}
+          options={{
+            presentation: 'transparentModal',
+            animation: 'fade',
+            contentStyle: {opacity: 1},
+            headerShown: true,
+            headerTitle: 'Write your post',
             headerTransparent: true,
             headerTintColor: colors.TEXT_PRIMARY,
           }}

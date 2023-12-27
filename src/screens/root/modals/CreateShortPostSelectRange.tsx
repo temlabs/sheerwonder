@@ -138,7 +138,9 @@ export function CreateShortPostSelectRange({
   const trackArtist = track.artists.map(a => a.name).join(', ');
   const trackArtwork = track.album.images[0].url;
 
-  const goToCreateShortPostWrite = () => {};
+  const goToCreateShortPostWrite = () => {
+    navigation.navigate(screens.CREATE_SHORT_POST_WRITE);
+  };
 
   return (
     <View

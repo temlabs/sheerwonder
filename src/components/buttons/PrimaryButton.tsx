@@ -30,7 +30,8 @@ const buttonStyle: (disabled?: boolean) => ViewStyle = disabled => ({
 });
 
 const textStyle: (disabled?: boolean) => TextStyle = disabled => ({
-  textAlign: 'center',
+  textAlign: 'left',
   color: colors.TEXT_WHITE,
   opacity: disabled === true ? 0.8 : 1,
+  width: 'auto',
 });

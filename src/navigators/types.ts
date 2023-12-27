@@ -9,6 +9,7 @@ export type RootStackParamList = {
   [screens.CREATE_SHORT_POST_SEARCH]: {};
   [screens.SPOTIFY_LOGOUT_MODAL]: {};
   [screens.SPOTIFY_LOGIN_MODAL]: {};
+  [screens.CREATE_SHORT_POST_WRITE]: {};
   Tab: {};
 };
 
