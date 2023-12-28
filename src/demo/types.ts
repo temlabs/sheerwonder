@@ -50,3 +50,14 @@ export interface TrackProps {
   duration: number;
   spotifyId: string;
 }
+
+export interface CommentProps {
+  id: string;
+  postId: string;
+  parent?: CommentProps;
+  text: string;
+  user: UserProps;
+  replies: number;
+}
+
+export type Thread = CommentProps[];

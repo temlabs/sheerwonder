@@ -1,9 +1,7 @@
 import {StoryProps} from '@/demo/types';
-import {HomeDrawerProps, HomeScreenProps} from '@/screens/types';
 import React from 'react';
 import {
   View,
-  Text,
   ViewStyle,
   Image,
   ImageStyle,
@@ -12,15 +10,14 @@ import {
 } from 'react-native';
 import {StoryCardTitleText} from './StoryCardTitleText';
 import {StoryCardSubtitleText} from './StoryCardSubtitleText';
-import {BlurView} from '@/react-native-community/blur';
 import {styles} from '@/theme/styles';
 import {UserAvatar} from '../UserAvatar';
-import {UserTitle} from '../comment/UserTitle';
+import {UserTitle} from '../shortPost/UserTitle';
 import colors from '@/theme/colors';
-import {CommentStatBar} from '../comment/CommentStatBar';
 import Animated from 'react-native-reanimated';
-import {screens, stacks} from '@/navigators/config';
+import {screens} from '@/navigators/config';
 import {useNavigation} from '@react-navigation/native';
+import {ShortPostStatBar} from '../shortPost/ShortPostStatBar';
 
 export function StoryCard(props: StoryProps): JSX.Element {
   const navigation = useNavigation();
@@ -75,7 +72,7 @@ export function StoryCard(props: StoryProps): JSX.Element {
             ))}
           </ScrollView>
           <View style={statsView}>
-            <CommentStatBar
+            <ShortPostStatBar
               replies={props.replies}
               saves={props.saves}
               upvotes={props.upvotes}

@@ -46,18 +46,18 @@ function RootNavigator() {
           name={screens.CREATE_SHORT_POST_SEARCH}
           component={CreateShortPostSearch}
           options={{
-            presentation: 'transparentModal',
+            presentation: 'containedTransparentModal',
             animation: 'fade',
-            contentStyle: {opacity: 1},
+            contentStyle: {opacity: 1, backgroundColor: 'rgba(0, 0, 0, 1)'},
           }}
         />
         <Stack.Screen
           name={screens.CREATE_SHORT_POST_SELECT_RANGE}
           component={CreateShortPostSelectRange}
           options={{
-            presentation: 'transparentModal',
+            presentation: 'containedTransparentModal',
             animation: 'fade',
-            contentStyle: {opacity: 1},
+            contentStyle: {opacity: 1, backgroundColor: 'rgba(0, 0, 0, 1)'},
             headerShown: true,
             headerTitle: 'Select a range',
             headerTransparent: true,
@@ -68,9 +68,9 @@ function RootNavigator() {
           name={screens.CREATE_SHORT_POST_WRITE}
           component={CreateShortPostWrite}
           options={{
-            presentation: 'transparentModal',
+            presentation: 'containedTransparentModal',
             animation: 'fade',
-            contentStyle: {opacity: 1},
+            contentStyle: {opacity: 1, backgroundColor: 'rgba(0, 0, 0, 1)'},
             headerShown: true,
             headerTitle: 'Write your post',
             headerTransparent: true,

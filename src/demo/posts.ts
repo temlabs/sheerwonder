@@ -5,7 +5,7 @@ import {users} from './users';
 export const posts: (ShortPostProps | StoryProps)[] = [
   {
     id: 'abc',
-    type: 'comment',
+    type: 'shortPost',
     track: tracks[0],
     timeIn: 152000,
     timeOut: 183000,
@@ -17,7 +17,7 @@ export const posts: (ShortPostProps | StoryProps)[] = [
   },
   {
     id: 'def',
-    type: 'comment',
+    type: 'shortPost',
     track: tracks[1],
     timeIn: 13000,
     timeOut: 32000,
@@ -66,7 +66,7 @@ export const posts: (ShortPostProps | StoryProps)[] = [
   },
   {
     id: 'ghi',
-    type: 'comment',
+    type: 'shortPost',
     track: tracks[9],
     timeIn: 113000,
     timeOut: 158000,
@@ -78,7 +78,7 @@ export const posts: (ShortPostProps | StoryProps)[] = [
   },
   {
     id: 'jkl',
-    type: 'comment',
+    type: 'shortPost',
     track: tracks[7],
     timeIn: 0,
     timeOut: 17000,
@@ -90,7 +90,7 @@ export const posts: (ShortPostProps | StoryProps)[] = [
   },
   {
     id: 'mno',
-    type: 'comment',
+    type: 'shortPost',
     track: tracks[6],
     timeIn: 133000,
     timeOut: 150000,
@@ -102,7 +102,7 @@ export const posts: (ShortPostProps | StoryProps)[] = [
   },
   {
     id: 'stu',
-    type: 'comment',
+    type: 'shortPost',
     track: tracks[3],
     timeIn: 108000,
     timeOut: 140000,
@@ -114,7 +114,7 @@ export const posts: (ShortPostProps | StoryProps)[] = [
   },
   {
     id: 'xyz',
-    type: 'comment',
+    type: 'shortPost',
     track: tracks[4],
     timeIn: 310000,
     timeOut: 350000,
@@ -126,7 +126,7 @@ export const posts: (ShortPostProps | StoryProps)[] = [
   },
   {
     id: 'vwx',
-    type: 'comment',
+    type: 'shortPost',
     track: tracks[10],
     timeIn: 23000,
     timeOut: 153000,

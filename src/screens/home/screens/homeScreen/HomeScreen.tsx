@@ -1,28 +1,28 @@
 import React, {useCallback} from 'react';
 import {FlatList, ListRenderItem, View, ViewStyle} from 'react-native';
-import {Comment} from '@/components/comment/Comment';
-import {HomeScreenProps} from '@/screens/types';
+import {ShortPostListItem} from '@/components/shortPost/ShortPostListItem';
 import {FeedFilterBar} from './components/FeedFilterBar';
 import {TAB_BAR_HEIGHT, screens} from '@/navigators/config';
-import {isComment, isStory} from '@/utils/feedUtils';
+import {isShortPost, isStory} from '@/utils/feedUtils';
 import {StoryCard} from '@/components/story/StoryCard';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {HomeParamList} from '@/navigators/types';
 import {ShortPostProps, StoryProps} from '@/demo/types';
 import {CreatePostButton} from '@/components/buttons/CreatePostButton';
 import usePostQuery from '@/tanstack/queries/usePostsQuery';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export function HomeScreen({
   navigation,
-}: HomeScreenProps<HomeParamList>): JSX.Element {
+}: NativeStackScreenProps<HomeParamList, typeof screens.HOME>): JSX.Element {
   const bottomTabBarHeight = useBottomTabBarHeight();
   const {data: posts} = usePostQuery();
 
   const renderItem: ListRenderItem<ShortPostProps | StoryProps> = useCallback(
     item => {
       const post = item.item;
-      if (isComment(post)) {
-        return <Comment key={post.id} {...post} />;
+      if (isShortPost(post)) {
+        return <ShortPostListItem key={post.id} {...post} />;
       } else if (isStory(post)) {
         return <StoryCard key={post.id} {...post} />;
       } else {
@@ -34,7 +34,7 @@ export function HomeScreen({
 
   return (
     <>
-      <FeedFilterBar navigation={navigation} />
+      {/* <FeedFilterBar navigation={navigation} /> */}
 
       <FlatList
         style={scrollViewStyle}
@@ -45,7 +45,7 @@ export function HomeScreen({
         ]}
         maxToRenderPerBatch={5}
         keyExtractor={item => item.id}
-        data={posts}
+        data={posts ?? []}
         renderItem={renderItem}
       />
       <View style={[postButton, {bottom: bottomTabBarHeight + 20}]}>

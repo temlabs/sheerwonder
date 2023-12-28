@@ -1,13 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  ViewStyle,
-  Text,
-  TextStyle,
-  Image,
-  ImageStyle,
-  TouchableOpacity,
-} from 'react-native';
+import {View, ViewStyle, Text, TextStyle, TouchableOpacity} from 'react-native';
 import {Upvote} from '../icons/Upvote';
 import colors from '@/theme/colors';
 import {Reply} from '../icons/Reply';
@@ -19,7 +11,11 @@ interface Props {
   saves: number;
 }
 
-export function CommentStatBar({upvotes, replies, saves}: Props): JSX.Element {
+export function ShortPostStatBar({
+  upvotes,
+  replies,
+  saves,
+}: Props): JSX.Element {
   const [voteAddition, setVoteAddition] = useState(0);
   const [bookmarkAddition, setBookmarkAddition] = useState(0);
   return (

@@ -6,7 +6,10 @@ interface Props {
   onPress: () => void;
 }
 
-export function CommentWrapper({children, onPress}: Props): JSX.Element {
+export function ShortPostListItemWrapper({
+  children,
+  onPress,
+}: Props): JSX.Element {
   const fadeAnimation = useRef(new Animated.Value(0)).current;
 
   const fadeIn = () => {
@@ -36,15 +39,14 @@ export function CommentWrapper({children, onPress}: Props): JSX.Element {
       onPressIn={fadeIn}
       onPressOut={fadeOut}
       onPress={onPress}>
-      <Animated.View
-        style={[commentWrapperStyle, {backgroundColor: backgroundColor}]}>
+      <Animated.View style={[wrapperStyle, {backgroundColor: backgroundColor}]}>
         {children}
       </Animated.View>
     </TouchableWithoutFeedback>
   );
 }
 
-const commentWrapperStyle: ViewStyle = {
+const wrapperStyle: ViewStyle = {
   paddingVertical: 20,
   paddingHorizontal: 30,
   gap: 15,

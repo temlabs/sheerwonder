@@ -1,19 +1,12 @@
 import * as React from 'react';
 import {View, ViewStyle} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {
-  defaultStackNavigatorOptions,
-  screens,
-  stacks,
-} from '@/navigators/config';
+import {defaultStackNavigatorOptions, screens} from '@/navigators/config';
 import {EditFeedScreen} from './screens/EditFeedScreen';
-import {LinearGradientBackground} from '@/components/LinearGradientBackground';
-import colors from '@/theme/colors';
-import {ThreadScreen} from './screens/ThreadScreen';
-import {HomeDrawer} from './HomeDrawer';
 import {StoryScreen} from './screens/storyScreen/StoryScreen';
 import {AuthSpotifyResultScreen} from './screens/authSpotifyScreen/AuthSpotifyResultScreen';
 import {HomeScreen} from './screens/homeScreen/HomeScreen';
+import {ShortPostScreen} from './screens/ShortPostScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,9 +18,9 @@ export function HomeStack(): JSX.Element {
         screenOptions={defaultStackNavigatorOptions}>
         <Stack.Screen name={screens.HOME} component={HomeScreen} />
         <Stack.Screen name={screens.EDIT_FEED} component={EditFeedScreen} />
-        <Stack.Screen<typeof screens.THREAD>
-          name={screens.THREAD}
-          component={ThreadScreen}
+        <Stack.Screen<typeof screens.SHORT_POST>
+          name={screens.SHORT_POST}
+          component={ShortPostScreen}
           options={{
             headerShown: true,
             headerTitle: 'Post',
@@ -35,6 +28,7 @@ export function HomeStack(): JSX.Element {
             headerShadowVisible: false,
           }}
         />
+
         <Stack.Screen<typeof screens.STORY>
           name={screens.STORY}
           component={StoryScreen}

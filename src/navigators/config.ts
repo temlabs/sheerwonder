@@ -30,6 +30,7 @@ export const screens = {
   CREATE_SHORT_POST_SEARCH: 'CreateShortPostSearch',
   CREATE_SHORT_POST_SELECT_RANGE: 'CreateShortPostSelectRange',
   CREATE_SHORT_POST_WRITE: 'CreateShortPostWrite',
+  SHORT_POST: 'ShortPost',
 } as const;
 
 export const defaultStackNavigatorOptions: NativeStackNavigationOptions = {

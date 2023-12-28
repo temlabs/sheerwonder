@@ -1,3 +1,4 @@
+import {CommentProps, ShortPostProps} from '@/demo/types';
 import {screens, stacks} from '@/navigators/config';
 import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 
@@ -27,4 +28,8 @@ export type BottomTabParamList = {
 
 export type HomeParamList = {
   Home: undefined;
+  [screens.SHORT_POST]: {
+    shortPost: ShortPostProps;
+    parentThread?: CommentProps[];
+  };
 };
