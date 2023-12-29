@@ -6,6 +6,10 @@ import {Dimensions} from 'react-native';
 
 export const TAB_BAR_HEIGHT = 50;
 
+export const navigators = {
+  BOTTOM_TAB_NAVIGATOR: 'BottomTabNavigator',
+} as const;
+
 export const stacks = {
   HOME: 'HomeStack',
   HOME_DRAWER: 'HomeDrawer',
