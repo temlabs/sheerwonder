@@ -1,5 +1,5 @@
-import {CommentProps, ShortPostProps} from '@/demo/types';
-import {screens, stacks} from '@/navigators/config';
+import {CommentProps} from '@/demo/types';
+import {navigators, screens, stacks} from '@/navigators/config';
 import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 
 export type ScreenName = (typeof screens)[keyof typeof screens];
@@ -11,7 +11,7 @@ export type RootStackParamList = {
   [screens.SPOTIFY_LOGOUT_MODAL]: {};
   [screens.SPOTIFY_LOGIN_MODAL]: {};
   [screens.CREATE_SHORT_POST_WRITE]: {};
-  Tab: {};
+  [navigators.BOTTOM_TAB_NAVIGATOR]: {};
 };
 
 type SpecificParamsBase = {
@@ -27,9 +27,9 @@ export type BottomTabParamList = {
 };
 
 export type HomeParamList = {
-  Home: undefined;
+  Home: {};
   [screens.SHORT_POST]: {
-    shortPost: ShortPostProps;
+    shortPostId: string;
     parentThread?: CommentProps[];
   };
 };

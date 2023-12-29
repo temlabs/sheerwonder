@@ -5,7 +5,7 @@ import React from 'react';
 import {SpotifyLogoutModal} from '@/components/spotifyBanner/SpotifyLogoutModal';
 import {View} from 'react-native';
 import {CreateShortPostSearch} from '@/screens/root/modals/CreateShortPostSearch';
-import {screens} from './config';
+import {navigators, screens} from './config';
 import {CreateShortPostSelectRange} from '@/screens/root/modals/CreateShortPostSelectRange';
 import colors from '@/theme/colors';
 import {RootStackParamList} from './types';
@@ -17,10 +17,10 @@ function RootNavigator() {
   return (
     <View style={{flex: 1}}>
       <Stack.Navigator
-        initialRouteName="Tab"
+        initialRouteName={navigators.BOTTOM_TAB_NAVIGATOR}
         screenOptions={{headerShown: false}}>
         <Stack.Screen
-          name="Tab"
+          name={navigators.BOTTOM_TAB_NAVIGATOR}
           component={TabNavigator}
           options={{contentStyle: {backgroundColor: 'transparent'}}}
         />
