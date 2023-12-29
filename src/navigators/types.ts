@@ -12,6 +12,8 @@ export type RootStackParamList = {
   [screens.SPOTIFY_LOGIN_MODAL]: {};
   [screens.CREATE_SHORT_POST_WRITE]: {};
   [navigators.BOTTOM_TAB_NAVIGATOR]: {};
+  [screens.LOGIN]: {};
+  [screens.AUTHENTICATE_LOGIN]: {};
 };
 
 type SpecificParamsBase = {

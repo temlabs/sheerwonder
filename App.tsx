@@ -12,7 +12,7 @@ import RootNavigator from '@/navigators/RootNavigator';
 import Background from '@/navigators/components/Background';
 import {StytchProvider} from '@stytch/react-native';
 import {stytch} from '@/stytch/config';
-import {linkingConfig} from 'linkingConfig';
+import {BASE_PREFIX, linkingConfig} from 'linkingConfig';
 enableFreeze();
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -24,7 +24,7 @@ function App(): React.JSX.Element {
   };
 
   const linking = {
-    prefixes: ['sheerwonder://'],
+    prefixes: [BASE_PREFIX],
     config: linkingConfig,
   };
 
