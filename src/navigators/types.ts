@@ -1,5 +1,6 @@
 import {CommentProps} from '@/demo/types';
 import {navigators, screens, stacks} from '@/navigators/config';
+import {AuthenticateLoginParams} from '@/screens/root/authTypes';
 import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 
 export type ScreenName = (typeof screens)[keyof typeof screens];
@@ -13,7 +14,7 @@ export type RootStackParamList = {
   [screens.CREATE_SHORT_POST_WRITE]: {};
   [navigators.BOTTOM_TAB_NAVIGATOR]: {};
   [screens.LOGIN]: {};
-  [screens.AUTHENTICATE_LOGIN]: {};
+  [screens.AUTHENTICATE_LOGIN]: AuthenticateLoginParams;
 };
 
 type SpecificParamsBase = {

@@ -12,11 +12,13 @@ import {RootStackParamList} from './types';
 import {CreateShortPostWrite} from '@/screens/root/modals/CreateShortPostWrite';
 import {LoginScreen} from '@/screens/root/LoginScreen';
 import {AuthenticateLoginScreen} from '@/screens/root/AuthenticateLoginScreen';
+import {useStytchSession} from '@stytch/react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  const isSignedIn = false;
+  const {session} = useStytchSession();
+  const isSignedIn = !!session;
 
   return (
     <View style={{flex: 1}}>

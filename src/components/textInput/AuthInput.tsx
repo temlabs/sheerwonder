@@ -51,6 +51,7 @@ export function AuthInput({
         placeholderTextColor={colors.TEXT_PLACEHOLDER}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        blurOnSubmit={true}
       />
     </View>
   );
@@ -66,7 +67,7 @@ const textInputStyle: TextStyle = {
   width: '100%',
   fontSize: 20,
   color: colors.TEXT_WHITE,
-  borderRadius: 16,
+  borderRadius: 20,
   height: 60,
   paddingHorizontal: 10,
   paddingVertical: 5,
