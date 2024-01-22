@@ -13,6 +13,7 @@ import Background from '@/navigators/components/Background';
 import {StytchProvider} from '@stytch/react-native';
 import {stytch} from '@/stytch/config';
 import {BASE_PREFIX, linkingConfig} from 'linkingConfig';
+
 enableFreeze();
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';

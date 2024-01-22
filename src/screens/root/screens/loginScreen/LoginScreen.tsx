@@ -10,28 +10,13 @@ import {
   TextInputProps,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView,
 } from 'react-native';
+import {checkUserExists} from '@/auth/authFunctions';
 
 export function LoginScreen() {
-  const stytchClient = useStytch();
-  const sendMagicLinkEmail: TextInputProps['onSubmitEditing'] = async e => {
-    const email = e.nativeEvent.text;
-    console.debug({email});
-    try {
-      const res = await stytchClient.magicLinks.email.send(email, {
-        login_magic_link_url: LOGIN_AUTHENTICATE_URL,
-        login_expiration_minutes: 60,
-      });
-      console.debug({res});
-    } catch (error) {
-      console.debug('ERROR: ', error);
-    }
-  };
-
   return (
-    <TouchableWithoutFeedback
-      style={touchableViewStyle}
-      onPress={() => Keyboard.dismiss()}>
+    <ScrollView contentContainerStyle={scrollViewStyle}>
       <View style={containerViewStyle}>
         <HeroText
           text="A world of wonder awaits
@@ -41,11 +26,11 @@ export function LoginScreen() {
           <AuthInput
             textContentType="emailAddress"
             placeHolder="Enter your email"
-            onSubmitEditing={sendMagicLinkEmail}
+            onSubmitEditing={checkUserExists}
           />
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </ScrollView>
   );
 }
 
@@ -57,7 +42,7 @@ const containerViewStyle: ViewStyle = {
   width: '100%',
 };
 
-const touchableViewStyle: ViewStyle = {
+const scrollViewStyle: ViewStyle = {
   width: '100%',
   height: '100%',
 };

@@ -10,8 +10,8 @@ import {CreateShortPostSelectRange} from '@/screens/root/modals/CreateShortPostS
 import colors from '@/theme/colors';
 import {RootStackParamList} from './types';
 import {CreateShortPostWrite} from '@/screens/root/modals/CreateShortPostWrite';
-import {LoginScreen} from '@/screens/root/LoginScreen';
-import {AuthenticateLoginScreen} from '@/screens/root/AuthenticateLoginScreen';
+import {LoginScreen} from '@/screens/root/screens/loginScreen/LoginScreen';
+import {AuthenticateLoginScreen} from '@/screens/root/screens/AuthenticateLoginScreen';
 import {useStytchSession} from '@stytch/react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
