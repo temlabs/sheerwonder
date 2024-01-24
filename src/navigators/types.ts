@@ -1,4 +1,6 @@
-import {screens, stacks} from '@/navigators/config';
+import {CommentProps} from '@/demo/types';
+import {navigators, screens, stacks} from '@/navigators/config';
+import {AuthenticateLoginParams} from '@/screens/root/authTypes';
 import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 
 export type ScreenName = (typeof screens)[keyof typeof screens];
@@ -10,7 +12,9 @@ export type RootStackParamList = {
   [screens.SPOTIFY_LOGOUT_MODAL]: {};
   [screens.SPOTIFY_LOGIN_MODAL]: {};
   [screens.CREATE_SHORT_POST_WRITE]: {};
-  Tab: {};
+  [navigators.BOTTOM_TAB_NAVIGATOR]: {};
+  [screens.LOGIN]: {};
+  [screens.AUTHENTICATE_LOGIN]: AuthenticateLoginParams;
 };
 
 type SpecificParamsBase = {
@@ -26,5 +30,13 @@ export type BottomTabParamList = {
 };
 
 export type HomeParamList = {
-  Home: undefined;
+  Home: {};
+  [screens.SHORT_POST]: {
+    shortPostId: string;
+    parentThread?: CommentProps[];
+  };
+};
+
+export type ProfileParamList = {
+  [screens.PROFILE_MENU]: {};
 };

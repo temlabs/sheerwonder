@@ -34,6 +34,7 @@ module.exports = {
         alias: getAliases(),
       },
     ],
+    ['module:react-native-dotenv'],
     'react-native-reanimated/plugin',
   ],
 };

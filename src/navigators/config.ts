@@ -6,6 +6,10 @@ import {Dimensions} from 'react-native';
 
 export const TAB_BAR_HEIGHT = 50;
 
+export const navigators = {
+  BOTTOM_TAB_NAVIGATOR: 'BottomTabNavigator',
+} as const;
+
 export const stacks = {
   HOME: 'HomeStack',
   HOME_DRAWER: 'HomeDrawer',
@@ -30,6 +34,10 @@ export const screens = {
   CREATE_SHORT_POST_SEARCH: 'CreateShortPostSearch',
   CREATE_SHORT_POST_SELECT_RANGE: 'CreateShortPostSelectRange',
   CREATE_SHORT_POST_WRITE: 'CreateShortPostWrite',
+  SHORT_POST: 'ShortPost',
+  LOGIN: 'Login',
+  AUTHENTICATE_LOGIN: 'AuthenticateLogin',
+  PROFILE_MENU: 'ProfileMenu',
 } as const;
 
 export const defaultStackNavigatorOptions: NativeStackNavigationOptions = {

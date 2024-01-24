@@ -1,15 +1,16 @@
 import React from 'react';
-import {View, Image, ImageStyle, ViewStyle, Text} from 'react-native';
+import {View, ViewStyle} from 'react-native';
 import {ShortPostProps} from '@/demo/types';
-import {styles} from '@/theme/styles';
-import {UserAvatar} from '../UserAvatar';
-import {UserTitle} from '../comment/UserTitle';
-import {CommentText} from '../comment/CommentText';
 import {TrackCard} from '../trackCard/TrackCard';
+import {ShortPostStatBar} from './ShortPostStatBar';
+import {UserAvatar} from '../UserAvatar';
+import {UserTitle} from './UserTitle';
+import {ShortPostText} from './ShortPostText';
+import {styles} from '@/theme/styles';
 
-export function ThreadHead(props: ShortPostProps): JSX.Element {
-  const user = props.user;
-  const track = props.track;
+export function ShortPost(shortPost: ShortPostProps): JSX.Element {
+  const {user, text, timeIn, timeOut, track, replies, saves, upvotes, id} =
+    shortPost;
 
   return (
     <View style={threadHeadContainerStyle}>
@@ -22,15 +23,10 @@ export function ThreadHead(props: ShortPostProps): JSX.Element {
           userNameSize={16}
         />
       </View>
-      <CommentText isThread={true}>{props.text}</CommentText>
-      <TrackCard
-        {...track}
-        timeIn={props.timeIn}
-        timeOut={props.timeOut}
-        id={props.id}
-      />
+      <ShortPostText isThread={true}>{text}</ShortPostText>
+      <TrackCard {...track} timeIn={timeIn} timeOut={timeOut} id={id} />
 
-      <View></View>
+      <ShortPostStatBar replies={replies} saves={saves} upvotes={upvotes} />
     </View>
   );
 }

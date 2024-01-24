@@ -1,42 +1,26 @@
 import React from 'react';
-import {
-  View,
-  ViewStyle,
-  Text,
-  TextStyle,
-  Image,
-  ImageStyle,
-} from 'react-native';
+import {View, ViewStyle} from 'react-native';
 import {ShortPostProps} from '@/demo/types';
-import colors from '@/theme/colors';
 import {TrackCard} from '../trackCard/TrackCard';
-import {CommentStatBar} from './CommentStatBar';
-import {CommentWrapper} from './CommentWrapper';
-import {HomeDrawerProps, HomeScreenProps} from '@/screens/types';
-import {screens, stacks} from '@/navigators/config';
+import {ShortPostStatBar} from './ShortPostStatBar';
+import {ShortPostListItemWrapper} from './ShortPostListItemWrapper';
+import {screens} from '@/navigators/config';
 import {UserAvatar} from '../UserAvatar';
 import {UserTitle} from './UserTitle';
-import {CommentText} from './CommentText';
-import {useNavigation} from '@react-navigation/native';
+import {ShortPostText} from './ShortPostText';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {HomeParamList} from '@/navigators/types';
 
-export function Comment({
-  id,
-  text,
-  user,
-  track,
-  timeIn,
-  timeOut,
-  replies,
-  saves,
-  upvotes,
-}: ShortPostProps): JSX.Element {
-  const navigation = useNavigation();
+export function ShortPostListItem(shortPost: ShortPostProps): JSX.Element {
+  const navigation = useNavigation<NavigationProp<HomeParamList>>();
+  const {user, text, timeIn, timeOut, track, replies, saves, upvotes, id} =
+    shortPost;
   const goToCommentThread = () => {
-    navigation.navigate(screens.THREAD, {commentId: id});
+    navigation.navigate(screens.SHORT_POST, {shortPost: shortPost});
   };
   return (
-    <CommentWrapper onPress={goToCommentThread}>
-      <View style={commentImageTextView}>
+    <ShortPostListItemWrapper onPress={goToCommentThread}>
+      <View style={innerView}>
         <UserAvatar {...user} />
         <View style={textAndTrackContainerViewStyle}>
           <View style={textContainerView}>
@@ -47,19 +31,19 @@ export function Comment({
               />
             </View>
             {/* <Text style={commentTextStyle}>{text}</Text> */}
-            <CommentText>{text}</CommentText>
+            <ShortPostText>{text}</ShortPostText>
           </View>
           <View style={{marginTop: 20}}>
             <TrackCard {...track} timeIn={timeIn} timeOut={timeOut} id={id} />
           </View>
-          <CommentStatBar replies={replies} saves={saves} upvotes={upvotes} />
+          <ShortPostStatBar replies={replies} saves={saves} upvotes={upvotes} />
         </View>
       </View>
-    </CommentWrapper>
+    </ShortPostListItemWrapper>
   );
 }
 
-const commentImageTextView: ViewStyle = {
+const innerView: ViewStyle = {
   flexDirection: 'row',
   gap: 15,
   width: '100%',
@@ -76,9 +60,4 @@ const userDetailsViewStyle: ViewStyle = {
   justifyContent: 'flex-start',
   gap: 8,
   alignItems: 'center',
-};
-
-const commentTextStyle: TextStyle = {
-  color: colors.TEXT_BODY,
-  opacity: 0.8,
 };

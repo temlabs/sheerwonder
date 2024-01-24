@@ -1,9 +1,9 @@
 import {ShortPostProps, StoryProps} from '@/demo/types';
 
-export const isComment = (
+export const isShortPost = (
   post: ShortPostProps | StoryProps,
 ): post is ShortPostProps => {
-  return post.type === 'comment';
+  return post.type === 'shortPost';
 };
 
 export const isStory = (
