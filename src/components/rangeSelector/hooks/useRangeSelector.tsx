@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {runOnJS, useSharedValue} from 'react-native-reanimated';
-import {convertMillisecondsToTimestamp} from '@/components/rangeSelector/functions/utlilityFunctions';
+import {convertMillisecondsToTimestamp as convertMillisecondsToTimestampJS} from '@/components/rangeSelector/functions/utlilityFunctions';
 import {MAXIMUM_POST_TIME_MS, MINIMUM_POST_TIME_MS} from '@/config/postConfig';
 import {SpotifyTrack} from '@/spotify/types/spotifyCommonTypes';
 import {LayoutChangeEvent} from 'react-native';
@@ -31,7 +31,7 @@ export function useRangeSelector(props: Props) {
 
   const fromTimestamp = useSharedValue<string>('00:00');
   const toTimestamp = useSharedValue<string>(
-    convertMillisecondsToTimestamp(Math.min(duration, MAXIMUM_POST_TIME_MS)),
+    convertMillisecondsToTimestampJS(Math.min(duration, MAXIMUM_POST_TIME_MS)),
   );
 
   const onLayout = (e: LayoutChangeEvent) => {
@@ -41,10 +41,10 @@ export function useRangeSelector(props: Props) {
     height.value =
       Math.max(0, props.initialOutPerc - props.initialInPerc) *
       newRangeSelectorHeight;
-    fromTimestamp.value = convertMillisecondsToTimestamp(
+    fromTimestamp.value = convertMillisecondsToTimestampJS(
       Math.round(props.initialInPerc * duration),
     );
-    toTimestamp.value = convertMillisecondsToTimestamp(
+    toTimestamp.value = convertMillisecondsToTimestampJS(
       Math.round(props.initialOutPerc * duration),
     );
   };
@@ -90,10 +90,10 @@ export function useRangeSelector(props: Props) {
 
       if (rangeSelectorHeight) {
         const convertMillisecondsToTimestamp = (duration: number): string => {
-          let seconds = Math.floor(duration / 1000);
-          let minutes = Math.floor(seconds / 60);
+          let seconds = Math.max(Math.floor(duration / 1000), 0);
+          let minutes = Math.max(Math.floor(seconds / 60), 0);
           seconds = seconds % 60;
-          let hours = Math.floor(minutes / 60);
+          let hours = Math.max(Math.floor(minutes / 60), 0);
           minutes = minutes % 60;
 
           // Formatting the time into 'mm:ss' or 'hh:mm:ss'

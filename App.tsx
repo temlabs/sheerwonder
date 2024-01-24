@@ -23,7 +23,7 @@ function App(): React.JSX.Element {
     // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     backgroundColor: colors.BACKGROUND,
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    // paddingTop: StatusBar.currentHeight,
   };
 
   const linking = {

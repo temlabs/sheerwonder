@@ -1,5 +1,11 @@
 import React, {useCallback} from 'react';
-import {FlatList, ListRenderItem, View, ViewStyle} from 'react-native';
+import {
+  FlatList,
+  ListRenderItem,
+  StatusBar,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {ShortPostListItem} from '@/components/shortPost/ShortPostListItem';
 import {FeedFilterBar} from './components/FeedFilterBar';
 import {TAB_BAR_HEIGHT, screens} from '@/navigators/config';
@@ -45,7 +51,10 @@ export function HomeScreen({
         showsVerticalScrollIndicator={true}
         contentContainerStyle={[
           backgroundViewStyle,
-          {paddingBottom: bottomTabBarHeight},
+          {
+            paddingBottom: bottomTabBarHeight,
+            paddingTop: StatusBar.currentHeight,
+          },
         ]}
         maxToRenderPerBatch={5}
         keyExtractor={item => item.id}

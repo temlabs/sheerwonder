@@ -56,7 +56,7 @@ export function CreateShortPostWrite({
         trackArtwork,
         trackName: track?.name ?? '',
       },
-      type: 'comment',
+      type: 'shortPost',
       upvotes: 0,
       user: users[users.length - 1],
       timeIn: shortPostDraft.in,

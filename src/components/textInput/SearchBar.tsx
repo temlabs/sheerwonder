@@ -26,6 +26,7 @@ export function SearchBar({
       value={searchTerm}
       onChangeText={onChange}
       placeholder="Search for a track or artist"
+      placeholderTextColor={colors.TEXT_GRAY}
       style={textStyle}
     />
   );
