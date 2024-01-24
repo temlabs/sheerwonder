@@ -1,19 +1,18 @@
 import {useState, useEffect} from 'react';
-// import {ImageColorsResult, getColors} from 'react-native-image-colors';
+import {ImageColorsResult, getColors} from 'react-native-image-colors';
 
-// export function useImageColor(
-//   url: string,
-//   fallback?: string,
-// ): ImageColorsResult | null {
-//   const [colors, setColors] = useState<ImageColorsResult>(null);
+export function useImageColor(
+  url: string,
+  fallback: string = '#000000',
+): ImageColorsResult | null {
+  const [colors, setColors] = useState<ImageColorsResult | null>(null);
 
-//   const defaultOptions = {fallback: '#000000', cache: true, key: url};
+  useEffect(() => {
+    const defaultOptions = {fallback: fallback, cache: true, key: url};
+    getColors(url, {...defaultOptions, fallback})
+      .then(setColors)
+      .catch(e => console.debug(e));
+  }, [fallback, url]);
 
-//   useEffect(() => {
-//     getColors(url, {...defaultOptions, fallback})
-//       .then(setColors)
-//       .catch(e => console.debug(e));
-//   }, []);
-
-//   return colors;
-// }
+  return colors;
+}

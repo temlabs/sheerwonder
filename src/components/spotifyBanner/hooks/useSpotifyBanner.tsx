@@ -90,6 +90,7 @@ function useSpotify(authCode: string) {
     spotifyBannerText,
     onSpotifyBannerPress,
     SpotifyPlayer,
+    spotifyState,
   };
 }
 
