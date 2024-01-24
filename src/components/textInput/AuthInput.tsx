@@ -1,5 +1,5 @@
 import colors from '@/theme/colors';
-import React, {useState} from 'react';
+import React, {forwardRef, useState} from 'react';
 import {
   TextInput,
   View,
@@ -7,8 +7,6 @@ import {
   TextStyle,
   TextInputProps,
   Text,
-  NativeSyntheticEvent,
-  TextInputSubmitEditingEventData,
 } from 'react-native';
 
 interface Props {
@@ -16,15 +14,29 @@ interface Props {
   label?: string;
   placeHolder: TextInputProps['placeholder'];
   onSubmitEditing: TextInputProps['onSubmitEditing'];
+  onBlur?: TextInputProps['onBlur'];
+  initialValue?: string;
+  autoFocus?: TextInputProps['autoFocus'];
+  blurOnSubmit?: TextInputProps['blurOnSubmit'];
+  secureTextEntry?: TextInputProps['secureTextEntry'];
 }
 
-export function AuthInput({
-  textContentType,
-  label,
-  placeHolder,
-  onSubmitEditing,
-}: Props) {
-  const [text, setText] = useState('');
+export const AuthInput = forwardRef<TextInput, Props>(function AuthInput(
+  {
+    textContentType,
+    label,
+    placeHolder,
+    onSubmitEditing,
+    onBlur,
+    initialValue,
+    autoFocus,
+    blurOnSubmit,
+    secureTextEntry,
+  }: Props,
+  ref,
+) {
+  const [text, setText] = useState(initialValue ?? '');
+
   const [isFocused, setIsFocused] = useState(false);
 
   const onChangeText = (newText: string) => {
@@ -50,12 +62,19 @@ export function AuthInput({
         onSubmitEditing={onSubmitEditing}
         placeholderTextColor={colors.TEXT_PLACEHOLDER}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        blurOnSubmit={true}
+        onBlur={e => {
+          e.nativeEvent.text = text;
+          setIsFocused(false);
+          onBlur && onBlur(e);
+        }}
+        blurOnSubmit={blurOnSubmit !== undefined ? blurOnSubmit : true}
+        ref={ref}
+        autoFocus={autoFocus}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );
-}
+});
 
 const containerViewStyle: ViewStyle = {
   gap: 20,

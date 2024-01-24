@@ -36,3 +36,7 @@ export type HomeParamList = {
     parentThread?: CommentProps[];
   };
 };
+
+export type ProfileParamList = {
+  [screens.PROFILE_MENU]: {};
+};

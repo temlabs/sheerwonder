@@ -1,4 +1,4 @@
-import {HeroText} from '@/components/text/HeroText';
+import {HeroText} from '@/screens/root/screens/loginScreen/components/LoginHeroText';
 import {AuthInput} from '@/components/textInput/AuthInput';
 import {screens} from '@/navigators/config';
 import {RootStackParamList} from '@/navigators/types';

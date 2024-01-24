@@ -5,7 +5,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import colors from '@/theme/colors';
 import {QueryClientProvider} from '@tanstack/react-query';
 import {queryClient} from '@/tanstack/config';
-import {enableFreeze} from 'react-native-screens';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import RootNavigator from '@/navigators/RootNavigator';
@@ -13,8 +12,10 @@ import Background from '@/navigators/components/Background';
 import {StytchProvider} from '@stytch/react-native';
 import {stytch} from '@/stytch/config';
 import {BASE_PREFIX, linkingConfig} from 'linkingConfig';
+import {enableFreeze, enableScreens} from 'react-native-screens';
+enableFreeze(true);
+enableScreens(false);
 
-enableFreeze();
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 

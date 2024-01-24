@@ -7,7 +7,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["env.d.ts"],
   "exclude": [
     "node_modules",
     "*.config.js",

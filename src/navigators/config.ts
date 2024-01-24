@@ -37,6 +37,7 @@ export const screens = {
   SHORT_POST: 'ShortPost',
   LOGIN: 'Login',
   AUTHENTICATE_LOGIN: 'AuthenticateLogin',
+  PROFILE_MENU: 'ProfileMenu',
 } as const;
 
 export const defaultStackNavigatorOptions: NativeStackNavigationOptions = {
