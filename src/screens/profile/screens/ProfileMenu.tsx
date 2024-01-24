@@ -22,11 +22,8 @@ export function ProfileMenu() {
       <View style={menuContainer}>
         <View style={linkMenuContainer} key={'menuContainer'}>
           {links.map((link, i) => (
-            <>
-              <TouchableOpacity
-                style={linkRow}
-                onPress={link.onPress}
-                key={link.label}>
+            <View key={link.label}>
+              <TouchableOpacity style={linkRow} onPress={link.onPress}>
                 <Text style={profileMenuTextStyle}>{link.label}</Text>
                 <Chevron width={16} height={16} fill={colors.TEXT_SECONDARY} />
               </TouchableOpacity>
@@ -35,7 +32,7 @@ export function ProfileMenu() {
               ) : (
                 <></>
               )}
-            </>
+            </View>
           ))}
         </View>
         <View style={buttonContainer}>
