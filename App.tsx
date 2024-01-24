@@ -23,6 +23,7 @@ function App(): React.JSX.Element {
     // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     backgroundColor: colors.BACKGROUND,
     flex: 1,
+    paddingTop: StatusBar.currentHeight,
   };
 
   const linking = {
@@ -41,9 +42,10 @@ function App(): React.JSX.Element {
               <Background />
               <StatusBar
                 // barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-                barStyle={'dark-content'}
+                barStyle={'light-content'}
                 // backgroundColor={backgroundStyle.backgroundColor}
                 backgroundColor={'transparent'}
+                translucent={true}
               />
               <NavigationContainer
                 linking={linking}
