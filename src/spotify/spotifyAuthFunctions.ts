@@ -15,6 +15,7 @@ import {Buffer} from 'buffer';
 import {throwSpotifyAuthError} from './spotifyUtils';
 
 export const generateSpotifyLoginUri = (): string => {
+  console.debug('CLIENT ID: ', CLIENT_ID);
   const queryObject = {
     response_type: 'code',
     client_id: CLIENT_ID,

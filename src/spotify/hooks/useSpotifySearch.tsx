@@ -3,6 +3,7 @@ import {SpotifyTrack} from '../types/spotifyCommonTypes';
 import useRecentlyPlayedTracksQuery from '@/tanstack/queries/useRecentPlayedTracksQuery';
 import {searchForTrack} from '../spotifyUserFunctions';
 import {recentlyPlayedTracksResponseToSpotfyTrackList} from '../spotifyUtils';
+import {removeDuplicates} from '@/utils/dataUtils';
 
 let debounceTimer: NodeJS.Timeout;
 
@@ -12,8 +13,9 @@ export function useSpotifySearch() {
   const {data: recentlyPlayedTracks} = useRecentlyPlayedTracksQuery();
   const recentlyPlayedTracksList = useMemo(() => {
     if (recentlyPlayedTracks) {
-      return recentlyPlayedTracksResponseToSpotfyTrackList(
-        recentlyPlayedTracks,
+      return removeDuplicates(
+        recentlyPlayedTracksResponseToSpotfyTrackList(recentlyPlayedTracks),
+        item => item.id,
       );
     } else {
       return [];
@@ -28,11 +30,14 @@ export function useSpotifySearch() {
       startTransition(() => {
         if (searchTerm) {
           searchForTrack(searchTerm).then(results => {
-            results && setSearchResults(results.tracks.items);
+            results &&
+              setSearchResults(
+                removeDuplicates(results.tracks.items, item => item.id),
+              );
           });
         }
       });
-    }, 500);
+    }, 100);
   };
 
   useEffect(() => {

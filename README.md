@@ -1,8 +1,12 @@
 adb tcpip 5555
 adb connect 192.168.0.7:5555
 
+test linking
 adb shell am start -W -a android.intent.action.VIEW -d "sheerwonder" "com.sheerwondernew"
 adb shell am start -W -a android.intent.action.VIEW -d "sheerwonder://shortPost/abc" "com.sheerwondernew"
+
+build
+npx react-native build-android --mode=release
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 

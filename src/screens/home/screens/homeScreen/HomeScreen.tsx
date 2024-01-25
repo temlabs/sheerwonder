@@ -1,5 +1,11 @@
 import React, {useCallback} from 'react';
-import {FlatList, ListRenderItem, View, ViewStyle} from 'react-native';
+import {
+  FlatList,
+  ListRenderItem,
+  StatusBar,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {ShortPostListItem} from '@/components/shortPost/ShortPostListItem';
 import {FeedFilterBar} from './components/FeedFilterBar';
 import {TAB_BAR_HEIGHT, screens} from '@/navigators/config';
@@ -11,11 +17,15 @@ import {ShortPostProps, StoryProps} from '@/demo/types';
 import {CreatePostButton} from '@/components/buttons/CreatePostButton';
 import usePostQuery from '@/tanstack/queries/usePostsQuery';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import useSpotifyBanner from '@/components/spotifyBanner/hooks/useSpotifyBanner';
+import {useStore} from '@/store/useStore';
 
 export function HomeScreen({
   navigation,
 }: NativeStackScreenProps<HomeParamList, typeof screens.HOME>): JSX.Element {
   const bottomTabBarHeight = useBottomTabBarHeight();
+  const authCode = useStore(s => s.spotifyAuthCode);
+  const {spotifyState} = useSpotifyBanner(authCode);
   const {data: posts} = usePostQuery();
 
   const renderItem: ListRenderItem<ShortPostProps | StoryProps> = useCallback(
@@ -41,7 +51,10 @@ export function HomeScreen({
         showsVerticalScrollIndicator={true}
         contentContainerStyle={[
           backgroundViewStyle,
-          {paddingBottom: bottomTabBarHeight},
+          {
+            paddingBottom: bottomTabBarHeight,
+            paddingTop: StatusBar.currentHeight,
+          },
         ]}
         maxToRenderPerBatch={5}
         keyExtractor={item => item.id}
@@ -50,7 +63,11 @@ export function HomeScreen({
       />
       <View style={[postButton, {bottom: bottomTabBarHeight + 20}]}>
         <CreatePostButton
-          onPress={() => navigation.navigate(screens.CREATE_SHORT_POST_SEARCH)}
+          onPress={() =>
+            spotifyState === 'CONNECTED'
+              ? navigation.navigate(screens.CREATE_SHORT_POST_SEARCH)
+              : {}
+          }
         />
       </View>
 

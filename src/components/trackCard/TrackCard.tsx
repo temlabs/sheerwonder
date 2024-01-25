@@ -22,6 +22,7 @@ import PlayingBarsAnimation from './PlayingBarsAnimation';
 import RippleButton from '../buttons/Ripplebutton';
 import {TouchableOpacity} from 'react-native';
 import {TrackDetails} from './TrackDetails';
+import {useImageColor} from '@/hooks/useImageColor';
 
 type Props = TrackProps &
   Pick<ShortPostProps, 'timeIn' | 'timeOut' | 'id'> & {transparent?: boolean};
@@ -37,6 +38,7 @@ export function TrackCard({
   id,
   transparent = true,
 }: Props): JSX.Element {
+  const trackColors = useImageColor(trackArtwork);
   const play = useStore(state => state.play);
   const setSelectedTrack = useStore(state => state.setSelectedTrack);
   const selectedTrack = useStore(state => state.selectedTrack);
@@ -45,6 +47,14 @@ export function TrackCard({
 
   let backgroundDark: string = colors.BACKGROUND;
   let backgroundLight: string = colors.BACKGROUND;
+
+  if (trackColors?.platform === 'android') {
+    backgroundDark = trackColors.average;
+    backgroundLight = trackColors.lightMuted;
+  } else if (trackColors?.platform === 'ios') {
+    backgroundDark = trackColors.primary;
+    backgroundLight = trackColors.secondary;
+  }
 
   const [scale] = useState(new Animated.Value(1));
 
@@ -102,11 +112,11 @@ export function TrackCard({
               {offset: 100, opacity: 1, color: backgroundLight},
             ]}
           />
-          {/* <Image
+          <Image
             style={gradientBackgroundStyle(transparent)}
             source={{uri: trackArtwork, width: 20, height: 20}}
-            blurRadius={40}
-          /> */}
+            blurRadius={80}
+          />
           <TrackProgressBar
             duration={duration}
             timeIn={timeIn ?? 0}
