@@ -14,7 +14,7 @@ export function ShortPostScreen({
   route,
 }: NativeStackScreenProps<HomeParamList, typeof screens.SHORT_POST>) {
   const postId = route.params.shortPostId;
-  console.debug({postId});
+
   const {data: posts} = usePostsQuery();
   const shortPost = posts?.find(p => p.id === postId && isShortPost(p)) as
     | ShortPostProps

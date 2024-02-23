@@ -183,13 +183,13 @@ export function CreateShortPostSelectRange({
         <TrackCard
           duration={track.duration_ms}
           id={SHORT_POST_ID}
-          spotifyId={track.id}
-          trackArtist={trackArtist}
-          trackArtwork={trackArtwork}
-          trackName={track.name}
+          spotify_id={track.id}
+          artist={trackArtist}
+          artwork={trackArtwork}
+          name={track.name}
           key={track.id}
-          timeIn={shortPostDraft?.in}
-          timeOut={
+          time_in={shortPostDraft?.in ?? 0}
+          time_out={
             shortPostDraft?.out !== undefined
               ? shortPostDraft?.out
               : 0.5 * duration

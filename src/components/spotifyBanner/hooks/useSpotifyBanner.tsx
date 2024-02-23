@@ -32,13 +32,6 @@ function useSpotify(authCode: string) {
 
   const spotifyDeviceId = useStore(s => s.spotifyDeviceId);
 
-  console.debug({
-    accessTokenIsFetching,
-    accessTokenError,
-    authCode: !!authCode,
-    accessToken: !!accessToken,
-  });
-  console.log({accessTokenIsFetching, accessTokenError, spotifyDeviceId});
   const spotifyState: SpotifyState =
     authCodeInStore === ''
       ? 'DISCONNECTED'

@@ -1,25 +1,17 @@
 import React from 'react';
-import {
-  View,
-  ViewStyle,
-  Text,
-  TextStyle,
-  Image,
-  ImageStyle,
-} from 'react-native';
+import {View, ViewStyle, Text, TextStyle} from 'react-native';
 import colors from '@/theme/colors';
+import {User} from '@/user/userTypes';
 
-interface Props {
-  displayName: string;
-  userName: string;
+interface Props extends Pick<User, 'display_name' | 'username'> {
   isThreadHead?: boolean;
   displayNameSize?: number;
   userNameSize?: number;
 }
 
 export function UserTitle({
-  displayName,
-  userName,
+  display_name,
+  username,
   displayNameSize = 18,
   userNameSize = 14,
 }: Props): JSX.Element {
@@ -44,8 +36,8 @@ export function UserTitle({
 
   return (
     <View style={userDetailsViewStyle}>
-      <Text style={userDisplayNameTextStyle}>{displayName}</Text>
-      <Text style={userNameTextStyle}>@{userName}</Text>
+      <Text style={userDisplayNameTextStyle}>{display_name}</Text>
+      <Text style={userNameTextStyle}>@{username}</Text>
     </View>
   );
 }

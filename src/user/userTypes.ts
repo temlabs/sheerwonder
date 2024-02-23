@@ -1,4 +1,4 @@
-export interface DBUser {
+export interface User {
   id: string;
   created_at: string;
   avatar_url: string | null;
@@ -7,4 +7,5 @@ export interface DBUser {
   following_count: number;
   sign_up_order_number: number;
   display_name: string | null;
+  username: string;
 }

@@ -23,8 +23,6 @@ export function AuthSpotifyResultScreen({
 
   const ready = !!accessToken && !isLoading && !!spotifyProfile;
 
-  console.log({accessToken, spotifyDeviceId});
-
   return (
     <View>
       <Text style={{color: 'white'}}>Logging you in!</Text>

@@ -29,7 +29,7 @@ export const fetchRecentlyPlayedTracks = async ({
     const accessToken = queryClient.getQueryData(
       queryKeys.SPOTIFY_ACCESS_TOKEN_KEY(authCode),
     );
-    console.debug('access tok: ', accessToken);
+
     const response = await fetch(SPOTIFY_PLAYER_BASE_URL + '/recently-played', {
       method: 'GET',
       headers: {

@@ -6,7 +6,6 @@ export const transferPlaybackToDevice = async (
   deviceId: string,
   accessToken: string,
 ): Promise<void> => {
-  console.log('transfering playback with device: ', deviceId);
   const body = {device_ids: [deviceId], play: false};
   const res = await fetch('https://api.spotify.com/v1/me/player', {
     method: 'PUT',
@@ -29,7 +28,7 @@ export const playTrack = async (
   options?: PlayOptions,
 ): Promise<void> => {
   const body = {uris: options?.trackUris, position_ms: options?.startFrom ?? 0};
-  console.log('playing track with access tok: ', accessToken);
+
   const res = await fetch(
     `https://api.spotify.com/v1/me/player/play?device_id=${deviceId.replace(
       /\\/g,
@@ -44,13 +43,13 @@ export const playTrack = async (
       },
     },
   );
-  console.log('play status: ', res.status);
+
   if (res.status === 202) {
     return;
   }
 
   const resJson = await res.json();
-  console.debug(resJson);
+
   await getError(resJson);
 };
 
@@ -58,7 +57,6 @@ export const pause = async (
   accessToken: string,
   deviceId: string,
 ): Promise<void> => {
-  console.log('pausing');
   const res = await fetch(
     `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
     {
@@ -102,7 +100,7 @@ export const seekPosition = async (
   }
 
   const resJson = await res.json();
-  console.debug(resJson);
+
   await getError(resJson);
 };
 

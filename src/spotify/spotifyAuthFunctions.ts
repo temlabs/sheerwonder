@@ -15,7 +15,6 @@ import {Buffer} from 'buffer';
 import {throwSpotifyAuthError} from './spotifyUtils';
 
 export const generateSpotifyLoginUri = (): string => {
-  console.debug('CLIENT ID: ', CLIENT_ID);
   const queryObject = {
     response_type: 'code',
     client_id: CLIENT_ID,
@@ -130,7 +129,7 @@ const refreshAccessToken = async (refreshtoken: string) => {
     expiresIn: resData.expires_in,
     refreshToken: resData.refresh_token,
   };
-  console.log('returning', authTokens);
+
   return authTokens;
 };
 
@@ -145,12 +144,7 @@ export const fetchAccessToken = async ({
   const refreshToken = useStore.getState().spotifyRefreshToken;
 
   const authenticated = isSpotifyAuthenticated();
-  console.log('fetching access token: ', {
-    gotAuthCode: !!authCode,
-    gotRefreshToken: !!refreshToken,
-    authenticated,
-    expired: isSpotifyAccessTokenExpired(),
-  });
+
   if (!authCode && !authenticated) {
     const notSignedIn = new Error('Spotify is not Authenticated');
     notSignedIn.name = 'Spotify not authenticated';
@@ -160,7 +154,6 @@ export const fetchAccessToken = async ({
   if (!!authCode && !!refreshToken) {
     // refresh token
     try {
-      console.log('attempting refresh');
       const tokens = await refreshAccessToken(refreshToken);
       useStore
         .getState()

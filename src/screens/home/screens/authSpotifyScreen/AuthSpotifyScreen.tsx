@@ -28,7 +28,7 @@ export function AuthSpotifyScreen({
 
   const handleLoadRequest: OnShouldStartLoadWithRequest = request => {
     const {url} = request;
-    console.debug(url);
+
     if (url.startsWith(REDIRECT_URI)) {
       const code = extractCode(url);
       setSpotifyAuthCode(code);

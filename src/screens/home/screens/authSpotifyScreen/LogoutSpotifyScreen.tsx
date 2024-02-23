@@ -27,7 +27,7 @@ export function LogoutSpotifyScreen({
 
   const handleMessage = (e: WebViewMessageEvent): void => {
     const message = e.nativeEvent.data;
-    console.debug('MESSAGE :', message);
+
     if (message.startsWith('button_press_')) {
       const buttonText = message
         .substring('button_press_'.length)

@@ -20,7 +20,6 @@ export function AuthenticateLoginScreen({
       RouteProp<RootStackParamList, typeof screens.AUTHENTICATE_LOGIN>
     >();
   const token = route?.params?.token;
-  console.debug('token: ', token);
 
   const stytchClient = useStytch();
 

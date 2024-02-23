@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {
   FlatList,
   ListRenderItem,
@@ -6,19 +6,18 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {ShortPostListItem} from '@/components/shortPost/ShortPostListItem';
-import {FeedFilterBar} from './components/FeedFilterBar';
+import {ShortPostListItem} from '@/shortPosts/components/ShortPostListItem';
 import {TAB_BAR_HEIGHT, screens} from '@/navigators/config';
-import {isShortPost, isStory} from '@/utils/feedUtils';
-import {StoryCard} from '@/components/story/StoryCard';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {HomeParamList} from '@/navigators/types';
-import {ShortPostProps, StoryProps} from '@/demo/types';
 import {CreatePostButton} from '@/components/buttons/CreatePostButton';
-import usePostQuery from '@/tanstack/queries/usePostsQuery';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import useSpotifyBanner from '@/components/spotifyBanner/hooks/useSpotifyBanner';
 import {useStore} from '@/store/useStore';
+import useGetShortPosts from '@/shortPosts/useGetShortPosts';
+import {ShortPost, ShortPostDraft} from '@/shortPosts/shortPostTypes';
+import {isShortPostDraft} from '@/shortPosts/shortPostTypeUtils';
+import {ShortPostDraftListItem} from '@/shortPosts/components/ShortPostDraftListItem';
 
 export function HomeScreen({
   navigation,
@@ -26,27 +25,22 @@ export function HomeScreen({
   const bottomTabBarHeight = useBottomTabBarHeight();
   const authCode = useStore(s => s.spotifyAuthCode);
   const {spotifyState} = useSpotifyBanner(authCode);
-  const {data: posts} = usePostQuery();
+  const {data: shortPosts} = useGetShortPosts();
 
-  const renderItem: ListRenderItem<ShortPostProps | StoryProps> = useCallback(
-    item => {
-      const post = item.item;
-      if (isShortPost(post)) {
-        return <ShortPostListItem key={post.id} {...post} />;
-      } else if (isStory(post)) {
-        return <StoryCard key={post.id} {...post} />;
-      } else {
-        return <></>;
-      }
-    },
-    [],
-  );
+  const renderItem: ListRenderItem<ShortPost | ShortPostDraft> = item => {
+    const post = item.item;
+    if (isShortPostDraft(post)) {
+      return <ShortPostDraftListItem {...post} />;
+    } else {
+      return <ShortPostListItem {...post} />;
+    }
+  };
 
   return (
     <>
       {/* <FeedFilterBar navigation={navigation} /> */}
 
-      <FlatList
+      <FlatList<ShortPost | ShortPostDraft>
         style={scrollViewStyle}
         showsVerticalScrollIndicator={true}
         contentContainerStyle={[
@@ -57,8 +51,8 @@ export function HomeScreen({
           },
         ]}
         maxToRenderPerBatch={5}
-        keyExtractor={item => item.id}
-        data={posts ?? []}
+        keyExtractor={item => (isShortPostDraft(item) ? 'draft' : item.id)}
+        data={shortPosts ?? []}
         renderItem={renderItem}
       />
       <View style={[postButton, {bottom: bottomTabBarHeight + 20}]}>
@@ -70,11 +64,6 @@ export function HomeScreen({
           }
         />
       </View>
-
-      {/* <CreateShortPost
-        visible={createShortPostVisible}
-        toggleVisibility={toggleCreateShortPostModalVisible}
-      /> */}
     </>
   );
 }

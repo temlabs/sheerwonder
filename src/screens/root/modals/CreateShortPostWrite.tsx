@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useDeferredValue, useState} from 'react';
 import {View, ViewStyle, TextInput, TextStyle, Text} from 'react-native';
 import {modalViewStyle} from './styles';
 import {useHeaderHeight} from '@react-navigation/elements';
@@ -10,9 +10,9 @@ import colors from '@/theme/colors';
 import {TrackCard} from '@/components/trackCard/TrackCard';
 import {MAX_CHARACTER_COUNT, SHORT_POST_ID} from '@/config/postConfig';
 import {PrimaryButton} from '@/components/buttons/PrimaryButton';
-import {useAddPostMutation} from '@/tanstack/mutations/useAddPostMutation';
-import {ShortPostProps} from '@/demo/types';
-import {users} from '@/demo/users';
+import {ShortPostDraft} from '@/shortPosts/shortPostTypes';
+import {useStytchUser} from '@stytch/react-native';
+import {useAddShortPost} from '@/shortPosts/useAddShortPost';
 
 export function CreateShortPostWrite({
   navigation,
@@ -22,9 +22,13 @@ export function CreateShortPostWrite({
 >) {
   const shortPostDraft = useStore(state => state.shortPostDraft);
 
-  const {mutate: addPost} = useAddPostMutation();
+  const user = useStytchUser();
+  const userId = user.user?.user_id;
+
+  const {mutate: addShortPost} = useAddShortPost();
 
   const [inputText, setInputText] = useState(shortPostDraft?.text ?? '');
+  const deferredInputText = useDeferredValue(inputText);
   const setShortPostDraft = useStore(state => state.setShortPostDraft);
   const track = shortPostDraft.track;
   const duration = track?.duration_ms;
@@ -36,38 +40,39 @@ export function CreateShortPostWrite({
 
   const onChangeText = (text: string) => {
     setInputText(text);
-    setShortPostDraft({...shortPostDraft, text: inputText});
+    // setShortPostDraft({...shortPostDraft, text: inputText});
   };
 
   const onBlur = (text: string) => {
     setShortPostDraft({...shortPostDraft, text});
   };
 
+  const trackIsCompletelyDefined =
+    shortPostDraft.in !== undefined && !!shortPostDraft.out;
+
   const publishPost = () => {
-    const shortPost: ShortPostProps = {
-      id: 'needtocreatethis' + track?.id + Date.now(),
-      replies: 0,
-      saves: 0,
+    if (!trackIsCompletelyDefined || !shortPostDraft.out || !userId) {
+      return;
+    }
+    const shortPost: ShortPostDraft = {
       text: inputText.trim(),
       track: {
         duration: duration ?? 0,
-        spotifyId: track?.id ?? '',
-        trackArtist,
-        trackArtwork,
-        trackName: track?.name ?? '',
+        spotify_id: track?.id ?? '',
+        artist: trackArtist,
+        artwork: trackArtwork,
+        name: track?.name ?? '',
       },
-      type: 'shortPost',
-      upvotes: 0,
-      user: users[users.length - 1],
-      timeIn: shortPostDraft.in,
-      timeOut: shortPostDraft.out,
+      time_in: shortPostDraft.in ?? 0,
+      time_out: shortPostDraft.out,
+      user_id: userId,
     };
 
-    addPost(shortPost);
+    addShortPost(shortPost);
     navigation.navigate(screens.HOME);
   };
 
-  const stringLength = [...inputText.trim()].length;
+  const stringLength = [...deferredInputText.trim()].length;
   const characterCountText = `${stringLength}/${MAX_CHARACTER_COUNT}`;
   const textIsOverLimit = stringLength > MAX_CHARACTER_COUNT;
 
@@ -107,12 +112,12 @@ export function CreateShortPostWrite({
           <TrackCard
             duration={duration}
             id={SHORT_POST_ID}
-            spotifyId={track.id}
-            trackArtist={trackArtist}
-            trackArtwork={trackArtwork}
-            trackName={track.name}
-            timeIn={inTime}
-            timeOut={outTime}
+            spotify_id={track.id}
+            artist={trackArtist}
+            artwork={trackArtwork}
+            name={track.name}
+            time_in={inTime ?? 0}
+            time_out={outTime !== undefined ? outTime : 0.5 * duration}
           />
         ) : (
           <></>
@@ -121,7 +126,9 @@ export function CreateShortPostWrite({
           <PrimaryButton
             text={'Publish!'}
             onPress={publishPost}
-            disabled={textIsOverLimit || !inputText}
+            disabled={
+              textIsOverLimit || !inputText || !trackIsCompletelyDefined
+            }
           />
         </View>
       </View>
