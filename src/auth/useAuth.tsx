@@ -19,7 +19,6 @@ function useAuth() {
         const authenticateRes = await stytchClient.session.authenticate({
           session_duration_minutes: MAX_STYTCH_SESSION_TIME,
         });
-        console.debug({authenticateRes});
       } catch (error) {
         console.debug(error);
         // throw error;

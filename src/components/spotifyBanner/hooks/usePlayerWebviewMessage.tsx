@@ -18,9 +18,7 @@ export function usePlayerWebViewMessage() {
         throw 'Tried to transfer playback with no access token';
       }
       accessToken && (await transferPlaybackToDevice(deviceId, accessToken));
-    } catch (error) {
-      console.log('transfer playback err: ', error, {deviceId, accessToken});
-    }
+    } catch (error) {}
   };
 
   const onPlaybackStateChangeMessage = async (message: string) => {
@@ -42,8 +40,6 @@ export function usePlayerWebViewMessage() {
           newPlayingTrack,
         )
       ) {
-        console.log('state change: ', newPlayingTrack.paused);
-        console.debug('PLAYING TRACK: ', newPlayingTrack.spotifyTrackId);
         setPlayingTrack(newPlayingTrack);
       }
     } catch (error) {

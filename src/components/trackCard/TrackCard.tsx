@@ -1,44 +1,32 @@
 import React, {useRef, useState} from 'react';
-import {
-  View,
-  ViewStyle,
-  Text,
-  TextStyle,
-  Image,
-  ImageStyle,
-  Pressable,
-  Animated,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import {ShortPostProps, TrackProps} from '@/demo/types';
+import {View, ViewStyle, Image, ImageStyle, Animated} from 'react-native';
 import colors from '@/theme/colors';
 
 import {LinearGradientBackground} from '../LinearGradientBackground';
 import {TrackProgressBar} from './TrackProgressBar';
 import {useStore} from '@/store/useStore';
 import {isCurrentlyPlaying} from '@/spotify/spotifyPlaybackFunctions';
-import {Play} from '../icons/Play';
-import PlayingBarsAnimation from './PlayingBarsAnimation';
-import RippleButton from '../buttons/Ripplebutton';
 import {TouchableOpacity} from 'react-native';
 import {TrackDetails} from './TrackDetails';
 import {useImageColor} from '@/hooks/useImageColor';
+import {Track} from '@/tracks/trackTypes';
+import {ShortPost} from '@/shortPosts/shortPostTypes';
 
-type Props = TrackProps &
-  Pick<ShortPostProps, 'timeIn' | 'timeOut' | 'id'> & {transparent?: boolean};
+type Props = Omit<Track, 'created_at'> &
+  Pick<ShortPost, 'time_in' | 'time_out' | 'id'> & {transparent?: boolean};
 
 export function TrackCard({
-  trackArtist,
-  trackArtwork,
-  trackName,
+  artist,
+  artwork,
+  name,
   duration,
-  timeIn,
-  timeOut,
-  spotifyId,
+  time_in,
+  time_out,
+  spotify_id,
   id,
   transparent = true,
 }: Props): JSX.Element {
-  const trackColors = useImageColor(trackArtwork);
+  const trackColors = useImageColor(artwork);
   const play = useStore(state => state.play);
   const setSelectedTrack = useStore(state => state.setSelectedTrack);
   const selectedTrack = useStore(state => state.selectedTrack);
@@ -61,7 +49,7 @@ export function TrackCard({
   const timeoutRef = useRef<NodeJS.Timeout>();
 
   const thisTrackIsPlaying = isCurrentlyPlaying(
-    spotifyId,
+    spotify_id,
     id,
     selectedTrack,
     playingTrack,
@@ -69,18 +57,14 @@ export function TrackCard({
 
   const handlePressIn = async () => {
     if (thisTrackIsPlaying) {
-      console.log('pausing');
       // setSelectedTrack({postId: '', spotifyTrackId: ''});
       try {
         await pause();
-      } catch (error) {
-        console.log('pause err: ', error);
-      }
+      } catch (error) {}
     } else {
-      console.log('playing');
-      setSelectedTrack({spotifyTrackId: spotifyId, postId: id});
+      spotify_id && setSelectedTrack({spotifyTrackId: spotify_id, postId: id});
       try {
-        await play(`spotify:track:${spotifyId}`, timeIn ?? 0);
+        await play(`spotify:track:${spotify_id}`, time_in ?? 0);
       } catch (error) {
         console.log('play err: ', error);
       }
@@ -112,24 +96,32 @@ export function TrackCard({
               {offset: 100, opacity: 1, color: backgroundLight},
             ]}
           />
-          <Image
-            style={gradientBackgroundStyle(transparent)}
-            source={{uri: trackArtwork, width: 20, height: 20}}
-            blurRadius={80}
-          />
+          {artwork ? (
+            <Image
+              style={gradientBackgroundStyle(transparent)}
+              source={{uri: artwork, width: 20, height: 20}}
+              blurRadius={80}
+            />
+          ) : (
+            <></>
+          )}
           <TrackProgressBar
             duration={duration}
-            timeIn={timeIn ?? 0}
-            timeOut={timeOut ?? duration}
-            trackId={spotifyId}
+            timeIn={time_in ?? 0}
+            timeOut={time_out ?? duration}
+            trackId={spotify_id}
             id={id}
           />
           <View style={innerViewStyle}>
-            <Image
-              style={coverArtImageStyle}
-              source={{uri: trackArtwork, width: 20, height: 20}}
-            />
-            <TrackDetails trackArtist={trackArtist} trackName={trackName} />
+            {artwork ? (
+              <Image
+                style={coverArtImageStyle}
+                source={{uri: artwork, width: 20, height: 20}}
+              />
+            ) : (
+              <></>
+            )}
+            <TrackDetails trackArtist={artist} trackName={name} />
 
             <View style={{height: 20, width: 24}}>
               {/* <PlayingBarsAnimation isPlaying={thisTrackIsPlaying} /> */}

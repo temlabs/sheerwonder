@@ -85,9 +85,7 @@ const PlayingBarsAnimation = ({isPlaying = false}: {isPlaying: boolean}) => {
         <Animated.View
           key={'cont'}
           style={container}
-          exiting={FadeOut.duration(300).withCallback(() =>
-            console.log('finished'),
-          )}>
+          exiting={FadeOut.duration(300).withCallback(() => {})}>
           <Animated.View key={1} style={barStyle} />
           <Animated.View key={2} style={bar2Style} />
           <Animated.View key={3} style={bar3Style} />

@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   const {session, fromCache} = useStytchSession();
   const isSignedIn = !!session;
-  console.debug({session, fromCache});
+
   return (
     <View style={{flex: 1}}>
       <Stack.Navigator

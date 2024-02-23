@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {View, ViewStyle, Text, TextStyle, TouchableOpacity} from 'react-native';
-import {Upvote} from '../icons/Upvote';
+import {Upvote} from '../../components/icons/Upvote';
 import colors from '@/theme/colors';
-import {Reply} from '../icons/Reply';
-import {Bookmark} from '../icons/Bookmark';
+import {Reply} from '../../components/icons/Reply';
+import {Bookmark} from '../../components/icons/Bookmark';
 
 interface Props {
   upvotes: number;

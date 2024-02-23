@@ -1,4 +1,4 @@
-import {LoginParams, SignUpParams} from '@/auth/authTypes';
+import {LoginParams, SignUpParams, SignUpResponse} from '@/auth/authTypes';
 
 export const checkUserExists = async (
   email: string = '',
@@ -79,10 +79,7 @@ export const signUp = async (
 
   try {
     const res = await fetch(url, fetchOptions);
-    const resJson = (await res.json()) as unknown as {
-      sessionToken: string;
-      sessionJwt: string;
-    };
+    const resJson = (await res.json()) as unknown as SignUpResponse;
 
     return resJson;
   } catch (error) {

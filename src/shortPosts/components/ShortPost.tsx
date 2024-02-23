@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, ViewStyle} from 'react-native';
 import {ShortPostProps} from '@/demo/types';
-import {TrackCard} from '../trackCard/TrackCard';
+import {TrackCard} from '../../components/trackCard/TrackCard';
 import {ShortPostStatBar} from './ShortPostStatBar';
-import {UserAvatar} from '../UserAvatar';
+import {UserAvatar} from '../../components/UserAvatar';
 import {UserTitle} from './UserTitle';
 import {ShortPostText} from './ShortPostText';
 import {styles} from '@/theme/styles';

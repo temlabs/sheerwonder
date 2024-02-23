@@ -12,12 +12,12 @@ import {StoryCardTitleText} from './StoryCardTitleText';
 import {StoryCardSubtitleText} from './StoryCardSubtitleText';
 import {styles} from '@/theme/styles';
 import {UserAvatar} from '../UserAvatar';
-import {UserTitle} from '../shortPost/UserTitle';
+import {UserTitle} from '../../shortPosts/components/UserTitle';
 import colors from '@/theme/colors';
 import Animated from 'react-native-reanimated';
 import {screens} from '@/navigators/config';
 import {useNavigation} from '@react-navigation/native';
-import {ShortPostStatBar} from '../shortPost/ShortPostStatBar';
+import {ShortPostStatBar} from '../../shortPosts/components/ShortPostStatBar';
 
 export function StoryCard(props: StoryProps): JSX.Element {
   const navigation = useNavigation();

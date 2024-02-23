@@ -22,14 +22,13 @@ export function SpotifyLoginWebView(): JSX.Element {
 
   const handleLoadRequest: OnShouldStartLoadWithRequest = request => {
     const {url} = request;
-    console.log('uri: ', request.url);
+
     if (url.startsWith(REDIRECT_URI)) {
-      console.log('redirecting!');
       const code = extractCode(url);
       setSpotifyAuthCode(code);
       return false;
     }
-    console.log('not redirecting!');
+
     // show a toaster saying spotify has been signed out
     return false;
   };

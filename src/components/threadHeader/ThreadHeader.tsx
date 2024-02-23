@@ -3,7 +3,7 @@ import React from 'react';
 import {View, ViewStyle} from 'react-native';
 import {ThreadHeaderPost} from './ThreadHeaderPost';
 import {ThreadHeaderThread} from './ThreadHeaderThread';
-import {ShortPost} from '../shortPost/ShortPost';
+import {ShortPost} from '../../shortPosts/components/ShortPost';
 import colors from '@/theme/colors';
 
 interface Props {
