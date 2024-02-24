@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 import {HomeStack} from '@/screens/home/HomeStack';
 import {DiscoverStack} from '@/screens/discover/DiscoverStack';
-import {ProfileStack} from '@/screens/profile/ProfileStack';
+import {ProfileStack} from '@/stacks/ProfileStack';
 import {CommunityStack} from '@/screens/community/CommunityStack';
 import {BottomTabParamList, StackName} from './types';
 import {TabBar} from './components/TabBar';

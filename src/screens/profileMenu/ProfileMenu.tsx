@@ -1,24 +1,35 @@
 import useAuth from '@/auth/useAuth';
 import {ActionButton} from '@/components/buttons/ActionButton';
 import {Chevron} from '@/components/icons/Chevron';
+import {screens} from '@/navigators/config';
 import colors from '@/theme/colors';
 import {profileHeaderStyle, profileMenuTextStyle} from '@/theme/textStyles';
+import {useUser} from '@/user/useUser';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {Text, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {StatusBar, Text, TouchableOpacity, View, ViewStyle} from 'react-native';
 
-export function ProfileMenu() {
+export function ProfileMenu({navigation}: NativeStackScreenProps<any, any>) {
   const {signOut} = useAuth();
+  const {data: user} = useUser();
 
   const links: {label: string; onPress: () => void}[] = [
-    {label: 'Your Profile', onPress: () => {}},
+    {
+      label: 'Your Profile',
+      onPress: () => {
+        navigation.navigate(screens.PROFILE);
+      },
+    },
     {label: 'Notifications', onPress: () => {}},
     {label: 'About sheer wonder', onPress: () => {}},
     {label: 'Submit feedback', onPress: () => {}},
   ];
 
   return (
-    <View style={containerViewStyle}>
-      <Text style={profileHeaderStyle}>Hey there!</Text>
+    <View style={{...containerViewStyle, paddingTop: StatusBar.currentHeight}}>
+      <Text style={profileHeaderStyle}>
+        Hey {user?.display_name ?? 'there!'}
+      </Text>
       <View style={menuContainer}>
         <View style={linkMenuContainer} key={'menuContainer'}>
           {links.map((link, i) => (

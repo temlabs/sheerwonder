@@ -1,17 +1,29 @@
 import {API_URL} from '@env';
 import {ShortPost, ShortPostDraft} from './shortPostTypes';
+import {QueryFunction} from '@tanstack/react-query';
+import apiEndpoints from '@/api/apiConfig';
 
-export async function fetchShortPosts() {
-  const shortPostsEndPoint = 'shortPosts';
-  const endpoint = API_URL + shortPostsEndPoint;
+export const fetchShortPosts: QueryFunction<
+  ShortPost[],
+  string[],
+  never
+> = async context => {
+  const {queryKey} = context;
+  const [, _userId] = queryKey;
+  const queryParams = new URLSearchParams({created_by_user_id: _userId});
+  const shortPostsEndPoint = apiEndpoints.shortPost;
+  const url = `${API_URL}${shortPostsEndPoint}${
+    _userId ? '?' + queryParams.toString() : ''
+  }`;
+
   try {
-    const shortPostsRes = await fetch(endpoint);
+    const shortPostsRes = await fetch(url);
     const shortPosts = (await shortPostsRes.json()) as ShortPost[];
     return shortPosts;
   } catch (error) {
     throw error;
   }
-}
+};
 
 export async function addShortPost(shortPost: ShortPostDraft) {
   const addShortPostEndPoint = 'createShortPost';

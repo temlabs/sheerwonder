@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {ProfileScreen} from '@/screens/profile/screens/ProfileScreen';
-import {ProfileMenu} from './screens/ProfileMenu';
+import {ProfileScreen} from '@/screens/profile/ProfileScreen';
+import {ProfileMenu} from '../screens/profileMenu/ProfileMenu';
 import {screens} from '@/navigators/config';
+import colors from '@/theme/colors';
 
 const Stack = createNativeStackNavigator();
 export function ProfileStack(): JSX.Element {
@@ -16,7 +17,11 @@ export function ProfileStack(): JSX.Element {
       <Stack.Screen
         name={screens.PROFILE}
         component={ProfileScreen}
-        options={{headerShown: true}}
+        options={{
+          headerShown: true,
+          headerTransparent: true,
+          headerTintColor: colors.TEXT_PRIMARY,
+        }}
       />
     </Stack.Navigator>
   );
