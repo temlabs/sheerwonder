@@ -1,4 +1,8 @@
 import {LoginParams, SignUpParams, SignUpResponse} from '@/auth/authTypes';
+import {stytch} from '@/stytch/config';
+import {queryClient} from '@/tanstack/config';
+import {fetchUser} from '@/user/userFunctions';
+import userQueryKeys from '@/user/userQueryKeys';
 
 export const checkUserExists = async (
   email: string = '',
@@ -44,12 +48,19 @@ export const login = async (
 
   try {
     const res = await fetch(url, fetchOptions);
-
+    if (res.status !== 200) {
+      throw res.statusText;
+    }
     const resJson = (await res.json()) as unknown as {
       sessionToken: string;
       sessionJwt: string;
     };
     console.debug(res.status);
+    const stytchUser = await stytch.user.get();
+    queryClient.prefetchQuery({
+      queryKey: userQueryKeys.user(stytchUser?.user_id!),
+      queryFn: fetchUser,
+    });
     return resJson;
   } catch (error) {
     console.debug(error);

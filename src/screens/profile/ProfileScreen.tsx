@@ -2,7 +2,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useStytchUser} from '@stytch/react-native';
 import React from 'react';
 import {StatusBar, View, ViewStyle} from 'react-native';
-import {ProfileHead} from './components/ProfileHead';
+import {ProfileHead} from './components/profileHead/ProfileHead';
 import {useHeaderHeight} from '@react-navigation/elements';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {Feed} from '@/feed/Feed';
