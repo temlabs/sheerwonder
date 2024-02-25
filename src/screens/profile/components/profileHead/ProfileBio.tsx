@@ -25,7 +25,7 @@ export function ProfileBio({formState, dispatch, isEditing}: Props) {
       value={formState.bio ?? ''}
       placeholder="Tell people about yourself"
       placeholderTextColor={colors.TEXT_PLACEHOLDER}
-      maxLength={3}
+      maxLength={240}
     />
   ) : (
     <Text style={text}>{bio}</Text>
