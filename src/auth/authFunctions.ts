@@ -1,8 +1,4 @@
 import {LoginParams, SignUpParams, SignUpResponse} from '@/auth/authTypes';
-import {stytch} from '@/stytch/config';
-import {queryClient} from '@/tanstack/config';
-import {fetchUser} from '@/user/userFunctions';
-import userQueryKeys from '@/user/userQueryKeys';
 
 export const checkUserExists = async (
   email: string = '',
@@ -28,7 +24,7 @@ export const checkUserExists = async (
 
 export const login = async (
   loginParams: LoginParams,
-): Promise<{sessionToken: string; sessionJwt: string}> => {
+): Promise<{sessionToken: string; sessionJwt: string; user_id: string}> => {
   const url = new URL(
     'login',
     'https://sheerwonder-backend-production.up.railway.app/',
@@ -56,11 +52,7 @@ export const login = async (
       sessionJwt: string;
     };
     console.debug(res.status);
-    const stytchUser = await stytch.user.get();
-    queryClient.prefetchQuery({
-      queryKey: userQueryKeys.user(stytchUser?.user_id!),
-      queryFn: fetchUser,
-    });
+
     return resJson;
   } catch (error) {
     console.debug(error);

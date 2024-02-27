@@ -45,6 +45,8 @@ export interface StoreProps {
   setPlayingTrack: (props: PlayingTrack) => void;
   shortPostDraft: Partial<ShortPostDraft>;
   setShortPostDraft: (post: Partial<ShortPostDraft>) => void;
+  userId: string;
+  setUserId: (userId: string) => void;
 }
 
 export const useStore = create<StoreProps>()(
@@ -131,6 +133,10 @@ export const useStore = create<StoreProps>()(
     },
     setShortPostDraft: (post: Partial<ShortPostDraft>): void => {
       set(state => ({...state, shortPostDraft: {...post}}));
+    },
+    userId: '',
+    setUserId: (userId: string) => {
+      set(state => ({...state, userId}));
     },
   })),
 );

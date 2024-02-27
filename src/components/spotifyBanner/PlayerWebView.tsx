@@ -36,7 +36,7 @@ export function PlayerWebView({
       mixedContentMode="always"
       forceDarkOn={true}
       ref={webViewRef}
-      source={{uri: 'https://temlabs.github.io/sheerwonder/'}}
+      source={{uri: 'https://sheerwonder-landing-production.up.railway.app/'}}
       style={webViewStyle}
       onMessage={handleMessage}
       injectedJavaScript={getPlayerScript(accessToken)}

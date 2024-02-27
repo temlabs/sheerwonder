@@ -30,13 +30,14 @@ export function Feed<T extends ShortPost | ShortPostDraft>({
   return (
     <FlatList<ShortPost | ShortPostDraft>
       style={style}
-      showsVerticalScrollIndicator={true}
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={contentContainerStyle}
       maxToRenderPerBatch={5}
       keyExtractor={item => (isShortPostDraft(item) ? 'draft' : item.id)}
       data={data ?? []}
       renderItem={renderItem}
       ListHeaderComponent={ListHeaderComponent}
+      fadingEdgeLength={10}
     />
   );
 }

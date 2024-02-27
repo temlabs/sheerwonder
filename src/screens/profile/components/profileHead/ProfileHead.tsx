@@ -8,6 +8,7 @@ import {ProfileBio} from './ProfileBio';
 import {useProfileHead} from './useProfileHead';
 import {ProfileDisplayName} from './ProfileDisplayName';
 import {ProfileEditButton} from './ProfileEditButton';
+import {ProfileFollowDetails} from './ProfileFollowDetails';
 
 interface Props {
   userId: string;
@@ -30,6 +31,8 @@ export function ProfileHead({userId}: Props) {
 
   const avatar = user?.avatar_url;
   const regNum = user?.sign_up_order_number;
+  const following = user?.following_count;
+  const followers = user?.follower_count;
 
   return (
     <View style={container}>
@@ -60,6 +63,11 @@ export function ProfileHead({userId}: Props) {
           <Text style={username}>@{user?.username}</Text>
           {regNum ? <RegNum regNum={regNum} /> : <></>}
         </View>
+        {followers !== undefined && following !== undefined ? (
+          <ProfileFollowDetails followers={followers} following={following} />
+        ) : (
+          <></>
+        )}
       </View>
       <ProfileBio dispatch={dispatch} formState={state} isEditing={isEditing} />
     </View>
