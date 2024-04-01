@@ -11,6 +11,7 @@ import {TrackDetails} from './TrackDetails';
 import {useImageColor} from '@/hooks/useImageColor';
 import {Track} from '@/tracks/trackTypes';
 import {ShortPost} from '@/shortPosts/shortPostTypes';
+import {GradientButton} from '../buttons/GradientButton';
 
 type Props = Omit<Track, 'created_at'> &
   Pick<ShortPost, 'time_in' | 'time_out' | 'id'> & {transparent?: boolean};
@@ -35,13 +36,16 @@ export function TrackCard({
 
   let backgroundDark: string = colors.BACKGROUND;
   let backgroundLight: string = colors.BACKGROUND;
+  let activeColor: string = colors.TEXT_WHITE;
 
   if (trackColors?.platform === 'android') {
-    backgroundDark = trackColors.average;
+    backgroundDark = trackColors.darkVibrant;
     backgroundLight = trackColors.lightMuted;
+    // activeColor = trackColors.vibrant;
   } else if (trackColors?.platform === 'ios') {
     backgroundDark = trackColors.primary;
     backgroundLight = trackColors.secondary;
+    // activeColor = trackColors.detail;
   }
 
   const [scale] = useState(new Animated.Value(1));
@@ -96,7 +100,7 @@ export function TrackCard({
               {offset: 100, opacity: 1, color: backgroundLight},
             ]}
           />
-          {artwork ? (
+          {/* {artwork ? (
             <Image
               style={gradientBackgroundStyle(transparent)}
               source={{uri: artwork, width: 20, height: 20}}
@@ -104,7 +108,7 @@ export function TrackCard({
             />
           ) : (
             <></>
-          )}
+          )} */}
           <TrackProgressBar
             duration={duration}
             timeIn={time_in ?? 0}
@@ -128,7 +132,12 @@ export function TrackCard({
             </View>
           </View>
         </View>
-        <TouchableOpacity style={playButtonStyle} onPress={handlePressIn} />
+        {/* <TouchableOpacity style={playButtonStyle} onPress={handlePressIn} /> */}
+        <GradientButton
+          style={button}
+          onPress={() => {}}
+          activeColor={activeColor}
+        />
       </View>
     </View>
   );
@@ -185,4 +194,14 @@ const playButtonStyle: ViewStyle = {
   height: '100%',
   backgroundColor: 'white',
   opacity: 0.01,
+};
+
+const button: ViewStyle = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'transparent',
+  // zIndex: 70,
 };
