@@ -28,7 +28,11 @@ export function GradientButton(props: Props) {
   };
 
   return (
-    <Pressable style={props.style} onPressIn={fadeIn} onPressOut={fadeOut}>
+    <Pressable
+      style={props.style}
+      onPressIn={fadeIn}
+      onPress={props.onPress}
+      onPressOut={fadeOut}>
       <Animated.View style={{opacity: fadeAnim}}>
         <Svg width="100%" height="100%">
           <Defs>

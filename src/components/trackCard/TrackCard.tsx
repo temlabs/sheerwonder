@@ -39,7 +39,7 @@ export function TrackCard({
   let activeColor: string = colors.TEXT_WHITE;
 
   if (trackColors?.platform === 'android') {
-    backgroundDark = trackColors.darkVibrant;
+    backgroundDark = trackColors.vibrant;
     backgroundLight = trackColors.lightMuted;
     // activeColor = trackColors.vibrant;
   } else if (trackColors?.platform === 'ios') {
@@ -135,7 +135,7 @@ export function TrackCard({
         {/* <TouchableOpacity style={playButtonStyle} onPress={handlePressIn} /> */}
         <GradientButton
           style={button}
-          onPress={() => {}}
+          onPress={handlePressIn}
           activeColor={activeColor}
         />
       </View>

@@ -72,7 +72,7 @@ export function CreateShortPostWrite({
     navigation.navigate(screens.HOME);
   };
 
-  const stringLength = [...deferredInputText.trim()].length;
+  const stringLength = inputText.trim().length;
   const characterCountText = `${stringLength}/${MAX_CHARACTER_COUNT}`;
   const textIsOverLimit = stringLength > MAX_CHARACTER_COUNT;
 
@@ -147,6 +147,7 @@ const textInputStyle: TextStyle = {
   fontSize: 18,
   color: colors.TEXT_WHITE,
   width: '100%',
+  flexGrow: 1,
 };
 
 const trackCardView: ViewStyle = {
