@@ -1624,6 +1624,21 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
+"@gorhom/bottom-sheet@^4":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@gorhom/bottom-sheet/-/bottom-sheet-4.6.1.tgz#e45e2183246e338cf732fe4f8f2c91875b22ddce"
+  integrity sha512-sXqsYqX1/rAbmCC5fb9o6hwSF3KXriC0EGUGvLlhFvjaEEMBrRKFTNndiluRK1HmpUzazVaYdTm/lLkSiA2ooQ==
+  dependencies:
+    "@gorhom/portal" "1.0.14"
+    invariant "^2.2.4"
+
+"@gorhom/portal@1.0.14":
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@gorhom/portal/-/portal-1.0.14.tgz#1953edb76aaba80fb24021dc774550194a18e111"
+  integrity sha512-MXyL4xvCjmgaORr/rtryDNFy3kU4qUbKlwtQqqsygd0xX3mhKjOLn6mQK8wfu0RkoE0pBE0nAasRoHua+/QZ7A==
+  dependencies:
+    nanoid "^3.3.1"
+
 "@graphql-typed-document-node/core@^3.1.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.2.0.tgz#5f3d96ec6b2354ad6d8a28bf216a1d97b5426861"
@@ -2662,10 +2677,10 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@stytch/core@1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@stytch/core/-/core-1.5.0.tgz#2432582403156227a6d123d82d215a63fcbc9375"
-  integrity sha512-lKmZedkhMXA0hPO/2xk1S7QaWLzmGqOjhfBA6YhIWym0iIB1xIFVV3iihV+z/sMYnqxDtQLWvu3KiNZ6m3/FNg==
+"@stytch/core@2.10.1":
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/@stytch/core/-/core-2.10.1.tgz#fdfec3ab432b7d95635ac74cc01349db7b0df7ee"
+  integrity sha512-KfBR/+upAUiRn6hqu0rEVMfHDDcMbT323nhMlcK7JrgZ9LJZp9oVh6D1ONk6ICZY27wnjQFlQvgqJc2pNgWkuQ==
   dependencies:
     uuid "8.3.2"
 
@@ -2677,14 +2692,19 @@
     invariant "^2.2.4"
     opencollective-postinstall "^2.0.3"
 
-"@stytch/react-native@^0.17.0":
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/@stytch/react-native/-/react-native-0.17.0.tgz#5f94ee7c2219a6f76763ac009a1928725dbf9678"
-  integrity sha512-LKb6uhG54YhwtWLjn5gne68ukDIMTNmRe4SkdEZMIBR2ZTirgPmrSdsEQ5vTdQdLc/Bc77YvkjSg+Kvqk1GsHA==
+"@stytch/react-native@^0.23.3":
+  version "0.23.3"
+  resolved "https://registry.yarnpkg.com/@stytch/react-native/-/react-native-0.23.3.tgz#174a72ed7b2ab0c9c25e4b1464392481b6b3fb27"
+  integrity sha512-1DIPIrme7PQ+7PL51wSNONVA5ZO0tI3/0HJQko4UmqNiFc/NPa499AUAM/G9vz4YBeo++Sv4t0EurDqHnh6zYA==
   dependencies:
-    "@stytch/core" "1.5.0"
+    "@stytch/core" "2.10.1"
     "@stytch/react-native-inappbrowser-reborn" "^3.7.2"
     base-64 "1.0.0"
+    libphonenumber-js "1.10.55"
+    lodash.debounce "4.0.8"
+    lodash.merge "4.6.2"
+    react-native-country-codes-picker "2.3.5"
+    react-native-url-polyfill "2.0.0"
     react-native-uuid "2.0.1"
 
 "@tanstack/query-core@5.14.1":
@@ -6416,6 +6436,11 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
+libphonenumber-js@1.10.55:
+  version "1.10.55"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.55.tgz#ec864e369bf7babde02021d06b5f2433d7e9c78e"
+  integrity sha512-MrTg2JFLscgmTY6/oT9vopYETlgUls/FU6OaeeamGwk4LFxjIgOUML/ZSZICgR0LPYXaonVJo40lzMvaaTJlQA==
+
 lighthouse-logger@^1.0.0:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/lighthouse-logger/-/lighthouse-logger-1.4.2.tgz#aef90f9e97cd81db367c7634292ee22079280aaa"
@@ -6533,7 +6558,7 @@ lodash.debounce@4.0.8, lodash.debounce@^4.0.8:
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
 
-lodash.merge@^4.6.2:
+lodash.merge@4.6.2, lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
@@ -7211,7 +7236,7 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nanoid@^3.1.23, nanoid@^3.3.7:
+nanoid@^3.1.23, nanoid@^3.3.1, nanoid@^3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
   integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
@@ -7998,6 +8023,11 @@ react-native-config@^1.5.1:
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.5.1.tgz#73c94f511493e9b7ff9350cdf351d203a1b05acc"
   integrity sha512-g1xNgt1tV95FCX+iWz6YJonxXkQX0GdD3fB8xQtR1GUBEqweB9zMROW77gi2TygmYmUkBI7LU4pES+zcTyK4HA==
 
+react-native-country-codes-picker@2.3.5:
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/react-native-country-codes-picker/-/react-native-country-codes-picker-2.3.5.tgz#159cbbcee14716533cdaa9997d457ab1a943038c"
+  integrity sha512-dDQhd0bVvlmgb84NPhTOmTk5UVYPHtk3lqZI+BPb61H1rC2IDrTvPWENg6u1DMGliqWHQDBYpeH37zvxxQL71w==
+
 react-native-dotenv@^3.4.9:
   version "3.4.9"
   resolved "https://registry.yarnpkg.com/react-native-dotenv/-/react-native-dotenv-3.4.9.tgz#621c5b0c1d0c5c7f569bfe5a1d804bec7885c010"
@@ -8075,6 +8105,13 @@ react-native-svg@^14.1.0:
   dependencies:
     css-select "^5.1.0"
     css-tree "^1.1.3"
+
+react-native-url-polyfill@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-url-polyfill/-/react-native-url-polyfill-2.0.0.tgz#db714520a2985cff1d50ab2e66279b9f91ffd589"
+  integrity sha512-My330Do7/DvKnEvwQc0WdcBnFPploYKp9CYlefDXzIdEaA+PAhDYllkvGeEroEzvc4Kzzj2O4yVdz8v6fjRvhA==
+  dependencies:
+    whatwg-url-without-unicode "8.0.0-3"
 
 react-native-uuid@2.0.1:
   version "2.0.1"

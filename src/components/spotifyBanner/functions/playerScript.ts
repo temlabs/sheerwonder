@@ -28,7 +28,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     const player = new window.Spotify.Player({
         name: 'sheerwonder',
         getOAuthToken: cb => { cb('${accessToken}'); },
-        volume: 0.5
+        volume: 1
     });
 
 
