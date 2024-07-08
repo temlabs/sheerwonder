@@ -1,6 +1,6 @@
 import React from 'react';
-import {ViewStyle} from 'react-native';
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import {Platform, UIManager, ViewStyle} from 'react-native';
+import {View, StatusBar, useColorScheme} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import colors from '@/theme/colors';
 import {QueryClientProvider} from '@tanstack/react-query';
@@ -15,7 +15,11 @@ import {BASE_PREFIX, linkingConfig} from 'linkingConfig';
 import {enableFreeze, enableScreens} from 'react-native-screens';
 enableFreeze(true);
 enableScreens(false);
-
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -38,7 +42,7 @@ function App(): React.JSX.Element {
       <StytchProvider stytch={stytch}>
         <QueryClientProvider client={queryClient}>
           <GestureHandlerRootView style={rootViewStyle}>
-            <SafeAreaView style={backgroundStyle}>
+            <View style={backgroundStyle}>
               <Background />
               <StatusBar
                 // barStyle={isDarkMode ? 'light-content' : 'dark-content'}
@@ -62,7 +66,7 @@ function App(): React.JSX.Element {
                 }}>
                 <RootNavigator />
               </NavigationContainer>
-            </SafeAreaView>
+            </View>
           </GestureHandlerRootView>
         </QueryClientProvider>
       </StytchProvider>

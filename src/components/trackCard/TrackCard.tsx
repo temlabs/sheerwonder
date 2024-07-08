@@ -12,6 +12,7 @@ import {useImageColor} from '@/hooks/useImageColor';
 import {Track} from '@/tracks/trackTypes';
 import {ShortPost} from '@/shortPosts/shortPostTypes';
 import {GradientButton} from '../buttons/GradientButton';
+import {getBlackness} from '@/color/colorFunctions';
 
 type Props = Omit<Track, 'created_at'> &
   Pick<ShortPost, 'time_in' | 'time_out' | 'id'> & {transparent?: boolean};
@@ -39,7 +40,10 @@ export function TrackCard({
   let activeColor: string = colors.TEXT_WHITE;
 
   if (trackColors?.platform === 'android') {
-    backgroundDark = trackColors.vibrant;
+    backgroundDark =
+      getBlackness(trackColors.vibrant) > 0.8
+        ? trackColors.average
+        : trackColors.vibrant;
     backgroundLight = trackColors.lightMuted;
     // activeColor = trackColors.vibrant;
   } else if (trackColors?.platform === 'ios') {
@@ -199,8 +203,8 @@ const playButtonStyle: ViewStyle = {
 const button: ViewStyle = {
   position: 'absolute',
   top: 0,
-  left: 0,
-  width: '100%',
+  right: 0,
+  width: '40%',
   height: '100%',
   backgroundColor: 'transparent',
   // zIndex: 70,

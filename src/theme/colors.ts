@@ -18,6 +18,8 @@ const TEXT_GRAY = '#C7C7C7';
 const TEXT_PLACEHOLDER = '#4D4A41';
 const NEUTRAL_GREY = '#C7C7C7';
 const SPOTIFY_GREEN = '#1DB954';
+const white = '#FFFFFF';
+const white_o_72 = 'rgba(255,255,255,0.72)';
 
 const colors = {
   BACKGROUND,
@@ -40,6 +42,8 @@ const colors = {
   TEXT_GRAY,
   NEUTRAL_GREY,
   SPOTIFY_GREEN,
+  white,
+  white_o_72,
 } as const;
 
 export default colors;

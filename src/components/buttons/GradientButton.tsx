@@ -43,9 +43,9 @@ export function GradientButton(props: Props) {
               y1={'100%'}
               y2={'100%'}
               id={'grad'}>
-              <Stop offset="70%" stopColor="rgb(255,255,255)" stopOpacity="0" />
+              <Stop offset="0%" stopColor="rgb(255,255,255)" stopOpacity="0" />
               <Stop
-                offset="100%"
+                offset="80%"
                 stopColor={props.activeColor ?? 'rgb(255,255,255)'}
                 stopOpacity="0.5"
               />

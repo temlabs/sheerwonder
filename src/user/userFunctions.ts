@@ -15,6 +15,7 @@ export const fetchUser: QueryFunction<
 
   try {
     const userRes = await fetch(url);
+
     if (userRes.status !== 200) {
       throw userRes.statusText;
     }

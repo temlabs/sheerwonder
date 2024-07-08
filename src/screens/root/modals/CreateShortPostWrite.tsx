@@ -78,7 +78,12 @@ export function CreateShortPostWrite({
 
   const permittedText = inputText.slice(0, MAX_CHARACTER_COUNT);
   const excessText = inputText.slice(MAX_CHARACTER_COUNT);
-
+  console.debug({
+    textIsOverLimit,
+    inputText: !!inputText,
+    trackIsCompletelyDefined: !!trackIsCompletelyDefined,
+    disabled: textIsOverLimit || !inputText || !trackIsCompletelyDefined,
+  });
   return (
     <View
       pointerEvents="box-none"

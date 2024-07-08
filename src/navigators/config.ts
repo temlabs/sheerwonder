@@ -37,6 +37,7 @@ export const screens = {
   SHORT_POST: 'ShortPost',
   LOGIN: 'Login',
   AUTHENTICATE_LOGIN: 'AuthenticateLogin',
+  SIGN_UP: 'SignUp',
   PROFILE_MENU: 'ProfileMenu',
 } as const;
 
