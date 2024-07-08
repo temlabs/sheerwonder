@@ -60,5 +60,23 @@ target 'sheerwondernew' do
       config[:reactNativePath],
       :mac_catalyst_enabled => false
     )
+
+    if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
+      install_modules_dependencies(s)
+    end
+
+    installer.pods_project.targets.each do |target|
+      if target.name == 'Flipper'
+        file_path = 'Pods/Flipper/xplat/Flipper/FlipperTransportTypes.h'
+        contents = File.read(file_path)
+        unless contents.include?('#include <functional>')
+          File.chmod(0755, file_path)
+          File.open(file_path, 'w') do |file|
+            file.puts('#include <functional>')
+            file.puts(contents)
+          end
+        end
+      end
+    end
   end
 end
