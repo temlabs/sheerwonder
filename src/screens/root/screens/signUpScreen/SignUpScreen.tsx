@@ -23,10 +23,16 @@ export function SignUpScreen() {
   };
 
   return (
-    <View style={[container, {paddingTop: insets.top}]}>
+    <View
+      style={[
+        container,
+        {paddingTop: insets.top + 24, paddingBottom: insets.bottom + 24},
+      ]}>
       <View style={content}>
-        <Text style={typography.h2}>Sign up for sheerwonder</Text>
-        <View style={inputsContainer}>
+        <Text style={[typography.h2, {fontSize: 44}]}>
+          A{'\n'}world{'\n'}of wonder{'\n'}awaits
+        </Text>
+        {/* <View style={inputsContainer}>
           <View style={inputContainer}>
             <SWTextInput
               label="Username"
@@ -91,10 +97,10 @@ export function SignUpScreen() {
               <></>
             )}
           </View>
-        </View>
+        </View> */}
       </View>
-      <View style={[buttons, {paddingBottom: insets.bottom + 20}]}>
-        <PrimaryButton text="Sign up" onPress={handleSignUp} />
+      <View style={[buttons]}>
+        {/* <PrimaryButton text="Sign up" onPress={handleSignUp} /> */}
       </View>
     </View>
   );
@@ -104,9 +110,9 @@ const container: ViewStyle = {
   //   width: '100%',
   //   height: '100%',
   flex: 1,
-  justifyContent: 'space-between',
-
-  paddingHorizontal: 16,
+  justifyContent: 'flex-end',
+  padding: 24,
+  paddingHorizontal: 30,
 };
 
 const content: ViewStyle = {

@@ -22,7 +22,7 @@ function RootNavigator() {
   const isSignedIn = !!session;
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: 'transparent'}}>
       <Stack.Navigator
         initialRouteName={
           isSignedIn ? navigators.BOTTOM_TAB_NAVIGATOR : screens.SIGN_UP

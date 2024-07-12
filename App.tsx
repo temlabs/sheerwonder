@@ -25,7 +25,8 @@ function App(): React.JSX.Element {
 
   const backgroundStyle: ViewStyle = {
     // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    backgroundColor: colors.BACKGROUND,
+    // backgroundColor: colors.BACKGROUND,
+    backgroundColor: 'transparent',
     flex: 1,
     // paddingTop: StatusBar.currentHeight,
   };
