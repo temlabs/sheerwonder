@@ -15,6 +15,7 @@ export type RootStackParamList = {
   [navigators.BOTTOM_TAB_NAVIGATOR]: {};
   [screens.SIGN_UP]: {};
   [screens.LOGIN]: {};
+  [screens.INTRO]: {};
   [screens.AUTHENTICATE_LOGIN]: AuthenticateLoginParams;
 };
 

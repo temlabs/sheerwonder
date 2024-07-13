@@ -99,7 +99,7 @@ function Background() {
         </Group>
 
         <Blur blur={1} />
-        <BackdropBlur blur={20} />
+        <BackdropBlur blur={60} />
         <Fill blendMode={'softLight'}>
           <Turbulence freqX={1} freqY={1} octaves={1} />
         </Fill>
@@ -107,7 +107,7 @@ function Background() {
           <Turbulence freqX={0.005} freqY={0.001} octaves={2} seed={4} />
         </DisplacementMap>
       </Canvas>
-      {/* <View
+      <View
         style={{
           position: 'absolute',
           width: '100%',
@@ -115,7 +115,7 @@ function Background() {
           opacity: 0.3,
           backgroundColor: 'black',
         }}
-      /> */}
+      />
     </View>
   );
   // <LinearGradientBackground

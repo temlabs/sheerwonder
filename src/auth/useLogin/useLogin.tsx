@@ -1,31 +1,32 @@
 import {useState} from 'react';
 import {defaultErrors, defaultTouched, defaultValues} from './config';
-import {SignUpField, signUpFields} from './types';
+
 import {signUpValidationSchema} from './validationSchema';
 import {LayoutAnimation} from 'react-native';
 import {layoutAnimationConfig} from '@/animations/animationConfig';
+import {LoginField, loginFields} from './types';
 
 interface Errors {}
 
-export function useSignUp() {
+export function useLogin() {
   const [errors, setErrors] = useState(defaultErrors);
   const [touched, setTouched] = useState(defaultTouched);
   const [values, setValues] = useState(defaultValues);
 
-  const updateField = (key: (typeof signUpFields)[number], value: string) => {
+  const updateField = (key: (typeof loginFields)[number], value: string) => {
     LayoutAnimation.configureNext(layoutAnimationConfig);
     setValues(v => ({...v, [key]: value}));
   };
 
   const touchField = (
-    key: (typeof signUpFields)[number],
+    key: (typeof loginFields)[number],
     touched: boolean = true,
   ) => {
     LayoutAnimation.configureNext(layoutAnimationConfig);
     setTouched(t => ({...t, [key]: touched}));
   };
 
-  const validateField = (key: SignUpField, value: string = values[key]) => {
+  const validateField = (key: LoginField, value: string = values[key]) => {
     const result = signUpValidationSchema
       .pick({[key]: true})
       .safeParse({[key]: value});
@@ -40,7 +41,7 @@ export function useSignUp() {
     }
   };
 
-  const checkTouched = (keys: (typeof signUpFields)[number][]) => {
+  const checkTouched = (keys: (typeof loginFields)[number][]) => {
     for (const key of keys) {
       if (!touched[key]) {
         return false;
@@ -49,7 +50,7 @@ export function useSignUp() {
     return true;
   };
 
-  const checkErrors = (keys: (typeof signUpFields)[number][]) => {
+  const checkErrors = (keys: (typeof loginFields)[number][]) => {
     for (const key of keys) {
       if (!!errors[key]) {
         return false;

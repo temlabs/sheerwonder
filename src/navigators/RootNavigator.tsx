@@ -14,6 +14,7 @@ import {LoginScreen} from '@/screens/root/screens/loginScreen/LoginScreen';
 import {AuthenticateLoginScreen} from '@/screens/root/screens/AuthenticateLoginScreen';
 import {useStytchSession} from '@stytch/react-native';
 import {SignUpScreen} from '@/screens/root/screens/signUpScreen/SignUpScreen';
+import {IntroScreen} from '@/screens/root/screens/introScreen/IntroScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -25,7 +26,7 @@ function RootNavigator() {
     <View style={{flex: 1, backgroundColor: 'transparent'}}>
       <Stack.Navigator
         initialRouteName={
-          isSignedIn ? navigators.BOTTOM_TAB_NAVIGATOR : screens.SIGN_UP
+          isSignedIn ? navigators.BOTTOM_TAB_NAVIGATOR : screens.INTRO
         }
         screenOptions={{headerShown: false}}>
         {isSignedIn ? (
@@ -91,6 +92,13 @@ function RootNavigator() {
           </>
         ) : (
           <>
+            <Stack.Screen
+              name={screens.INTRO}
+              component={IntroScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
             <Stack.Screen
               name={screens.SIGN_UP}
               component={SignUpScreen}

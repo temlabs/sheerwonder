@@ -38,6 +38,7 @@ export const screens = {
   LOGIN: 'Login',
   AUTHENTICATE_LOGIN: 'AuthenticateLogin',
   SIGN_UP: 'SignUp',
+  INTRO: 'Intro',
   PROFILE_MENU: 'ProfileMenu',
 } as const;
 

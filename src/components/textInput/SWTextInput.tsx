@@ -82,9 +82,13 @@ export function SWTextInput(props: Props) {
 
   return (
     <View style={container}>
-      {/* <Text style={[typography.small, {opacity: 0.7, fontWeight: '800'}]}>
+      <Text
+        style={[
+          typography.small,
+          {opacity: 1, fontWeight: '800', fontFamily: 'Sora-Regular'},
+        ]}>
         {props.label}
-      </Text> */}
+      </Text>
       <View style={inputContainer}>
         {/* <Animated.View style={[bottomRightBorder, borderBRAnimatedStyle]} />
         <Animated.View style={[topLeftBorder, borderTLAnimatedStyle]} /> */}
@@ -102,7 +106,7 @@ export function SWTextInput(props: Props) {
             height={400}
             width={500}
             color={'white'}
-            opacity={0.01}
+            opacity={0.05}
           />
           <BackdropBlur blur={60} color={'white'} />
         </Canvas>
@@ -133,16 +137,16 @@ const container: ViewStyle = {
 };
 const inputStyle: TextStyle = {
   width: '100%',
-
   backgroundColor: 'transparent',
 };
 
 const inputContainer: ViewStyle = {
   // padding: padding.small,
-
+  borderColor: colors.TEXT_PLACEHOLDER,
   borderWidth: 0,
+
   borderRadius: 10,
-  borderColor: 'grey',
+
   overflow: 'hidden',
 };
 
